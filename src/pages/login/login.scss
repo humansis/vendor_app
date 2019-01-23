@@ -1,0 +1,36 @@
+@import "../../assets/css/variable.scss";
+
+page-login {
+  background: url("../../assets/imgs/login_page.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  background-position: center;
+  display: flex !important;
+
+  .main-container {
+    margin: 20px;
+    width: 100%;
+
+    .data-container {
+      border-radius: 14px;
+      height: 100%;
+      background-color: rgba(161, 160, 160, 0.6);
+      // display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+
+      .login-logo {
+        display: block;
+        margin: 0 auto;
+        width: 75%;
+        padding: 5% 15%;
+
+        .logo-image{
+          background-color: $bms_grey;
+          border-radius : 100px;
+      }
+      }
+    }
+  }
+}
