@@ -10,26 +10,38 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ScanPage } from '../pages/scan/scan';
 
+// Plugins
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+
 @NgModule({
   declarations: [
     MyApp,
+
+    // Pages 
     HomePage,
     ScanPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    NgxQRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+
+    // Pages
     HomePage,
     ScanPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+
+    // Plugins
+    BarcodeScanner
   ]
 })
 export class AppModule {}
