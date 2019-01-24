@@ -23,7 +23,7 @@ export class LoginPage {
 }
 
 clickSubmit() {
-  console.log(this.vendor)
+  // this.navCtrl.setRoot(ProductsPage);
 }
 
 blankUser() {

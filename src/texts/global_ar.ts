@@ -2,79 +2,11 @@ export const TEXT = {
     // GENERAL VARIABLES
 
     // Utils
-    add: 'Add',
-    adm1: 'المحافظة',
-    adm2: 'المنطقة',
-    adm3: 'البلدية',
-    adm4: 'القرية',
-    back: 'Back',
-    beneficiaries: 'المستفيدون',
-    beneficiary: 'المستفيد',
-    cancel: 'إلغاء',
-    close: 'إغلاق',
-    characters:'حرف',
-    create: 'إنشاء',
-    delete: 'حذف',
-    details: 'تفاصيل',
-    distribution: 'التوزيع',
-    distributions: 'التوزيعات',
-    done: 'النهاية',
     email: 'البريد الالكتروني',
-    export: 'تحميل',
-    gender: 'الجنس',
-    home: 'الصفحة الرئيسية',
-    households: 'الأسرة',
-    import: 'تحميل',
-    individual: 'فرد ',
-    location: 'الموقع',
-    new: 'New',
-    next: 'Next',
-    no_data: 'لايوجد بيانات',
-    phone: 'الهاتف',
     project: 'المشروع',
-    projects: 'المشاريع',
-    reports: 'التقارير',
     rights: 'الحقوق',
-    save: 'حفظ',
-    settings: 'الإعدادات',
-    summary:'Summary',
-    update: 'تحديث',
-
-    // Error
-    back_to_homepage: 'العودة إلى الصفحة الرئيسية',
-    error_interceptor_msg: '(وقع خطأ: لا يمكن الاستجابة (محتوى فارغ',
-    forbidden: 'الصفحة ممنوعة',
-    forbidden_message: 'عذرا , ليس لديك إذن للدخول إلى هذه الصفحة',
-    not_found: 'الصفحة غير موجودة',
-    not_found_message: 'عذرا , لا يمكن العثور على هذه الصفحة',
-
-
-    // SPECIFIC VARIABLES
-
-
-    // Cache
-    cache_distribution_added: 'Distribution and beneficiaries of the project added in the cache',
-    cache_store_beneficiaries: 'Store Beneficiaries',
-    cache_no_distribution: 'This distribution isn\'t stored in the cache, you can\'t access it offline',
     
-
-    // Header
-    'header_add-beneficiaries': 'إضافة المستفيد',
-    'header_add-distribution': 'إضافة توزيع',
-    header_beneficiaries: 'المستفيدون',
-    'header_data-validation': 'التأكد من صحة البيانات',
-    header_disconnect:  'تسجيل الخروج من الحساب',
-    'header_distributions': 'التوزيع',
-    header_home: 'الصفحة الرئيسية',
-    header_import:  'تحميل بيانات المستفيد',
-    header_imported: 'إستيراد بيانات المستفيدين',
-    header_language: 'اللغة',
-    header_profile: ' المعطيات الشخصية',
-    header_projects: 'المشاريع',
-    header_reports: 'التقارير',
-    header_settings: 'الإعدادات',
-    'header_update-beneficiary': 'تحديث المستفيد',
-
+    // SPECIFIC VARIABLES
 
     // Login
     login_bms: 'نظام إدارة المستفيدين',
@@ -83,104 +15,8 @@ export const TEXT = {
     login_title: ' تسجيل الدخول الى الحساب',
     login_username: 'اسم المستخدم',
 
-
     // Model
-    model_beneficiaries_dependents: 'التوابع',
-    model_beneficiaries_nationalids: 'رقم الهوية',
-    model_beneficiaries_phones: 'الهاتف',
-    model_beneficiaries_status: 'الرتبة في الأسرة',
-    model_commodity: 'السلع',
-    model_commodity_modality: 'القيد',
-    model_commodity_unit: 'وحدة',
-    model_commodity_value: 'كمية',
-    model_country_specific: 'خيار حسب بالبلد',
-    model_country_specific_field: 'الميدان',
     model_countryIso3: 'البلد',
-    model_criteria: 'المعاير',
-    model_criteria_operator: 'الشروط',
-    model_criteria_weight: 'وزن النتيجة',
-    model_dateofbirth: 'تاريخ الميلاد',
-    model_distribution_date: 'تاريخ التوزيع',
-    model_distribution_name: 'الاسم',
-    model_distribution_type: 'العالمي',
-    model_donor: 'المانح',
-    model_donor_fullname: 'اسم المانح',
-    model_donor_shortname: 'الاسم المختصر',
-    model_familyName: 'اللقب',
-    model_firstName: 'الاسم ',
-    model_notes: 'الملاحظات',
-    model_project_end_date: 'تاريخ الانتهاء',
-    model_project_donors_name: 'المانحون',
-    model_project_name: 'اسم المشروع',
-    model_project_number_of_households: 'عدد الأسر',
-    model_project_start_date: 'تاريخ البداية',
-    model_project_value: 'المبلغ الموزع',
-    model_sector: 'القطاع',
-    model_sectors_name: 'القطاعات',
-    model_transaction_message: 'رسالة',
-    model_transaction_pickupDate: 'اختر تاريخا',
-    model_type: 'النوع',
-    model_vulnerabilities: 'نقاط الضعف',
     model_user: 'المستخدم',
     model_user_password: 'كلمة المرور',
-    model_value: 'القيمة',
-    model_transaction_state: 'الحالة',
-
-    // Profile
-    profile_user_change_password: 'تغيير كلمة المرور',
-    profile_user_hint_new_password: 'كلمة المرور الجديدة',
-    profile_user_hint_new_password_again: 'أعد إدخال كلمة المرور الجديدة',
-    profile_user_hint_old_password: 'كلمة المرور القديمة',
-    profile_user_information: 'معلومات المستخدم',
-
-
-    // Settings
-    settings_country_specific_options: 'الخيارات حسب البلد',
-    settings_created: 'تم انشاء ',
-    settings_donors: 'المانحين',
-    settings_financial_provider: 'مزود المالية',
-    settings_log_button: 'احصل على سجلات المستخدم عن طريق البريد الإلكتروني',
-    settings_project_exists: 'مشروع بهذا الاسم يوجود بالفعل',
-    settings_users: 'المستخدمون',
-
-    // Snackbar
-    snackbar_change_password_done: '!تم تغيير كلمة المرور',
-    snackbar_change_password_fail: '...لا يمكن تغيير كلمة المرور',
-    snackbar_change_password_not_possible: 'يجب أن تكون كلمة المرور أطول من حرف واحد وتتطابق مع الشروط',
-
-
-    // Transaction
-    transaction_accept_prevention: 'أنا أوافق على هذه الشروط.',
-    transaction_again: 'أعد الإرسال',
-    transaction_amount_done: 'الكمية المرسلة',
-    transaction_amount_total: 'الكمية الإجمالية',
-    transaction_amount_waiting: 'ما زال يتعين إرسالها',
-    transaction_confirm: 'تأكيد المعاملة',
-    transaction_confirm_button: 'التأكد',
-    transaction_email_code: 'تم إرسال بريد إلكتروني يحتوي على رمز التحقق الخاص بك إلى:',
-    transaction_id_transaction: 'ID Transaction',
-    transaction_inProgress: 'المعاملة قيد التقدم ...',
-    transaction_paste_code: 'الرجاء وضع الشفرة هنا والنقر على التأكد  لمتابعة العملية:',
-    transaction_prevention: 'لا تزال هذه المنصة قيد التطوير وقد لا تكون وظيفة المعاملات النقدية عبر الإنترنت مستقرة تمامًا حتى الآن. ينكر فريق التطوير المسؤولية عن أي أخطاء قد تحدث من حيث فقدان المال. بوضع علامة في المربع أدناه ، فإنك توافق على استخدام النظام بمعرفة حدوده تمامًا وتحمل المسؤولية عن نتائج المعاملة.',
-    transaction_progress: 'تقدم توزيع السلع:',
-    transaction_refresh: 'تحقق من حالة التقاط',
-    transaction_transaction: 'عملية تجارية',
-    transaction_validate_distribution: 'هل تريد حقًا التحقق من صحة هذا التوزيع؟ لن تتمكن من تعديله بعد الآن.',
-    transaction_validation: 'تأكيد التحقق من الصحة',
-
-    // Tooltip
-    tooltip_add_beneficiaries: 'هذه الصفحة مخصصة لإضافة المستفيدين. هذا هو نموذج لإضافة أسرة جديدة مع الحقول المطلوبة.',
-    tooltip_add_distribution: 'هذه الصفحة مخصصة  لإضافة التوزيع. هذا نموذج لإضافة توزيع جديد مع الحقول المطلوبة. ستقوم باختيار الأسر أو المستفيدين من خلال فرزها حسب معايير الاختيار وإضافة كمية محددة من السلع إلى التوزيع.',
-    tooltip_beneficiaries: 'هذه الصفحة مخصصة للمستفيدين.يمكنك  أن ترى جميع الأسر في البلاد.  و إذا كان لديك الحق ، يمكنك إضافة أسر جديدة بفضل  الزر "+" ، وكما  يمكنك أن تقوم  بإدارة الأسر والبحث في القائمة.',
-    tooltip_dashboard: 'هذه  لوحة القيادة. لديك نظرة موسعة على بعض الأرقام تخص البلد ومشاريعه. كما لديك حق الدخول إلى خريطة توزيعات البلد و ملخص آخر التوزيعات أيضا .',
-    tooltip_data: 'هذه الصفحة هي صفحة ما بعد استيراد المستفيدين. هذا هو ملخص عن الأسر التي استوردتها.',
-    tooltip_data_validation: 'هذه الصفحة مخصصة للمستفيدين الذين تم إستيرادهم عن طريق  الملف. يجب عليك التحقق من ملفك باتباع الخطوات.',
-    tooltip_distributions: 'هذه الصفحة مخصصة لتوزيع. يمكنك رؤية جميع منازل التوزيع. إذا كان لديك الحق ، يمكنك إضافة أسر جديدة عن طريق  ملف أو عن باختيار في القائمة ، كما  يمكنك إدارة الأسر والتحقق من صحة التوزيع إلى الصفقة.',
-    tooltip_import: 'هذه الصفحة مخصصة للمستفيدين من الاستيراد. يمكنك اختيار استيراد أسر جديدة باستخدام ملف أو واجهة برمجة التطبيقات (مصدر البيانات الخارجي) لاستيراد جميع المنازل الخاصة ببلدية معينة.',
-    tooltip_profile: 'هذه الصفحة هي صفحة الملف الشخصي. يمكنك تغيير كلمة المرور الخاصة بك.',
-    tooltip_projects: 'هذه الصفحة مخصصة للمشاريع. تستطيع أن ترى جميع مشاريع البلاد (فقط من بين الذين لديك الحق في رؤيتهم ). فإذا كان لديك الحق ، يمكنك إضافة توزيع جديد مع الأسر الموجودة في المشروع ، وإدارة التوزيعات والمعاملات.',
-    tooltip_reports: 'هذه الصفحة هي صفحة التقارير. يتم استخدام هذه الصفحة لمشاهدة إحصاءات البلد ، مثل متوسط عدد المعاملات الخاصة بالمشاريع وعدد التوزيعات ...',
-    tooltip_settings: 'هذه الصفحة هي صفحة الإعدادات. في هذه الصفحة ، ستتمكن من إضافة مستخدم جديد ، وخصائص بلد جديدة ، ومانحين جدد ، ومشروع جديد ، وتغيير بيانات الاعتماد الخاصة بالمعاملات.',
-    tooltip_update_beneficiary: 'هذه الصفحة هي صفحة المستفيدين من التحديث. هذا نموذج لتحديث الأسرة المعينة بالحقول المطلوبة.',
-
-};
+   };
