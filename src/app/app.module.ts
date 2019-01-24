@@ -7,33 +7,42 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 
 // Pages
-import { HomePage } from '../pages/home/home';
 import { ScanPage } from '../pages/scan/scan';
+import { LoginPage } from '../pages/login/login';
+import { ProductsPage } from '../pages/products/products';
 
 // Plugins
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatButtonModule, MatSelectModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
     MyApp,
 
     // Pages 
-    HomePage,
-    ScanPage
+    ScanPage,
+    ProductsPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    NgxQRCodeModule
+    NgxQRCodeModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatSelectModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
 
     // Pages
-    HomePage,
-    ScanPage
+    ScanPage,
+    ProductsPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
