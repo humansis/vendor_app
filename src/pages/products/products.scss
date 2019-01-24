@@ -1,0 +1,47 @@
+@import "../../theme/mixins.scss";
+
+page-products {
+    .page-content{
+        @include my-flex-row;
+        justify-content: center;
+        .products-container{
+            width: 50%;
+            @include my-flex-row;
+            flex-wrap: wrap;
+            flex-grow: 1;
+            .product{
+                width: 100px;
+                height:100px;
+                background-color: aliceblue
+            }
+        }
+        .fields-container{
+            height: 100%;
+            width: 50%;
+            @include my-flex-column;
+
+            .fields{
+                height: 50%;
+            }
+            .inputs{
+                height: 50%;
+                @include my-flex-row;
+            }
+
+            .items-list-container{
+                height: 70%;
+                .row-1{
+                    background-color: black;
+                    color: white;
+                    text-align: center;
+                }
+                .row-2{
+                    height: 200px;
+                }
+            }
+            .subtotal-container{
+                height: 30%;
+            }
+        }
+    }
+}

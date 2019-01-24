@@ -1,0 +1,13 @@
+@mixin my-flex-row {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+}
+
+@mixin my-flex-column {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: scroll !important;
+}

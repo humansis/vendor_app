@@ -1,0 +1,84 @@
+<!--
+  Generated template for the ProductsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Select Products</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="page-content">
+    <div class="products-container">
+      <div class="product" *ngFor="let product of products">
+        {{product.name}}
+      </div>
+    </div>
+    <div class="fields-container"  *ngIf="!itemSelected">
+      <div class="items-list-container">
+        <ion-row class="row-1">
+          <ion-label>Selected Items</ion-label>
+        </ion-row>
+        <ion-row *ngIf="hasItems" class="row-2">
+          <div class="items-list">
+              
+          </div>
+        </ion-row>
+        <ion-row *ngIf="!hasItems" class="row-2">
+          <p>No item selected</p>
+        </ion-row>
+        
+      </div>
+      <div class="subtotal-container">
+        <ion-row>
+          <ion-label>Sub Total</ion-label> XX EUR
+        </ion-row>
+        <ion-row>
+          <ion-col><button>Clear</button></ion-col>
+          <ion-col><button>Checkout</button></ion-col>
+        </ion-row>
+      </div>
+    </div>
+    <div class="fields-container"  *ngIf="itemSelected">
+      <div class="fields">
+        <ion-row>
+          <ion-label>Quantity</ion-label>
+          <ion-input></ion-input>
+        </ion-row>
+        <ion-row>
+          <ion-label>Unit price</ion-label>
+          <ion-input></ion-input>
+        </ion-row>
+        
+      </div>
+      <div class="inputs">
+        <ion-col>
+          <ion-row>1</ion-row>
+          <ion-row>4</ion-row>
+          <ion-row>7</ion-row>
+        </ion-col>
+        <ion-col>
+          <ion-row>2</ion-row>
+          <ion-row>5</ion-row>
+          <ion-row>8</ion-row>
+        </ion-col>
+        <ion-col>
+          <ion-row>3</ion-row>
+          <ion-row>6</ion-row>
+          <ion-row>9</ion-row>
+        </ion-col>
+        <ion-col>
+          <ion-row>0</ion-row>
+          <ion-row>+</ion-row>
+        </ion-col>
+
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -9,9 +9,12 @@ import { LoginPage } from '../pages/login/login';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatButtonModule, MatSelectModule } from '@angular/material';
 
+import { ProductsPage } from '../pages/products/products';
+
 @NgModule({
   declarations: [
     MyApp,
+    ProductsPage,
     LoginPage
   ],
   imports: [
@@ -24,6 +27,7 @@ import { MatButtonModule, MatSelectModule } from '@angular/material';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    ProductsPage,
     LoginPage
   ],
   providers: [
