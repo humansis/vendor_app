@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ScanPage } from '../scan/scan';
 
 /**
  * Generated class for the ProductsPage page.
@@ -81,4 +82,7 @@ export class ProductsPage {
     console.log('ionViewDidLoad ProductsPage');
   }
 
+  goToScanPage(){
+    this.navCtrl.push(ScanPage);
+  }
 }
