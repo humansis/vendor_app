@@ -6,15 +6,15 @@
       </div>
       <div class="input-data">
           <div class="login-title">
-              <h1 class="title-text">BENEFICIARY MANAGEMENT SYSTEM</h1>
+              <h1 class="title-text">{{login.login_bms | titlecase}}</h1>
               <h4 class="subtitle-text">VENDOR APPLICATION</h4>
           </div>
           <div class="login-user">
-              <input type="text" class="user-input"placeholder="username">
-              <input type="password" class="user-input" placeholder="password">
+              <input type="text" class="user-input"placeholder="{{login.login_username | titlecase}}" [(ngModel)]="vendor.username">
+              <input type="password" class="user-input" placeholder="{{login.login_password | titlecase}}" [(ngModel)]="vendor.password">
           </div>
           <div>
-              <button mat-raised-button class="button-background-primary">Login</button>
+              <button mat-raised-button class="button-background-primary" (click)="clickSubmit()">Login</button>
           </div>
       </div>
     </div>
