@@ -15,6 +15,65 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProductsPage {
 
+  public products: any = [
+    {
+      'name': 'soap',
+      'image': 'https://blabla/imgs/soap.png',
+      'unit': 'USD'
+    },
+    {
+      'name': 'toothbrush',
+      'image': 'https://blabla/imgs/toothbrush.png',
+      'unit': 'USD'
+    },
+    {
+      'name': 'peers',
+      'image': 'https://blabla/imgs/peers.png',
+      'unit': 'USD'
+    },
+    {
+      'name': 'rice',
+      'image': 'https://blabla/imgs/rice.png',
+      'unit': 'USD'
+    },
+    {
+      'name': 'flour',
+      'image': 'https://blabla/imgs/flour.png',
+      'unit': 'USD'
+    },
+    {
+      'name': 'toothpaste',
+      'image': 'https://blabla/imgs/toothpaste.png',
+      'unit': 'USD'
+    },
+    {
+      'name': 'soap',
+      'image': 'https://blabla/imgs/soap.png',
+      'unit': 'USD'
+    },
+    {
+      'name': 'toothbrush',
+      'image': 'https://blabla/imgs/toothbrush.png',
+      'unit': 'USD'
+    },
+    {
+      'name': 'peers',
+      'image': 'https://blabla/imgs/peers.png',
+      'unit': 'USD'
+    },
+    {
+      'name': 'rice',
+      'image': 'https://blabla/imgs/rice.png',
+      'unit': 'USD'
+    },
+    {
+      'name': 'flour',
+      'image': 'https://blabla/imgs/flour.png',
+      'unit': 'USD'
+    }
+  ];
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
