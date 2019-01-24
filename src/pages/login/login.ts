@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+import { Vendor } from '../../model/vendor'
 import { GlobalText } from '../../texts/global';
 
 @Component({
@@ -10,7 +11,7 @@ import { GlobalText } from '../../texts/global';
 export class LoginPage {
 
   public login = GlobalText.TEXTS;
-  public vendor = {username: '', password: ''}
+  public vendor: Vendor;
 
   constructor(public navCtrl: NavController) {
 
@@ -18,10 +19,17 @@ export class LoginPage {
 
   ngOnInit() {
     // GlobalText.resetMenuMargin();
+    this.blankUser();
 }
 
 clickSubmit() {
   console.log(this.vendor)
+}
+
+blankUser() {
+  this.vendor = new Vendor();
+  this.vendor.username = '';
+  this.vendor.password = '';
 }
 
 }
