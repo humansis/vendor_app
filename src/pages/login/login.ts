@@ -4,6 +4,9 @@ import { NavController } from 'ionic-angular';
 import { Vendor } from '../../model/vendor'
 import { GlobalText } from '../../texts/global';
 
+// Pages
+import { ProductsPage } from '../products/products';
+
 @Component({
   selector: 'page-login',
   templateUrl: './login.html'
@@ -23,7 +26,7 @@ export class LoginPage {
 }
 
 clickSubmit() {
-  // this.navCtrl.setRoot(ProductsPage);
+  this.navCtrl.setRoot(ProductsPage);
 }
 
 blankUser() {
