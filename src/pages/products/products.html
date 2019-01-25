@@ -15,7 +15,7 @@
 <ion-content padding>
   <div class="page-content">
     <div class="products-container">
-      <div class="product" *ngFor="let product of products" [ngClass]="{'selected': selectedProduct === product.id, 'product': selectProduct === 'start', 'unselected': selectedProduct !== product.id}" (click)="selectProduct(product)">
+      <div class="product" *ngFor="let product of products" [ngClass]="{'selected': selectedProduct === product.id, 'unselected': selectedProduct !== product.id, 'product': selectProduct === undefined || selectProduct === null}" (click)="selectProduct(product)">
         <img src="{{product.image}}">
       </div>
     </div>

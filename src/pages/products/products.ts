@@ -86,7 +86,7 @@ export class ProductsPage {
   ];
   public itemSelected: boolean = false;
   public myproduct: any;
-  public selectedProduct: any = 'start';
+  public selectedProduct: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
