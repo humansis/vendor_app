@@ -1,18 +1,39 @@
 @import "../../theme/mixins.scss";
+@import "../../theme/variables.scss";
+
 
 page-products {
+
     .page-content{
         @include my-flex-row;
         justify-content: center;
+        height: 100%;
+        overflow: hidden;
+        font-family: $bms_font_header;
+
         .products-container{
             width: 50%;
             @include my-flex-row;
             flex-wrap: wrap;
             flex-grow: 1;
+            overflow-y: scroll;
+            .selected {
+                border: solid 1px $bms_green;
+                width: 100px;
+                height:100px;
+                margin: 5px;
+            }
+            .unselected {
+                width: 100px;
+                height:100px;
+                margin: 5px;
+                opacity: 0.5;
+            }
             .product{
                 width: 100px;
                 height:100px;
-                background-color: aliceblue
+                margin: 5px;
+                opacity: 1;
             }
         }
         .fields-container{
@@ -29,7 +50,7 @@ page-products {
             }
 
             .items-list-container{
-                height: 70%;
+                height: 80%;
                 .row-1{
                     background-color: black;
                     color: white;
@@ -40,7 +61,33 @@ page-products {
                 }
             }
             .subtotal-container{
-                height: 30%;
+                height: 20%;
+
+                .row-sub {
+                    background-color: darksalmon;
+                    padding: 5px;
+                    height: 50%;
+                    @include my-flex-column;
+                }
+
+                .row-btns {
+                    height: 50%;
+                }
+
+
+                .col-clear {
+                    text-align: center;
+                    background-color: red;
+                    color: white;
+                    @include my-flex-column;
+                }
+
+                .col-checkout {
+                    text-align: center;
+                    background-color: green;
+                    color: white;
+                    @include my-flex-column;
+                }
             }
         }
     }

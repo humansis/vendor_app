@@ -5,19 +5,18 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Select Products</ion-title>
-  </ion-navbar>
-
+  <ion-row style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 5px; background-color: #132F30;">
+    <img style="width: 40px; height: 40px;" src="../../assets/imgs/bms_logo.png" />
+    <ion-icon style="font-size: 40px; float: right; color: #F1F1FB" name="contact"></ion-icon>
+  </ion-row>
 </ion-header>
 
 
 <ion-content padding>
   <div class="page-content">
     <div class="products-container">
-      <div class="product" *ngFor="let product of products">
-        {{product.name}}
+      <div class="product" *ngFor="let product of products" [ngClass]="{'selected': selectedProduct === product.id, 'product': selectProduct === 'start', 'unselected': selectedProduct !== product.id}" (click)="selectProduct(product)">
+        <img src="{{product.image}}">
       </div>
     </div>
     <div class="fields-container"  *ngIf="!itemSelected">
@@ -33,20 +32,26 @@
         <ion-row *ngIf="!hasItems" class="row-2">
           <p>No item selected</p>
         </ion-row>
-        
       </div>
       <div class="subtotal-container">
-        <ion-row>
-          <ion-label>Sub Total</ion-label> XX EUR
+        <ion-row class="row-sub">
+          Sub Total :  XX EUR
         </ion-row>
-        <ion-row>
-          <ion-col><button>Clear</button></ion-col>
-          <ion-col><button (click)="goToScanPage()">Checkout</button></ion-col>
+        <ion-row class="row-btns">
+          <ion-col class="col-clear">
+            Clear
+          </ion-col>
+          <ion-col class="col-checkout" (click)="goToScanPage()">
+            Checkout
+          </ion-col>
         </ion-row>
       </div>
     </div>
     <div class="fields-container"  *ngIf="itemSelected">
       <div class="fields">
+        <ion-row>
+          {{myproduct.name}}
+        </ion-row>
         <ion-row>
           <ion-label>Quantity</ion-label>
           <ion-input></ion-input>
