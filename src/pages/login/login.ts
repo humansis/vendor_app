@@ -7,6 +7,8 @@ import { GlobalText } from '../../texts/global';
 // Pages
 import { ProductsPage } from '../products/products';
 
+// Plugins
+
 @Component({
   selector: 'page-login',
   templateUrl: './login.html'
@@ -16,7 +18,8 @@ export class LoginPage {
   public login = GlobalText.TEXTS;
   public vendor: Vendor;
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController) {
 
   }
 
