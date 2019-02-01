@@ -44,7 +44,7 @@
       </div>
       <div class="subtotal-container">
         <ion-row class="row-sub">
-          Sub Total : XX EUR
+          Total : {{total}}
         </ion-row>
         <ion-row class="row-btns">
           <ion-col class="col-clear">
@@ -58,44 +58,41 @@
     </div>
     <div class="fields-container" *ngIf="itemSelected">
       <div class="fields">
-        <div class="field-row">
-          <ion-row>
-            {{ myproduct.name }}
-          </ion-row>
-        </div>
-        <div class="field-row">
-          <ion-row>
-            <ion-label>Quantity:</ion-label>
-            <ion-label>5</ion-label>
-          </ion-row>
-        </div>
-        <div class="field-row">
-          <ion-row>
-            <ion-label>Unit price:</ion-label>
-            <ion-label>6</ion-label>
-          </ion-row>
-        </div>
+          <ion-grid>
+            <ion-row class="field-input">
+              <ion-col>{{ myproduct.name }}</ion-col>
+            </ion-row>
+            <ion-row class="field-input">
+              <ion-col>Quantity:</ion-col>
+              <ion-col>{{quantity}}</ion-col>
+            </ion-row>
+            <ion-row class="field-input">
+              <ion-col>Unit price:</ion-col>
+              <ion-col>{{ myproduct.price }}</ion-col>
+            </ion-row>
+          </ion-grid>
       </div>
       <div class="inputs">
         <ion-grid>
           <ion-row class="input-row">
-            <ion-col>1</ion-col>
-            <ion-col>2</ion-col>
-            <ion-col>3</ion-col>
+            <ion-col (click)="button(1, myproduct.id)">1</ion-col>
+            <ion-col (click)="button(2, myproduct.id)">2</ion-col>
+            <ion-col (click)="button(3, myproduct.id)">3</ion-col>
           </ion-row>
           <ion-row class="input-row">
-            <ion-col>4</ion-col>
-            <ion-col>5</ion-col>
-            <ion-col>6</ion-col>
+            <ion-col (click)="button(4, myproduct.id)">4</ion-col>
+            <ion-col (click)="button(5, myproduct.id)">5</ion-col>
+            <ion-col (click)="button(6, myproduct.id)">6</ion-col>
           </ion-row>
           <ion-row class="input-row">
-            <ion-col>7</ion-col>
-            <ion-col>8</ion-col>
-            <ion-col>9</ion-col>
+            <ion-col (click)="button(7, myproduct.id)">7</ion-col>
+            <ion-col (click)="button(8, myproduct.id)">8</ion-col>
+            <ion-col (click)="button(9, myproduct.id)">9</ion-col>
           </ion-row>
           <ion-row class="input-row">
-            <ion-col>0</ion-col>
-            <ion-col>+</ion-col>
+            <ion-col (click)="button(0, myproduct.id)">0</ion-col>
+            <ion-col (click)="backspace()"><--</ion-col>
+            <ion-col (click)="addToBasket()">ADD</ion-col>
           </ion-row>
         </ion-grid>
 

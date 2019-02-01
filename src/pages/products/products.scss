@@ -63,22 +63,14 @@ page-products {
 
             .fields{
                 height: 40%;
-                padding: 5px;
-                border: 1px solid red;
+                margin: 5px;
+                border: 1px solid $bms_green;
+                border-radius: 10px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
                 align-items: start;
                 font-size: 1.2em;
-                .field-row {
-                    border: 1px solid blue;
-                    width: 100%;
-                    height: 30%;
-                    ion-label, ion-input {
-                        height: 100%;
-                        margin: 0;
-                    }
-                }
             }
             .inputs{
                 height: 60%;
