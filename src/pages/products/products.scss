@@ -13,21 +13,34 @@ page-products {
 
         .products-container{
             width: 50%;
-            @include my-flex-row;
+            display: flex;
+            flex-flow: wrap;
+            justify-content: space-between;
+            padding: 0 10px;
             flex-wrap: wrap;
             flex-grow: 1;
             overflow-y: scroll;
+            // border:1px solid green;
             .selected {
                 border: solid 1px $bms_green;
-                width: 100px;
-                height:100px;
+                width: 120px;
+                height:120px;
                 margin: 5px;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
             .unselected {
-                width: 100px;
-                height:100px;
+                width: 120px;
+                height:120px;
                 margin: 5px;
                 opacity: 0.5;
+                border: 1px solid $bms_slate;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
             .product{
                 width: 100px;
@@ -35,18 +48,51 @@ page-products {
                 margin: 5px;
                 opacity: 1;
             }
+            .product-image {
+                height: 80%;
+            }
+            .product-name {
+                margin: 2% 0 0;
+            }
         }
         .fields-container{
             height: 100%;
             width: 50%;
             @include my-flex-column;
+            // border: 1px solid green;
 
             .fields{
-                height: 50%;
+                height: 40%;
+                padding: 5px;
+                border: 1px solid red;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: start;
+                font-size: 1.2em;
+                .field-row {
+                    border: 1px solid blue;
+                    width: 100%;
+                    height: 30%;
+                    ion-label, ion-input {
+                        height: 100%;
+                        margin: 0;
+                    }
+                }
             }
             .inputs{
-                height: 50%;
+                height: 60%;
                 @include my-flex-row;
+                .input-row {
+                    height: 22%;
+                    margin: 2px 0;
+                    ion-col {
+                        text-align: center;
+                        border: 1px solid $bms_slate;
+                        border-radius: 38%;
+                        margin: 0 3%;
+                    }
+                }
             }
 
             .items-list-container{

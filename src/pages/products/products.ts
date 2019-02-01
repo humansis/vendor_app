@@ -96,8 +96,15 @@ export class ProductsPage {
   }
 
   selectProduct(argProduct) {
-    this.itemSelected = true; 
-    this.myproduct= argProduct;
-    this.selectedProduct = argProduct.id;
+    if (argProduct.id == this.selectedProduct) {
+      this.itemSelected = false;
+      this.myproduct= null;
+      this.selectedProduct = undefined;
+      return null;
+    } else {
+      this.itemSelected = true; 
+      this.myproduct= argProduct;
+      this.selectedProduct = argProduct.id;
+    }
   }
 }
