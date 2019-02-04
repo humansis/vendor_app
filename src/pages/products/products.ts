@@ -95,11 +95,13 @@ export class ProductsPage {
       'unit': 'USD'
     }
   ];
-  public itemSelected: boolean = false;
+  public isItemSelected: boolean = false;
   public myproduct: any;
   public selectedProduct: any;
+  public allChosenProducts: Array<any> = [];
   public quantity: string = '0';
   public total: number = 0;
+  public isClicked = 'white';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -110,15 +112,16 @@ export class ProductsPage {
 
   selectProduct(argProduct) {
     if (argProduct.id == this.selectedProduct) {
-      this.itemSelected = false;
+      this.isItemSelected = false;
       this.myproduct= null;
       this.selectedProduct = undefined;
       return null;
     } else {
-      this.itemSelected = true; 
+      this.isItemSelected = true; 
       this.myproduct= argProduct;
       this.selectedProduct = argProduct.id;
     }
+    this.quantity = '0';
   }
 
   button(number, id) {
@@ -136,8 +139,17 @@ export class ProductsPage {
     this.quantity.length == 1 ? this.quantity = '0' : this.quantity = splitted.join('');
   }
 
-  addToBasket() {
-    this.total += parseInt(this.quantity);
+  addToBasket(product) {
+    this.selectProduct(product);
+    this.allChosenProducts.push({product: product, quantity: this.quantity, subTotal: product.price * parseInt(this.quantity)})
     this.quantity = '0';
+    let tempTotal = 0;
+    this.allChosenProducts.forEach(element => tempTotal += element.subTotal)
+    this.total = tempTotal;
+  }
+
+  clearItemList() {
+    this.allChosenProducts = [];
+    this.total = 0;
   }
 }
