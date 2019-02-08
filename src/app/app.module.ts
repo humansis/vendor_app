@@ -16,6 +16,10 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatButtonModule, MatSelectModule } from '@angular/material';
+import { LoginProvider } from '../providers/login/login';
+
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { VoucherProvider } from '../providers/voucher/voucher';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,8 @@ import { MatButtonModule, MatSelectModule } from '@angular/material';
     NgxQRCodeModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,7 +54,9 @@ import { MatButtonModule, MatSelectModule } from '@angular/material';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
 
     // Plugins
-    BarcodeScanner
+    BarcodeScanner,
+    LoginProvider,
+    VoucherProvider
   ]
 })
 export class AppModule {}

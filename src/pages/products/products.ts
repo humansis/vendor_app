@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ScanPage } from '../scan/scan';
+import { VoucherProvider } from '../../providers/voucher/voucher';
 
 /**
  * Generated class for the ProductsPage page.
@@ -103,10 +104,20 @@ export class ProductsPage {
   public total: number = 0;
   public isClicked = 'white';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public voucherProvider: VoucherProvider
+    ) {
   }
 
   goToScanPage(){
+    this.voucherProvider.setPrice(this.total)
+    let productIds = []
+    this.allChosenProducts.forEach(product => {
+      productIds.push(product.product.id)
+    })
+    this.voucherProvider.setProductIds(productIds)
     this.navCtrl.push(ScanPage);
   }
 
@@ -124,7 +135,7 @@ export class ProductsPage {
     this.quantity = '0';
   }
 
-  button(number, id) {
+  clickOnNumber(number, id) {
     let toString = number.toString()
     if (this.quantity == '0') {
       this.quantity = toString;
@@ -143,9 +154,9 @@ export class ProductsPage {
     this.selectProduct(product);
     this.allChosenProducts.push({product: product, quantity: this.quantity, subTotal: product.price * parseInt(this.quantity)})
     this.quantity = '0';
-    let tempTotal = 0;
-    this.allChosenProducts.forEach(element => tempTotal += element.subTotal)
-    this.total = tempTotal;
+    let intermediaryTotal = 0;
+    this.allChosenProducts.forEach(element => intermediaryTotal += element.subTotal)
+    this.total = intermediaryTotal;
   }
 
   clearItemList() {

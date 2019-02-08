@@ -3,7 +3,6 @@ import { NavController } from 'ionic-angular';
 
 import { Vendor } from '../../model/vendor'
 import { GlobalText } from '../../texts/global';
-
 // Pages
 import { ProductsPage } from '../products/products';
 
