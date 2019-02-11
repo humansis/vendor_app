@@ -20,6 +20,8 @@ import { LoginProvider } from '../providers/login/login';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { VoucherProvider } from '../providers/voucher/voucher';
+import { IonicStorageModule } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { VoucherProvider } from '../providers/voucher/voucher';
     BrowserAnimationsModule,
     MatButtonModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

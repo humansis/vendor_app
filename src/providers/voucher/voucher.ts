@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Code } from '../../model/code'
+import { Storage } from '@ionic/storage';
+
 /*
   Generated class for the VoucherProvider provider.
 
@@ -14,7 +16,7 @@ export class VoucherProvider {
   private price = new BehaviorSubject<number>(0);
   private productIds = new BehaviorSubject<number[]>([])
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private storage: Storage) {
   }
 
   setPrice(price: number): void {
@@ -34,6 +36,12 @@ export class VoucherProvider {
   }
 
   scanCode(code: Code): void {
+    this.storage.get("codes").then(codes => {
+      console.log(codes)
+      let alreadyStoredCodes = codes || [];
+      alreadyStoredCodes.push(code)
+      this.storage.set("codes", alreadyStoredCodes)
+    });
     console.log('qrCode : ' + code.qrCode)
     console.log('vendorId : ' + code.vendorId)
     console.log('price : ' + code.price)

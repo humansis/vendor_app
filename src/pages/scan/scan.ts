@@ -5,8 +5,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { VoucherProvider } from '../../providers/voucher/voucher';
-import { LoginProvider } from '../../providers/login/login'
 import { Vendor } from '../../model/vendor'
+import { Storage } from '@ionic/storage';
+
 /**
  * Generated class for the ScanPage page.
  *
@@ -26,14 +27,13 @@ export class ScanPage {
   scannedCode: any = null;
   price$: BehaviorSubject<number>;
   productIds$: BehaviorSubject<number[]>;
-  vendor$: BehaviorSubject<Vendor>;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     private barcodeScanner: BarcodeScanner,
     public voucherProvider: VoucherProvider,
-    public loginProvider: LoginProvider) 
+    private storage: Storage) 
   {
   }
 
@@ -45,25 +45,27 @@ export class ScanPage {
     let scannedCodeValue = this.scannedCode.match(/^[A-Z]+(\d+)#\d+$/i)[1]
     // console.log(this.scannedCode)
     // console.log(scannedCodeValue)
-    if (scannedCodeValue > this.price$.getValue()) {
-      this.voucherProvider.scanCode({
-        qrCode: this.scannedCode,
-        vendorId: this.vendor$.getValue().id,
-        productIds: this.productIds$.getValue(),
-        price: this.price$.getValue()
-      })
-    } else {
-      console.log('the price is higher than the voucher value')
-    }
+    let vendor
+    this.storage.get('vendor').then(val => {
+      vendor = val
+      if (scannedCodeValue > this.price$.getValue()) {
+        this.voucherProvider.scanCode({
+          qrCode: this.scannedCode,
+          // vendorId: this.vendor$.getValue().id,
+          vendorId: vendor.id,
+          productIds: this.productIds$.getValue(),
+          price: this.price$.getValue()
+        })
+      } else {
+        console.log('the price is higher than the voucher value')
+      }
+    })
   }
 
   ngOnInit() {
     this.price$ = this.voucherProvider.getPrice()
     this.productIds$ = this.voucherProvider.getProductIds()
-    this.vendor$ = this.loginProvider.getVendor()
     this.price$.subscribe(price => { console.log(price)})
     this.productIds$.subscribe(productIds => { console.log(productIds)})
-    this.vendor$.subscribe(vendor => console.log(vendor))
-
   }
 }

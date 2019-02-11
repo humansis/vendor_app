@@ -3,6 +3,8 @@ import { Vendor } from '../../model/vendor';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as CryptoJS from 'crypto-js';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the LoginProvider provider.
@@ -16,76 +18,36 @@ const URL_BMS_API = 'http://0.0.0.0:8087/api/wsse';
 @Injectable()
 export class LoginProvider {
 
-  private vendor = new BehaviorSubject<Vendor>({
-    id:'',
-    username:'',
-    password:'',
-    salted_password:'',
-    address:'',
-    shop: '',
-    name: '',
-    loggedIn: false,
-    products: [],
-    country: [],
-    language: ''
-  })
+  private vendor = new Vendor;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private storage: Storage) {
   }
 
-  requestSalt(username) {
-    return this.http.get(URL_BMS_API + '/salt/' + username);
+  requestSalt(username: string) : Observable<string> {
+    return this.http.get<string>(URL_BMS_API + '/salt/' + username);
   }
 
-  login(vendor) {
+  login(vendor: Vendor) : void {
     // this.requestSalt(vendor.username).subscribe(success => {
-    //   let getSalt = success as string;
+    //   let getSalt = success;
     //   vendor.salted_password = this.saltPassword(getSalt, vendor.password);
     //   delete vendor.password;
     //   return this.http.post(URL_BMS_API + '/login_app', vendor).subscribe(success => {
     //     let data = success;
     //     if (data) {
-    //       this.vendor.next({
-    //         id: data['id'],
-    //         username:data['username'],
-    //         password:'',
-    //         salted_password:'',
-    //         address:data['address'],
-    //         shop: data['shop'],
-    //         name: data['name'],
-    //         loggedIn: true,
-    //         products: data['products'],
-    //         country: data['country'],
-    //         language: data['language']
-    //       })
+    //       this.vendor = data as Vendor
     //     } else {
     //         // Bad credentials
     //     };
-    //   console.log(this.vendor.getValue())
+    //   console.log(this.vendor)
     //   return 'done';
     //   })
     // })
-
-  this.vendor.next({
-    id: 'id',
-    username:'username',
-    password:'',
-    salted_password:'',
-    address:'address',
-    shop: 'shop',
-    name: 'name',
-    loggedIn: true,
-    products: [],
-    country: [],
-    language: 'language'
-  })
+  this.vendor.id = '1'
+  this.storage.set('vendor', this.vendor)
 }
 
-  getVendor(): BehaviorSubject<Vendor> {
-    return this.vendor
-  }
-
-  saltPassword(salt, password) {
+  saltPassword(salt: string, password: string) : string {
 		let salted = password + '{' + salt + '}';
 		let digest = CryptoJS.SHA512(salted);
 
