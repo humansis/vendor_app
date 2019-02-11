@@ -35,7 +35,7 @@
         <ion-row class="row-1">
           <ion-label>Selected Items</ion-label>
         </ion-row>
-        <div class="items-list-container" *ngIf="allChosenProducts.length > 0">
+        <div class="items-list-container-table" *ngIf="allChosenProducts.length > 0">
           <ion-row class="header-row">
             <ion-col>Item</ion-col>
             <ion-col>Unit Price</ion-col>
@@ -76,16 +76,27 @@
     <div class="fields-container" *ngIf="isItemSelected">
       <div class="fields">
         <ion-grid>
-          <ion-row class="field-input">
-            <ion-col>{{ myproduct.name }}</ion-col>
-          </ion-row>
-          <ion-row class="field-input">
-            <ion-col>Quantity:</ion-col>
-            <ion-col>{{ quantity }}</ion-col>
-          </ion-row>
-          <ion-row class="field-input">
-            <ion-col>Unit price:</ion-col>
-            <ion-col>{{ myproduct.price }}</ion-col>
+          <ion-row class="row-my-product">
+            <ion-col width-67 class="my-product-image-container">
+              <img class="my-product-image" src="{{ myproduct.image }}" />
+            </ion-col>
+            <ion-col>
+              <ion-row class="field-input">
+                <ion-col>{{ myproduct.name | uppercase }}</ion-col>
+              </ion-row>
+              <ion-row class="field-input">
+                <ion-col>Quantity:</ion-col>
+                <ion-col [ngClass]="{ selected_input: typing === 'quantity'}" (click)="typing = 'quantity'">
+                  {{ quantity }}
+                </ion-col>
+              </ion-row>
+              <ion-row class="field-input">
+                <ion-col>Unit price:</ion-col>
+                <ion-col [ngClass]="{ selected_input: typing === 'price'}" (click)="typing = 'price'">
+                  {{ myproduct.price }}
+                </ion-col>
+              </ion-row>
+            </ion-col>
           </ion-row>
         </ion-grid>
       </div>
@@ -146,7 +157,7 @@
           <ion-row class="input-row">
             <ion-col
               ><button class="delete" ion-button (click)="backspace()">
-                <--
+                C
               </button></ion-col
             >
             <ion-col
