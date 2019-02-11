@@ -31,8 +31,8 @@ export class LoginPage {
 }
 
 clickSubmit() {
-  this.navCtrl.setRoot(ProductsPage);
   this.loginProvider.login(this.vendor)
+  this.navCtrl.setRoot(ProductsPage);
 }
 
 blankUser() {
