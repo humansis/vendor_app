@@ -83,7 +83,7 @@ export class Vendor {
       return GlobalText.TEXTS.model_user;
   }
 
-  mapAllProperties(selfinstance): Object {
+  static mapAllProperties(selfinstance): Object {
       if (!selfinstance)
           return selfinstance;
 
@@ -117,7 +117,7 @@ export class Vendor {
       }
   }
 
-  public getAllCountries() {
+  public static getAllCountries() {
       return [
           {
               'id': "KHM",

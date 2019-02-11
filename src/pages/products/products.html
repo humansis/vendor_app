@@ -1,83 +1,166 @@
-<!--
-  Generated template for the ProductsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Select Products</ion-title>
-  </ion-navbar>
-
+  <ion-row
+    style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 5px; background-color: #132F30;"
+  >
+    <img
+      style="width: 40px; height: 40px;"
+      src="../../assets/imgs/bms_logo.png"
+    />
+    <ion-icon
+      style="font-size: 40px; float: right; color: #F1F1FB"
+      name="contact"
+    ></ion-icon>
+  </ion-row>
 </ion-header>
-
 
 <ion-content padding>
   <div class="page-content">
     <div class="products-container">
-      <div class="product" *ngFor="let product of products">
-        {{product.name}}
+      <div
+        class="product"
+        *ngFor="let product of products"
+        [ngClass]="{
+          selected: selectedProduct === product.id,
+          unselected: selectedProduct !== product.id,
+          product: selectProduct === undefined || selectProduct === null
+        }"
+        (click)="selectProduct(product)"
+      >
+        <p class="product-name">{{ product.name }}</p>
+        <img class="product-image" src="{{ product.image }}" />
       </div>
     </div>
-    <div class="fields-container"  *ngIf="!itemSelected">
+    <div class="fields-container" *ngIf="!isItemSelected">
       <div class="items-list-container">
         <ion-row class="row-1">
           <ion-label>Selected Items</ion-label>
         </ion-row>
-        <ion-row *ngIf="hasItems" class="row-2">
-          <div class="items-list">
-              
-          </div>
+        <div class="items-list-container" *ngIf="allChosenProducts.length > 0">
+          <ion-row class="header-row">
+            <ion-col>Item</ion-col>
+            <ion-col>Unit Price</ion-col>
+            <ion-col>Quantity</ion-col>
+            <ion-col>Subtotal</ion-col>
+          </ion-row>
+          <ion-row *ngFor="let item of allChosenProducts">
+            <ion-col>{{ item.product.name }}</ion-col>
+            <ion-col>{{ item.product.price }}</ion-col>
+            <ion-col>{{ item.quantity }}</ion-col>
+            <ion-col>{{ item.subTotal }}</ion-col>
+          </ion-row>
+        </div>
+        <ion-row *ngIf="allChosenProducts.length == 0" class="row-2">
+          <ion-grid>
+            <ion-row>
+              <ion-col class="test-column">No Item Selected</ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-row>
-        <ion-row *ngIf="!hasItems" class="row-2">
-          <p>No item selected</p>
-        </ion-row>
-        
       </div>
       <div class="subtotal-container">
         <ion-row>
-          <ion-label>Sub Total</ion-label> XX EUR
+          <ion-col class="row-sub">
+              Total : {{ total }}
+          </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col><button>Clear</button></ion-col>
-          <ion-col><button (click)="goToScanPage()">Checkout</button></ion-col>
+        <ion-row class="row-btns">
+          <ion-col class="col-clear">
+            <button ion-button class="button-clear" (click)="clearItemList()">Clear</button>
+          </ion-col>
+          <ion-col class="col-clear">
+            <button ion-button class="button-checkout" (click)="goToScanPage()">Checkout</button>
+          </ion-col>
         </ion-row>
       </div>
     </div>
-    <div class="fields-container"  *ngIf="itemSelected">
+    <div class="fields-container" *ngIf="isItemSelected">
       <div class="fields">
-        <ion-row>
-          <ion-label>Quantity</ion-label>
-          <ion-input></ion-input>
-        </ion-row>
-        <ion-row>
-          <ion-label>Unit price</ion-label>
-          <ion-input></ion-input>
-        </ion-row>
-        
+        <ion-grid>
+          <ion-row class="field-input">
+            <ion-col>{{ myproduct.name }}</ion-col>
+          </ion-row>
+          <ion-row class="field-input">
+            <ion-col>Quantity:</ion-col>
+            <ion-col>{{ quantity }}</ion-col>
+          </ion-row>
+          <ion-row class="field-input">
+            <ion-col>Unit price:</ion-col>
+            <ion-col>{{ myproduct.price }}</ion-col>
+          </ion-row>
+        </ion-grid>
       </div>
       <div class="inputs">
-        <ion-col>
-          <ion-row>1</ion-row>
-          <ion-row>4</ion-row>
-          <ion-row>7</ion-row>
-        </ion-col>
-        <ion-col>
-          <ion-row>2</ion-row>
-          <ion-row>5</ion-row>
-          <ion-row>8</ion-row>
-        </ion-col>
-        <ion-col>
-          <ion-row>3</ion-row>
-          <ion-row>6</ion-row>
-          <ion-row>9</ion-row>
-        </ion-col>
-        <ion-col>
-          <ion-row>0</ion-row>
-          <ion-row>+</ion-row>
-        </ion-col>
-
+        <ion-grid>
+          <ion-row class="input-row">
+            <ion-col
+              ><button ion-button (click)="clickOnNumber(1, myproduct.id)">
+                1
+              </button></ion-col
+            >
+            <!-- <ion-col><button class="calc-button" (click)="clickOnNumber(1, myproduct.id)">1</button></ion-col> -->
+            <ion-col
+              ><button ion-button (click)="clickOnNumber(2, myproduct.id)">
+                2
+              </button></ion-col
+            >
+            <ion-col
+              ><button ion-button (click)="clickOnNumber(3, myproduct.id)">
+                3
+              </button></ion-col
+            >
+          </ion-row>
+          <ion-row class="input-row">
+            <ion-col
+              ><button ion-button (click)="clickOnNumber(4, myproduct.id)">
+                4
+              </button></ion-col
+            >
+            <ion-col
+              ><button ion-button (click)="clickOnNumber(5, myproduct.id)">
+                5
+              </button></ion-col
+            >
+            <ion-col
+              ><button ion-button (click)="clickOnNumber(6, myproduct.id)">
+                6
+              </button></ion-col
+            >
+          </ion-row>
+          <ion-row class="input-row">
+            <ion-col
+              ><button ion-button (click)="clickOnNumber(7, myproduct.id)">
+                7
+              </button></ion-col
+            >
+            <ion-col
+              ><button ion-button (click)="clickOnNumber(8, myproduct.id)">
+                8
+              </button></ion-col
+            >
+            <ion-col
+              ><button ion-button (click)="clickOnNumber(9, myproduct.id)">
+                9
+              </button></ion-col
+            >
+          </ion-row>
+          <ion-row class="input-row">
+            <ion-col
+              ><button class="delete" ion-button (click)="backspace()">
+                <--
+              </button></ion-col
+            >
+            <ion-col
+              ><button ion-button (click)="clickOnNumber(0, myproduct.id)">
+                0
+              </button></ion-col
+            >
+            <ion-col
+              ><button class="add" ion-button (click)="addToBasket(myproduct)">
+                ADD
+              </button></ion-col
+            >
+          </ion-row>
+        </ion-grid>
       </div>
     </div>
   </div>
