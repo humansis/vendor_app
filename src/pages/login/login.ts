@@ -3,8 +3,10 @@ import { NavController } from 'ionic-angular';
 
 import { Vendor } from '../../model/vendor'
 import { GlobalText } from '../../texts/global';
+
 // Pages
 import { ProductsPage } from '../products/products';
+import { LoginProvider } from '../../providers/login/login';
 
 // Plugins
 
@@ -18,7 +20,8 @@ export class LoginPage {
   public vendor: Vendor;
 
   constructor(
-    public navCtrl: NavController) {
+    public navCtrl: NavController,
+    public loginProvider: LoginProvider) {
 
   }
 
@@ -29,6 +32,7 @@ export class LoginPage {
 
 clickSubmit() {
   this.navCtrl.setRoot(ProductsPage);
+  this.loginProvider.login(this.vendor)
 }
 
 blankUser() {

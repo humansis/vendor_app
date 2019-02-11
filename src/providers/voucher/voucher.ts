@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
+import { Code } from '../../model/code'
 /*
   Generated class for the VoucherProvider provider.
 
@@ -32,5 +32,12 @@ export class VoucherProvider {
   getProductIds(): BehaviorSubject<number[]> {
     return this.productIds
   }
+
+  scanCode(code: Code): void {
+    console.log('qrCode : ' + code.qrCode)
+    console.log('vendorId : ' + code.vendorId)
+    console.log('price : ' + code.price)
+    console.log('products :' + code.productIds)
+  } 
 
 }
