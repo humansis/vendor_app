@@ -37,6 +37,7 @@ export class ScanPage {
   successMessage: string = '';
   vendor: Vendor;
   productIds: number[] = [];
+  scanDisabled: boolean = false;
 
   constructor(
     public navCtrl: NavController, 
@@ -59,7 +60,9 @@ export class ScanPage {
 
     let scannedCodeInfo = scannedCode.match(/^[A-Z]+(\d+)#([\d]..-[\d]..-[\d]..)-([\da-z]+)$/i)
 
-    console.log(scannedCodeInfo)
+    if (scannedCodeInfo === null) {
+      this.errorMessage = 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?'
+    }
 
     let previousScannedCode = this.vouchers.length ? this.vouchers[0].qrCode : null
     previousScannedCode = 'USD140#096-098-097-2d544' // to delete after
@@ -91,13 +94,12 @@ export class ScanPage {
         productsList += product.quantity + ' ' + product.name + ', '
       })
       this.errorMessage = ''
-      this.successMessage = 'You scanned enough vouchers for this transaction. You can now complete the transaction to buy ' +
+      this.successMessage = 'You have scanned sufficient vouchers. You can now complete the transaction of ' +
       productsList + 'for a total amount of ' + this.price$.getValue() +
       ' with ' + this.vouchers.length + ' voucher(s) of a total value of ' + this.vouchersTotalValue + '.'
       if (this.vouchersTotalValue > this.price$.getValue()) {
-        this.successMessage += '\n Don\'t forget that after this transaction, the vouchers will be considered as used ' + 
-        'even if they are higher than the amount you\'re spending. You can go back to the product list to complete it up ' + 
-        'to the vouchers\' value. If you do that, then your vouchers won\'t be considered used and you will have to scan them again'
+        this.successMessage += '\nThese vouchers we bill considered fully used and cannot be used again. If you would like to add ' +
+          'further items to your basket, you can go back now and add them, but you will need to scan your vouchers again.'
       }
     } else {
       this.successMessage = ''
@@ -112,6 +114,10 @@ export class ScanPage {
     this.products$ = this.voucherProvider.getProducts()
     this.price$.subscribe(price => { console.log(price)})
     this.products$.subscribe(products => { 
+      if (products.length <= 0) {
+        this.scanDisabled = true
+        this.errorMessage = 'You haven\'t selected any product, please go back to the previous page'
+      }
       products.forEach(product => {
         this.productIds.push(product.id)
       })
