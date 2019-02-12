@@ -113,11 +113,18 @@ export class ProductsPage {
 
   goToScanPage(){
     this.voucherProvider.setPrice(this.total)
-    let productIds = []
+    let products = []
     this.allChosenProducts.forEach(product => {
-      productIds.push(product.product.id)
+      products.push({
+        id: product.product.id,
+        name: product.product.name,
+        price: product.product.price,
+        image: product.product.image,
+        unit: product.product.unit,
+        quantity: product.quantity
+      })
     })
-    this.voucherProvider.setProductIds(productIds)
+    this.voucherProvider.setProducts(products)
     this.navCtrl.push(ScanPage);
   }
 

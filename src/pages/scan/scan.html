@@ -27,11 +27,14 @@
     </ion-card-content>
   </ion-card> -->
 
-  <ion-card *ngIf="scannedCode">
+  <ion-card *ngIf="vouchers.length > 0">
     <ion-card-content>
-      Result from Scan: {{ scannedCode }} 
+      <p *ngIf="errorMessage !== ''" class="error-message">{{ errorMessage }}</p>
+      <p *ngIf="successMessage !== ''" class="success-message">{{ successMessage }}</p> 
     </ion-card-content>
   </ion-card>
-
-
+  <ion-row class="row-btns">
+      <button ion-button class="button-cancel" (click)="openCancelModal()">Cancel</button>
+      <button *ngIf="successMessage !== ''" ion-button class="button-proceed" (click)="openProceedModal()">Proceed</button>
+  </ion-row>
 </ion-content>

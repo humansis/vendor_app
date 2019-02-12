@@ -1,5 +1,5 @@
-export class Code {
-    static __classname__ = 'Code';
+export class Voucher {
+    static __classname__ = 'Voucher';
     qrCode: string = '';
     vendorId: string = '';
     productIds: number[] = [];
