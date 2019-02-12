@@ -29,8 +29,8 @@
 
   <ion-card *ngIf="errorMessage || successMessage">
     <ion-card-content>
-      <p *ngIf="errorMessage !== ''" class="error-message">{{ errorMessage }}</p>
-      <p *ngIf="successMessage !== ''" class="success-message">{{ successMessage }}</p> 
+      <p *ngIf="errorMessage !== ''" class="error-message" [innerHtml]="errorMessage"></p>
+      <p *ngIf="successMessage !== ''" class="success-message" [innerHtml]="successMessage"></p> 
     </ion-card-content>
   </ion-card>
   <ion-row class="row-btns">

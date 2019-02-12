@@ -46,6 +46,10 @@ export class VoucherProvider {
         console.log('vendorId : ' + voucher.vendorId)
         console.log('price : ' + voucher.price)
         console.log('products :' + voucher.productIds)
+        console.log('currency :' + voucher.currency)
+        console.log('value :' + voucher.value)
+        console.log('booklet :' + voucher.booklet)
+        console.log('id : ' + voucher.id) // will be used in the url
       })
       this.storage.set("vouchers", alreadyStoredVouchers)
     });

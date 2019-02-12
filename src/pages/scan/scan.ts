@@ -58,21 +58,15 @@ export class ScanPage {
     // meanwhile...
     scannedCode = 'USD140#096-098-097-2d8b4' // to delete after
 
-    let scannedCodeInfo = scannedCode.match(/^[A-Z]+(\d+)#([\d]..-[\d]..-[\d]..)-([\da-z]+)$/i)
+    let scannedCodeInfo = scannedCode.match(/^([A-Z]+)(\d+)#([\d]..-[\d]..-[\d]..)-([\da-z]+)$/i)
 
     if (scannedCodeInfo === null) {
       this.errorMessage = 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?'
     }
 
-    let previousScannedCode = this.vouchers.length ? this.vouchers[0].qrCode : null
-    previousScannedCode = 'USD140#096-098-097-2d544' // to delete after
-
-    let previousScannedCodeInfo = previousScannedCode ?
-      previousScannedCode.match(/^[A-Z]+(\d+)#([\d]..-[\d]..-[\d]..)-[\da-z]+$/i) :
-      null
-    
-    let previousBooklet = previousScannedCodeInfo ? previousScannedCodeInfo[2] : null
-    let newBooklet = scannedCodeInfo[2]
+    let previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null
+    previousBooklet = '096-098-097' // to delete after
+    let newBooklet = scannedCodeInfo[3]
 
     if (previousBooklet && previousBooklet !== newBooklet) {
       this.openDifferentBookletModal()
@@ -80,32 +74,41 @@ export class ScanPage {
     }
     
     this.vouchers.push({
+      id: scannedCodeInfo[4],
       qrCode: scannedCode,
       vendorId: this.vendor.id,
       productIds: this.productIds,
-      price: this.price$.getValue()
+      price: this.price$.getValue(),
+      currency: scannedCodeInfo[1],
+      value: parseInt(scannedCodeInfo[2]),
+      booklet: scannedCodeInfo[3]
     })
-    let scannedCodeValue = scannedCodeInfo[1]
+    let scannedCodeValue = scannedCodeInfo[2]
     this.vouchersTotalValue += parseInt(scannedCodeValue)
 
     if (this.vouchersTotalValue >= this.price$.getValue()) {
-      let productsList = ''
+      let productsList = ""
       this.products$.getValue().forEach(product => {
-        productsList += product.quantity + ' ' + product.name + ', '
+        productsList += product.quantity + " " + product.name + ", "
       })
-      this.errorMessage = ''
-      this.successMessage = 'You have scanned sufficient vouchers. You can now complete the transaction of ' +
-      productsList + 'for a total amount of ' + this.price$.getValue() +
-      ' with ' + this.vouchers.length + ' voucher(s) of a total value of ' + this.vouchersTotalValue + '.'
+      let vouchersList = ""
+      this.vouchers.forEach(voucher => {
+        vouchersList += '-' + voucher.qrCode + " : " + voucher.value + " " + voucher.currency + `<br>`
+      })
+      this.errorMessage = ""
+      this.successMessage = "You have scanned sufficient vouchers. You can now complete the transaction of " +
+      productsList + "for a total of " + this.price$.getValue() +
+      " using " + this.vouchers.length + " voucher(s) : " + `<br>` + vouchersList
       if (this.vouchersTotalValue > this.price$.getValue()) {
-        this.successMessage += '\nThese vouchers we bill considered fully used and cannot be used again. If you would like to add ' +
-          'further items to your basket, you can go back now and add them, but you will need to scan your vouchers again.'
+        this.successMessage += `You still have ` + (this.vouchersTotalValue - this.price$.getValue()) + scannedCodeInfo[1] + ` available on your vouchers.
+          However, they will be considered fully used and cannot be used again. If you would like to add
+         further items to your basket, you can go back now and add them, but you will need to scan your vouchers again.`
       }
     } else {
       this.successMessage = ''
-      this.errorMessage = 'Your vouchers (' + this.vouchersTotalValue +
-        ') are not high enough to pay ' + this.price$.getValue() +
-        ', please scann another one'
+      this.errorMessage = 'Your vouchers (' + this.vouchersTotalValue + scannedCodeInfo[1] +
+        ') are not high enough to pay ' + this.price$.getValue() + '.' +
+        `<br> Please scann another one`
     }
   }
 
@@ -116,7 +119,7 @@ export class ScanPage {
     this.products$.subscribe(products => { 
       if (products.length <= 0) {
         this.scanDisabled = true
-        this.errorMessage = 'You haven\'t selected any product, please go back to the previous page'
+        this.errorMessage = 'You haven\'t selected any product, please go back to the previous page.'
       }
       products.forEach(product => {
         this.productIds.push(product.id)
