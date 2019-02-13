@@ -5,12 +5,6 @@ import { Voucher } from '../../model/voucher'
 import { Storage } from '@ionic/storage';
 import { Product } from '../../model/product';
 
-/*
-  Generated class for the VoucherProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class VoucherProvider {
 

@@ -108,7 +108,7 @@ export class ScanPage {
     });
 
     modal.onDidDismiss(data => {
-      if(data === okMessage) {  // verify here that you have the good password
+      if(data === okMessage) {
         this.handleScannedCode(scannedCode, scannedCodeInfo)
       } else if (data === cancelButton) {
         return
@@ -134,7 +134,7 @@ export class ScanPage {
       let newBooklet = scannedCodeInfo[3]
 
       this.storage.get("deactivatedBooklets").then(deactivatedBooklets => {
-        if (deactivatedBooklets.includes(newBooklet)) {
+        if (deactivatedBooklets && deactivatedBooklets.includes(newBooklet)) {
           this.errorMessage = 'You cannot use this booklet because it has previously been deactivated.'
           return
         }

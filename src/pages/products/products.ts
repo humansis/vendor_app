@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ScanPage } from '../scan/scan';
 import { VoucherProvider } from '../../providers/voucher/voucher';
 import { LoginPage } from '../login/login'
+import { Storage } from '@ionic/storage';
+
 /**
  * Generated class for the ProductsPage page.
  *
@@ -111,7 +113,8 @@ export class ProductsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public voucherProvider: VoucherProvider
+    public voucherProvider: VoucherProvider,
+    private storage: Storage,
     ) {
   }
 
@@ -195,26 +198,28 @@ export class ProductsPage {
   }
 
   logout() {
-    // this.storage.get('codes').then(codes => {
-    //   if (codes !== null && codes !== []) {
-    //     this.errorMessage = 'You need to sync your data before loging out'
-    //   } else {
-    //     this.storage.set('vendor', null)
-    //     this.storage.set('codes', [])
-    //     this.navCtrl.setRoot(LoginPage);
-    //   }
-    // })
+    this.storage.get('vouchers').then(vouchers => {
+      if (vouchers !== null && vouchers.length > 0 ) {
+        this.errorMessage = 'You need to sync your data before loging out'
+        setTimeout(() => { this.errorMessage = '' }, 3000);
+      } else {
+        this.storage.set('vendor', null)
+        this.navCtrl.setRoot(LoginPage);
+      }
+    })
   }
 
   sync() {
-    // this.storage.get('codes').then(codes => {
-    //   if (codes !== null && codes !== []) {
-    //     this.successMessage = 'Your are already up to date'
-    //   } else {
-    //     // Send the codes to the back
-    //     this.storage.set('codes', [])
-    //     this.successMessage = 'Data has been synced'
-    //   }
-    // })
+    this.storage.get('vouchers').then(vouchers => {
+      if (vouchers == null || vouchers.length === 0) {
+        this.successMessage = 'Your are already up to date'
+        setTimeout(() => { this.successMessage = '' }, 30000);
+      } else {
+        // Send the vouchers to the back
+        this.storage.set('vouchers', [])
+        this.successMessage = 'Data has been synced'
+        setTimeout(() => { this.successMessage = '' }, 3000);
+      }
+    })
   }
 }
