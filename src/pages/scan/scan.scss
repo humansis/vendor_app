@@ -1,4 +1,7 @@
 @import "../../theme/variables.scss";
+.scan-button {
+    background-color: $bms_dark_blue;
+}
 
 .error-message {
     color: $bms_red !important;
