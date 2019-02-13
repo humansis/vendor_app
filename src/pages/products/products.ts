@@ -98,7 +98,7 @@ export class ProductsPage {
   ];
   public isItemSelected: boolean = false;
   public myproduct: any;
-  public selectedProduct: any;
+  public selectedProduct: any = null;
   public allChosenProducts: Array<any> = [];
   public quantity: string = '0';
   public total: number = 0;
