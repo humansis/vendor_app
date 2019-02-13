@@ -1,3 +1,20 @@
-page-scan {
+@import "../../theme/variables.scss";
 
+.error-message {
+    color: $bms_red !important;
+}
+
+.success-message {
+    color: $bms_green !important;
+}
+
+.row-btns {
+    justify-content: flex-end;
+}
+
+.button-cancel {
+    background-color: $bms_red;
+}
+.button-proceed {
+    background-color: $bms_green;
 }
