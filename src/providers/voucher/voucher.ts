@@ -38,7 +38,6 @@ export class VoucherProvider {
 
   scanVouchers(vouchers: Voucher[]): void {
     this.storage.get("vouchers").then(cacheVouchers => {
-      console.log(cacheVouchers)
       let alreadyStoredVouchers = cacheVouchers || [];
       vouchers.forEach(voucher => {
         alreadyStoredVouchers.push(voucher)

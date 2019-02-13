@@ -10,7 +10,8 @@ import { MyApp } from './app.component';
 import { ScanPage } from '../pages/scan/scan';
 import { LoginPage } from '../pages/login/login';
 import { ProductsPage } from '../pages/products/products';
-import { ModalPage } from '../pages/modal/modal';
+import { ConfirmationModal } from '../pages/confirmation-modal/confirmation-modal';
+import { FormModal } from '../pages/form-modal/form-modal';
 
 // Plugins
 import { NgxQRCodeModule } from 'ngx-qrcode2';
@@ -32,7 +33,8 @@ import { IonicStorageModule } from '@ionic/storage';
     ScanPage,
     ProductsPage,
     LoginPage,
-    ModalPage
+    ConfirmationModal,
+    FormModal
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { IonicStorageModule } from '@ionic/storage';
     ScanPage,
     ProductsPage,
     LoginPage,
-    ModalPage
+    ConfirmationModal,
+    FormModal
   ],
   providers: [
     StatusBar,

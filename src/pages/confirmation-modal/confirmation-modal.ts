@@ -1,12 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 
 @Component({
-  selector: 'modal-page',
-  templateUrl: 'modal.html'
+  selector: 'confirmation-modal',
+  templateUrl: 'confirmation-modal.html'
 })
-export class ModalPage {
+export class ConfirmationModal {
 
   constructor(public viewCtrl : ViewController, public navParams: NavParams) {}
   

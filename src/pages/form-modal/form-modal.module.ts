@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { ModalPage } from './modal';
+import { FormModal } from './form-modal';
 
 @NgModule({
-	declarations: [ModalPage],
+	declarations: [FormModal],
 	imports: [],
-	exports: [ModalPage]
+	exports: [FormModal]
 })
 export class ComponentsModule {}
