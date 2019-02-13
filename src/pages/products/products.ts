@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ScanPage } from '../scan/scan';
 import { VoucherProvider } from '../../providers/voucher/voucher';
-
+import { LoginPage } from '../login/login'
 /**
  * Generated class for the ProductsPage page.
  *
@@ -103,6 +103,9 @@ export class ProductsPage {
   public quantity: string = '0';
   public total: number = 0;
   public isClicked = 'white';
+  public showHeaderActions = false;
+  public errorMessage: string = '';
+  public successMessage: string = '';
 
   constructor(
     public navCtrl: NavController,
@@ -169,5 +172,33 @@ export class ProductsPage {
   clearItemList() {
     this.allChosenProducts = [];
     this.total = 0;
+  }
+
+  toggleHeaderActions() {
+    this.showHeaderActions = !this.showHeaderActions
+  }
+
+  logout() {
+    // this.storage.get('codes').then(codes => {
+    //   if (codes !== null && codes !== []) {
+    //     this.errorMessage = 'You need to sync your data before loging out'
+    //   } else {
+    //     this.storage.set('vendor', null)
+    //     this.storage.set('codes', [])
+    //     this.navCtrl.setRoot(LoginPage);
+    //   }
+    // })
+  }
+
+  sync() {
+    // this.storage.get('codes').then(codes => {
+    //   if (codes !== null && codes !== []) {
+    //     this.successMessage = 'Your are already up to date'
+    //   } else {
+    //     // Send the codes to the back
+    //     this.storage.set('codes', [])
+    //     this.successMessage = 'Data has been synced'
+    //   }
+    // })
   }
 }

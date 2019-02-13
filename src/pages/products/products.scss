@@ -160,4 +160,56 @@ page-products {
       }
     }
   }
+
+  .hiddenLogoutAction, .hiddenSyncAction {
+    position: absolute;
+    right: 0;
+    z-index: -1;
+    opacity: 0;
+    background: none;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    top: 25%;
+    transition: all 1s ease-out
+  }
+
+  .visibleLogoutAction, .visibleSyncAction {
+    position: absolute;
+    z-index: 1;
+    opacity: 1;
+    background: none;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    top: 25%;
+    transition: all 1s ease-out
+
+  }
+
+  .visibleLogoutAction {
+    right: 7%;
+  }
+
+  .visibleSyncAction {
+    right: 16%;
+  }
+
+  .error-message {
+    color: $bms_red;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .success-message {
+    color: $bms_green;
+    text-align: center;
+    margin-bottom: 1px;
+    margin-top: 1px;
+  }
+
+  .scroll-content {
+    padding-top: 5px;
+  }
 }

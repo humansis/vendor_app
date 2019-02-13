@@ -6,14 +6,33 @@
       style="width: 40px; height: 40px;"
       src="../../assets/imgs/bms_logo.png"
     />
+    <button
+      class="header-action"
+      [ngClass]="{
+        hiddenLogoutAction: !showHeaderActions,
+        visibleLogoutAction: showHeaderActions
+      }"
+      (click)="logout()"
+    > Logout </button>
+    <button
+      class="header-action"
+      [ngClass]="{
+        hiddenSyncAction: !showHeaderActions,
+        visibleSyncAction: showHeaderActions
+      }"
+      (click)="sync()"
+    > Sync </button>
     <ion-icon
       style="font-size: 40px; float: right; color: #F1F1FB"
       name="contact"
+      (click)="toggleHeaderActions()"
     ></ion-icon>
   </ion-row>
 </ion-header>
 
 <ion-content padding>
+  <p *ngIf="errorMessage !== ''" class="error-message">{{ errorMessage }}</p>
+  <p *ngIf="successMessage !== ''" class="success-message">{{ successMessage }}</p>
   <div class="page-content">
     <div class="products-container">
       <div
