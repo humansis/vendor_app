@@ -10,6 +10,8 @@ import { MyApp } from './app.component';
 import { ScanPage } from '../pages/scan/scan';
 import { LoginPage } from '../pages/login/login';
 import { ProductsPage } from '../pages/products/products';
+import { ConfirmationModal } from '../pages/confirmation-modal/confirmation-modal';
+import { FormModal } from '../pages/form-modal/form-modal';
 
 // Plugins
 import { NgxQRCodeModule } from 'ngx-qrcode2';
@@ -20,6 +22,8 @@ import { LoginProvider } from '../providers/login/login';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { VoucherProvider } from '../providers/voucher/voucher';
+import { IonicStorageModule } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +32,9 @@ import { VoucherProvider } from '../providers/voucher/voucher';
     // Pages 
     ScanPage,
     ProductsPage,
-    LoginPage
+    LoginPage,
+    ConfirmationModal,
+    FormModal
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,8 @@ import { VoucherProvider } from '../providers/voucher/voucher';
     BrowserAnimationsModule,
     MatButtonModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,7 +53,9 @@ import { VoucherProvider } from '../providers/voucher/voucher';
     // Pages
     ScanPage,
     ProductsPage,
-    LoginPage
+    LoginPage,
+    ConfirmationModal,
+    FormModal
   ],
   providers: [
     StatusBar,

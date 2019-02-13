@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Code } from '../../model/code'
+import { Voucher } from '../../model/voucher'
+import { Storage } from '@ionic/storage';
+import { Product } from '../../model/product';
+
 /*
   Generated class for the VoucherProvider provider.
 
@@ -12,9 +15,9 @@ import { Code } from '../../model/code'
 export class VoucherProvider {
 
   private price = new BehaviorSubject<number>(0);
-  private productIds = new BehaviorSubject<number[]>([])
+  private products = new BehaviorSubject<Product[]>([])
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private storage: Storage) {
   }
 
   setPrice(price: number): void {
@@ -25,19 +28,31 @@ export class VoucherProvider {
     return this.price
   }
 
-  setProductIds(productIds: number[]): void {
-    this.productIds.next(productIds)
+  setProducts(products: Product[]): void {
+    this.products.next(products)
   }
 
-  getProductIds(): BehaviorSubject<number[]> {
-    return this.productIds
+  getProducts(): BehaviorSubject<Product[]> {
+    return this.products
   }
 
-  scanCode(code: Code): void {
-    console.log('qrCode : ' + code.qrCode)
-    console.log('vendorId : ' + code.vendorId)
-    console.log('price : ' + code.price)
-    console.log('products :' + code.productIds)
+  scanVouchers(vouchers: Voucher[]): void {
+    this.storage.get("vouchers").then(cacheVouchers => {
+      let alreadyStoredVouchers = cacheVouchers || [];
+      vouchers.forEach(voucher => {
+        alreadyStoredVouchers.push(voucher)
+        console.log('qrCode : ' + voucher.qrCode)
+        console.log('vendorId : ' + voucher.vendorId)
+        console.log('price : ' + voucher.price)
+        console.log('products :' + voucher.productIds)
+        console.log('currency :' + voucher.currency)
+        console.log('value :' + voucher.value)
+        console.log('booklet :' + voucher.booklet)
+        console.log('id : ' + voucher.id) // will be used in the url
+      })
+      this.storage.set("vouchers", alreadyStoredVouchers)
+    });
+    
   } 
 
 }
