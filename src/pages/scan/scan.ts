@@ -108,7 +108,7 @@ export class ScanPage {
     });
 
     modal.onDidDismiss(data => {
-      if(data === okMessage) {  // verify here that you have the good password
+      if(data === okMessage) {
         this.handleScannedCode(scannedCode, scannedCodeInfo)
       } else if (data === cancelButton) {
         return

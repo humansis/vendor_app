@@ -14,22 +14,10 @@
 
 
 <ion-content padding>
-  <!-- <ion-item>
-    <ion-input type="text" placeholder="My QR data" [(ngModel)]="qrData"></ion-input>
-  </ion-item>
-  <button ion-button full icon-left (click)="createCode()"><ion-icon name="qr-scanner">Create Code</ion-icon></button> -->
   <button ion-button full icon-left (click)="scanCode()" class="scan-button" [disabled]="scanDisabled">
     <ion-icon name="qr-scanner"></ion-icon>
     <p>Click here to scan your QR Code</p>
   </button>
-
-  <!-- <ion-card *ngIf="createdCode">
-    <ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
-    <ion-card-content>
-      Value: {{ createdCode }} 
-    </ion-card-content>
-  </ion-card> -->
-
   <ion-card *ngIf="errorMessage || successMessage">
     <ion-card-content>
       <p *ngIf="errorMessage !== ''" class="error-message" [innerHtml]="errorMessage"></p>

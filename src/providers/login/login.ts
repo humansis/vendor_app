@@ -59,7 +59,6 @@ export class LoginProvider {
 		return saltedPassword;
   }
   
-  // add logout
   // add password forgotten
   // add recaptcha ?
 
