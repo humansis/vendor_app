@@ -1,5 +1,5 @@
 @import "../../theme/variables.scss";
-.scan-button {
+.scan-button, .scan-button.activated {
     background-color: $bms_dark_blue;
 }
 

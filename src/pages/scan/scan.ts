@@ -134,7 +134,7 @@ export class ScanPage {
       let newBooklet = scannedCodeInfo[3]
 
       this.storage.get("deactivatedBooklets").then(deactivatedBooklets => {
-        if (deactivatedBooklets.includes(newBooklet)) {
+        if (deactivatedBooklets && deactivatedBooklets.includes(newBooklet)) {
           this.errorMessage = 'You cannot use this booklet because it has previously been deactivated.'
           return
         }
