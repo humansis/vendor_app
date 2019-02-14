@@ -18,6 +18,7 @@ export class LoginPage {
 
   public login = GlobalText.TEXTS;
   public vendor: Vendor;
+  public loader: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -31,9 +32,11 @@ export class LoginPage {
 }
 
 clickSubmit() {
+  this.loader = true;
   this.loginProvider.login(this.vendor).then((vendor) => {
     this.navCtrl.setRoot(ProductsPage);
   }, error => {
+    this.loader = false;
     console.log(error)
   })
 }

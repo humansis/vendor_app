@@ -46,10 +46,14 @@ export class LoginProvider {
             this.storage.set('vendor', this.vendor)
             resolve(this.vendor);
           } else {
-            reject({ message: 'Bad credentials' })
+            reject('Bad credentials')
           };
         
+        }, error => {
+          reject(this.handleError(error) || 'Bad credentials')
         })
+      }, error => {
+        reject(this.handleError(error) || 'Bad credentials')
       })
     })
   }
@@ -64,6 +68,21 @@ export class LoginProvider {
 		
 		let saltedPassword = CryptoJS.enc.Base64.stringify(digest);
 		return saltedPassword;
+  }
+
+  handleError(error) {
+    if (error.error) {
+      if (typeof error.error === "string") {
+        return error.error
+      }
+      else if (error.error[0]) {
+        return error.error[0]
+      } else {
+        return null
+      }
+    } else {
+      return null
+    }
   }
   
   // add password forgotten

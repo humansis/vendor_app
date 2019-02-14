@@ -16,6 +16,9 @@
           <div>
               <button mat-raised-button class="button-background-primary" (click)="clickSubmit()">Login</button>
           </div>
+          <div class="login-spinner">
+            <ion-spinner color="dark" *ngIf="loader"></ion-spinner>
+          </div>
       </div>
     </div>
   </div>
