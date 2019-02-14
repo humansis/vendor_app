@@ -5,6 +5,7 @@ import * as CryptoJS from 'crypto-js';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
+import { SaltInterface } from '../../model/salt';
 
 /*
   Generated class for the LoginProvider provider.
@@ -23,29 +24,35 @@ export class LoginProvider {
   constructor(public http: HttpClient, private storage: Storage) {
   }
 
-  requestSalt(username: string) : Observable<string> {
-    return this.http.get<string>(URL_BMS_API + '/salt/' + username);
+  requestSalt(username: string): Observable<SaltInterface> {
+    return this.http.get<SaltInterface>(URL_BMS_API + '/salt/' + username);
   }
 
-  login(vendor: Vendor) : void {
-    // this.requestSalt(vendor.username).subscribe(success => {
-    //   let getSalt = success;
-    //   vendor.salted_password = this.saltPassword(getSalt, vendor.password);
-    //   delete vendor.password;
-    //   return this.http.post(URL_BMS_API + '/login_app', vendor).subscribe(success => {
-    //     let data = success;
-    //     if (data) {
-    //       this.vendor = data as Vendor
-    //     } else {
-    //         // Bad credentials
-    //     };
-    //   console.log(this.vendor)
-    //   return 'done';
-    //   })
-    // })
-  this.vendor.id = '1'
-  this.storage.set('vendor', this.vendor)
-}
+  logUser(vendor: Vendor) {
+    return this.http.post(URL_BMS_API + '/login_app', vendor)
+  }
+
+  login(vendor: Vendor) {
+    return new Promise<Vendor | string | null>((resolve, reject) => {
+      this.requestSalt(vendor.username).subscribe(success => {
+        let getSalt = success as SaltInterface;
+        vendor.salted_password = this.saltPassword(getSalt.salt, vendor.password);
+        delete vendor.password;
+        return this.logUser(vendor).subscribe(success => {
+          let data = success;
+          if (data) {
+            this.vendor = data as Vendor
+            this.vendor.loggedIn = true
+            this.storage.set('vendor', this.vendor)
+            resolve(this.vendor);
+          } else {
+            reject({ message: 'Bad credentials' })
+          };
+        
+        })
+      })
+    })
+  }
 
   saltPassword(salt: string, password: string) : string {
 		let salted = password + '{' + salt + '}';
