@@ -1,5 +1,7 @@
-//colors
+// Font-path
+$font-path: "../assets/fonts";
 
+// Colors
 $bms_black : #132F30;
 $bms_grey: #F1F1FB;
 $bms_dark_blue: #02617F;
@@ -14,16 +16,14 @@ $menu_select_bg: #134252;
 $bms_highlight: #FBFD8D;
 $bms_neutral_grey: #c5c5ce;
 
-//Font
+// Fonts
 $bms_font_header : 'Lato', sans-serif;
 $bms_font_text : 'Roboto', sans-serif;
-
 
 // Shadow
 $bms_shadow: 0px 2px 2px 0px rgba(0,0,0,0.1);
 
-// constants for animation scss
-
+// Constants for animation scss
 $width-gap-xsmall : 15px;
 $width-gap-small: 20px;
 $width-gap-big  : 50px;
@@ -32,3 +32,35 @@ $width-item-one  : 270px;
 $width-item-two  : 2*$width-item-one + 1*$width-gap-small;
 $width-item-three: 3*$width-item-one + 2*$width-gap-small;
 $width-item-four : 4*$width-item-one + 3*$width-gap-small;
+
+// Material icons
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url($font-path + '/MaterialIcons-Regular.eot'); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url($font-path + '/MaterialIcons-Regular.woff2') format('woff2'),
+    url($font-path + '/MaterialIcons-Regular.woff') format('woff'),
+    url($font-path + '/MaterialIcons-Regular.ttf') format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}

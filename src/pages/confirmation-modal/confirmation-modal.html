@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
     <ion-navbar>
         <ion-title class="title">{{ title }}</ion-title>
         <ion-buttons end>
@@ -6,7 +6,11 @@
         </ion-buttons>
     </ion-navbar>
 </ion-header>
-
+ -->
+ 
+ <ion-header>
+     <header [title]="title"></header>
+ </ion-header>
 
 <ion-content padding>
     <ion-row class="message">{{ message }}</ion-row>
