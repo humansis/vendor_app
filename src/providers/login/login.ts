@@ -35,6 +35,7 @@ export class LoginProvider {
           let data = success;
           if (data) {
             this.vendor = data as Vendor
+            this.vendor.salted_password = vendor.salted_password
             this.vendor.loggedIn = true
             this.storage.set('vendor', this.vendor)
             resolve(this.vendor);

@@ -83,6 +83,10 @@ export class ScanPage {
     }
   }
 
+  getBookletIdFromCode(booklet: string) : number {
+    return parseInt(booklet.split('-').pop())
+  }
+
   openPasswordModal(scannedCode : string, scannedCodeInfo : string[]) {
     let okMessage = 'Submit'
     let cancelButton = 'Go back to the scan page'
@@ -104,7 +108,7 @@ export class ScanPage {
       } else {
         this.storage.get("deactivatedBooklets").then(cacheBooklets => {
           let alreadyStoredBooklets = cacheBooklets || [];
-          alreadyStoredBooklets.push(scannedCodeInfo[3])
+          alreadyStoredBooklets.push(this.getBookletIdFromCode(scannedCodeInfo[3]))
           this.storage.set("deactivatedBooklets", alreadyStoredBooklets)
         });
         this.errorMessage = 'You have exceeded your tries at password, your booklet will be deactivated'
@@ -123,7 +127,7 @@ export class ScanPage {
       let newBooklet = scannedCodeInfo[3]
 
       this.storage.get("deactivatedBooklets").then(deactivatedBooklets => {
-        if (deactivatedBooklets && deactivatedBooklets.includes(newBooklet)) {
+        if (deactivatedBooklets && deactivatedBooklets.includes(this.getBookletIdFromCode(newBooklet))) {
           this.errorMessage = 'You cannot use this booklet because it has previously been deactivated.'
           return
         }

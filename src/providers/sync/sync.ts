@@ -12,22 +12,24 @@ export class SyncProvider {
   }
 
   sync(vouchers: Voucher[], booklets: string[]) {
-		return new Promise<boolean>((resolve, reject) => {
-      this.sendVouchers(vouchers)
-      this.sendBooklets(booklets)
+    return new Promise((resolve, reject) => {
+      this.sendVouchers(vouchers).subscribe((response) => {
+        this.sendBooklets(booklets).subscribe((response) => {
+          resolve(true)
+        }, error => {
+          reject(error)
+        })
+      }, error => {
+        reject(error)
+      })
     })
   }
   
   sendVouchers(vouchers: Voucher[]) {
-    return vouchers.forEach(voucher => {
-      this.http.post(URL_BMS_API + '/vouchers/scanned/' + voucher.id, voucher).subscribe(success => {
-      })
-    })
+    return  this.http.post(URL_BMS_API + '/vouchers/scanned', vouchers)
   }
 
   sendBooklets(booklets: string[]) {
-    return booklets.forEach(booklet => {
-      this.http.delete(URL_BMS_API + '/booklets/' + booklet).subscribe(success => {})
-    })
+    return this.http.post(URL_BMS_API + '/deactivate-booklets', booklets)
   }
 }

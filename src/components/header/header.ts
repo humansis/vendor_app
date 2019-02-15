@@ -67,6 +67,7 @@ export class HeaderComponent {
 							subTitle: 'We were not able to sync you data, please verify your internet connection and retry.',
 							buttons: ['OK']
 						  });
+						alert.present();
 					})
 					
 				}

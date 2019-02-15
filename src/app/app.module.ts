@@ -29,6 +29,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { VoucherProvider } from '../providers/voucher/voucher';
 import { IonicStorageModule } from '@ionic/storage';
 import { SyncProvider } from '../providers/sync/sync';
+import { WsseProvider } from '../providers/wsse/wsse';
+import { httpInterceptorProviders} from '../interceptors/index-interceptors';
 
 
 @NgModule({
@@ -70,12 +72,15 @@ import { SyncProvider } from '../providers/sync/sync';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    httpInterceptorProviders,
+
 
     // Plugins
     BarcodeScanner,
     LoginProvider,
     VoucherProvider,
-    SyncProvider
+    SyncProvider,
+    WsseProvider
   ]
 })
 export class AppModule {}
