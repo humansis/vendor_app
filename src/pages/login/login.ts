@@ -4,7 +4,7 @@ import { Vendor } from '../../model/vendor'
 import { GlobalText } from '../../texts/global';
 import { ProductsPage } from '../products/products';
 import { LoginProvider } from '../../providers/login/login';
-
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-login',
@@ -18,8 +18,8 @@ export class LoginPage {
 
   constructor(
     public navCtrl: NavController,
-    public loginProvider: LoginProvider) {
-
+    public loginProvider: LoginProvider,
+    private alertCtrl: AlertController) {
   }
 
   ngOnInit() {
@@ -32,7 +32,12 @@ clickSubmit() {
     this.navCtrl.setRoot(ProductsPage);
   }, error => {
     this.loader = false;
-    console.log(error)
+    let alert = this.alertCtrl.create({
+      title: 'Login failed',
+      subTitle: error,
+      buttons: ['OK']
+      });
+    alert.present();
   })
 }
 
