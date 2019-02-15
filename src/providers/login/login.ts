@@ -7,22 +7,22 @@ import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
 import { SaltInterface } from '../../model/salt';
 
-const URL_BMS_API = 'http://0.0.0.0:8087/api/wsse';
 
 @Injectable()
 export class LoginProvider {
 
   private vendor = new Vendor;
+  URL_BMS_API: string = process.env.URL_BMS_API;
 
   constructor(public http: HttpClient, private storage: Storage) {
   }
 
   requestSalt(username: string): Observable<SaltInterface> {
-    return this.http.get<SaltInterface>(URL_BMS_API + '/salt/' + username);
+    return this.http.get<SaltInterface>(this.URL_BMS_API + '/salt/' + username);
   }
 
   logUser(vendor: Vendor) {
-    return this.http.post(URL_BMS_API + '/login_app', vendor)
+    return this.http.post(this.URL_BMS_API + '/login_app', vendor)
   }
 
   login(vendor: Vendor) {
