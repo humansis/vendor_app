@@ -28,6 +28,7 @@ import { MatButtonModule, MatSelectModule } from '@angular/material';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { VoucherProvider } from '../providers/voucher/voucher';
 import { IonicStorageModule } from '@ionic/storage';
+import { SyncProvider } from '../providers/sync/sync';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { IonicStorageModule } from '@ionic/storage';
     // Plugins
     BarcodeScanner,
     LoginProvider,
-    VoucherProvider
+    VoucherProvider,
+    SyncProvider
   ]
 })
 export class AppModule {}

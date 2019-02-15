@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Modal } from 'ionic-angular';
-
-// Plugins
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { VoucherProvider } from '../../providers/voucher/voucher';
@@ -14,13 +12,6 @@ import { ConfirmationModal } from '../confirmation-modal/confirmation-modal';
 import { FormModal } from '../form-modal/form-modal';
 
 
-/**
- * Generated class for the ScanPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-scan',
@@ -28,8 +19,6 @@ import { FormModal } from '../form-modal/form-modal';
 })
 export class ScanPage {
 
-  // qrData: any = null;
-  // createdCode: any = null;
   vouchers: Array<Voucher> = [];
   vouchersTotalValue: number = 0;
   price$: BehaviorSubject<number>;
@@ -77,7 +66,7 @@ export class ScanPage {
       // all the logic can be moved in here when the scan can be tested
     })
     // meanwhile... (to test, the encoded password is 'secret-password')
-    scannedCode = 'USD140#096-098-097-2d8b4-avPBIe1KdSk2wpfN37ewA5TqvxA=' // to delete after
+    scannedCode = 'USD140#096-098-097-1-avPBIe1KdSk2wpfN37ewA5TqvxA=' // to delete after
 
     if (this.ifHasNoPasswordGetInfo(scannedCode)) {
       this.handleScannedCode(scannedCode, this.ifHasNoPasswordGetInfo(scannedCode))

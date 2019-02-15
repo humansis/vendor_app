@@ -12,6 +12,7 @@ page-products {
         height: 100%;
         overflow: hidden;
         font-family: $bms_font_header;
+        margin-top: 16px;
 
         .products-container {
             width: 60%;
@@ -34,7 +35,7 @@ page-products {
                 margin: 0;
                 position: relative;
                 width: 25%;
-                height: 33.33%;
+                height: auto;
             }
 
             .unselected {
@@ -47,10 +48,15 @@ page-products {
             }
 
             .product-name {
-                margin: 2% 0 0;
+                margin: 0;
+                padding-top: 2%;
+                padding-bottom: 2%;
                 position: absolute;
                 z-index: 1;
-                left: 3px;
+                width: 100%;
+                background-color: $bms_dark_blue;
+                text-align: center;
+                color: white;
             }
         }
 
@@ -173,7 +179,7 @@ page-products {
 
             .subtotal-container {
                 height: 20%;
-                margin-bottom: 20px;
+                margin-bottom: 30px;
 
                 .row-sub {
                     padding: 5px;

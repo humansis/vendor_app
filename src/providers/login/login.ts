@@ -7,13 +7,6 @@ import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
 import { SaltInterface } from '../../model/salt';
 
-/*
-  Generated class for the LoginProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
-
 const URL_BMS_API = 'http://0.0.0.0:8087/api/wsse';
 
 @Injectable()
@@ -84,8 +77,4 @@ export class LoginProvider {
       return null
     }
   }
-  
-  // add password forgotten
-  // add recaptcha ?
-
 }

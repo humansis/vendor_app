@@ -14,7 +14,9 @@
               <input type="password" class="user-input" placeholder="{{login.login_password | titlecase}}" [(ngModel)]="vendor.password">
           </div>
           <div>
-              <button mat-raised-button class="button-background-primary" (click)="clickSubmit()">Login</button>
+              <button mat-raised-button class="button-background-primary" (click)="clickSubmit()" [disabled]="loader">
+                Login
+              </button>
           </div>
           <div class="login-spinner">
             <ion-spinner color="dark" *ngIf="loader"></ion-spinner>

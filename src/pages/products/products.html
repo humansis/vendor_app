@@ -2,8 +2,6 @@
     <header [title]="'Select Products'"></header>
 </ion-header>
 <ion-content padding>
-    <p *ngIf="errorMessage !== ''" class="error-message">{{ errorMessage }}</p>
-    <p *ngIf="successMessage !== ''" class="success-message">{{ successMessage }}</p>
     <div class="page-content">
         <div class="products-container">
             <div class="product" *ngFor="let product of products" [ngClass]="{
@@ -12,7 +10,7 @@
           product: selectedProduct === undefined || selectedProduct === null
         }"
                 (click)="selectProduct(product)">
-                <p class="product-name">{{ product.name }}</p>
+                <p class="product-name">{{ product.name | uppercase }}</p>
                 <img class="product-image" src="{{ product.image }}" />
             </div>
         </div>
