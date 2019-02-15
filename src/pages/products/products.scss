@@ -2,250 +2,260 @@
 @import "../../theme/variables.scss";
 
 page-products {
-  .scroll-content {
-    padding:0 !important;
-  }
-  .page-content {
-    @include my-flex-row;
-    justify-content: center;
-    height: 100%;
-    overflow: hidden;
-    font-family: $bms_font_header;
-
-    .products-container {
-      width: 60%;
-      display: flex;
-      flex-flow: wrap;
-      justify-content: space-between;
-      padding: 0;
-      flex-wrap: wrap;
-      flex-grow: 1;
-      overflow-y: scroll;
-      display: flex;
-      justify-content: center;
-
-      .product, .selected, .unselected {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin:0;
-        position: relative;
-        width: 25%;
-        height: 33.33%;
-      }
-
-      .unselected {
-        opacity: 0.5;
-      }
-    
-      .product-image {
-        height: 100%;
-        width: 100%
-      }
-      .product-name {
-        margin: 2% 0 0;
-        position: absolute;
-        z-index: 1;
-        left: 3px;
-      }
+    .scroll-content {
+        padding: 0 !important;
     }
-    .fields-container {
-      height: 100%;
-      width: 40%;
-      color: $bms_dark_grey;
-      border-left: 1px solid $bms_slate;
-      @include my-flex-column;
 
-
-      .fields {
-        height: 33.33%;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: start;
-        font-size: 1.2em;
-
-        .grid {
-          padding: 0;
-          height: 100%;
-        }
-
-        .selected_input {
-          border: 1px solid $bms_slate;
-          border-radius: 10px;
-        }
-
-        .row-my-product {
-          height:100%;
-          .my-product-name {
-            font-weight: bold;
-          }
-          .my-product-image-container {
-            padding: 0;
-            img {
-              float: right;
-              width: 69%;
-            }
-          }
-        }
-      }
-      .inputs {
-        .calculator {
-          padding: 0;
-        }
-        height: 66.66%;
+    .page-content {
         @include my-flex-row;
-        .input-row {
-          margin: 0;
-          height: 25%;
-          ion-col {
-            text-align: center;
-            margin: 0;
+        justify-content: center;
+        height: 100%;
+        overflow: hidden;
+        font-family: $bms_font_header;
+
+        .products-container {
+            width: 60%;
+            display: flex;
+            flex-flow: wrap;
+            justify-content: space-between;
             padding: 0;
-            button {
+            flex-wrap: wrap;
+            flex-grow: 1;
+            overflow-y: scroll;
+            display: flex;
+            justify-content: center;
+
+            .product,
+            .selected,
+            .unselected {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 margin: 0;
+                position: relative;
+                width: 25%;
+                height: 33.33%;
+            }
+
+            .unselected {
+                opacity: 0.5;
+            }
+
+            .product-image {
                 height: 100%;
                 width: 100%;
-                background-color: white;
-                border-top: 1px solid $bms_slate;
-                border-right: 1px solid $bms_slate;
-                box-shadow: none;
-                border-radius: 0;
-                color: $bms_dark_grey;
             }
-          }
-        }
-        .bottom-row {
-          border-bottom: 1px solid $bms_slate;
-        }
-      }
-      .my-product-image-container {
-        height: 100%;
-        .my-product-image {
-          height: 100%
-        }
-      }
 
-      .items-list-container {
-        text-align: center;
-        height: 80%;
-        .row-1 {
-          text-align: center;
-          display: flex;
-          align-items: center;
-          font-size: 30px;
-          font-weight: bold
-        }
-        .row-2 {
-          height: 200px;
-        }
-        .header-row {
-          font-weight: bold
-        }
-        .test-column {
-          text-align: center;
-          font-size: 16px;
-        }
-        .items-list-container-table {
-          font-size: 16px;
-        }
-      }
-      .subtotal-container {
-        height: 20%;
-        margin-bottom: 20px;
-
-        .row-sub {
-          padding: 5px;
-          height: 50%;
-          text-align: center;
-          font-size: 16px;
+            .product-name {
+                margin: 2% 0 0;
+                position: absolute;
+                z-index: 1;
+                left: 3px;
+            }
         }
 
-        .row-btns {
-          height: 50%;
-        }
-
-        .bottom-col {
-          padding: 2px;
-          text-align: center;
-        }
-        .col-clear {
-          padding: 2px;
-          text-align: center;
-          .button-clear {
-            margin: 0 auto;
-            width: 80%;
+        .fields-container {
             height: 100%;
-            background-color: $bms_red;
-          }
-          .button-checkout {
-            margin: 0 auto;
-            width: 80%;
-            height: 100%;
-            background-color: $bms_dark_blue;
-          }
-        }
+            width: 40%;
+            color: $bms_dark_grey;
+            border-left: 1px solid $bms_slate;
+            @include my-flex-column;
 
-        .col-checkout {
-          text-align: center;
-          background-color: $bms_dark_blue;
-          color: $bms_white;
-          @include my-flex-column;
+            .fields {
+                height: 33.33%;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: start;
+                font-size: 1.2em;
+
+                .grid {
+                    padding: 0;
+                    height: 100%;
+                }
+
+                .selected_input {
+                    border: 1px solid $bms_slate;
+                    border-radius: 10px;
+                }
+
+                .row-my-product {
+                    height: 100%;
+
+                    .my-product-name {
+                        font-weight: bold;
+                    }
+
+                    .my-product-image-container {
+                        padding: 0;
+
+                        img {
+                            float: right;
+                            width: 69%;
+                        }
+                    }
+                }
+            }
+
+            .inputs {
+                .calculator {
+                    padding: 0;
+                }
+                height: 66.66%;
+                @include my-flex-row;
+
+                .input-row {
+                    margin: 0;
+                    height: 25%;
+
+                    ion-col {
+                        text-align: center;
+                        margin: 0;
+                        padding: 0;
+
+                        button {
+                            margin: 0;
+                            height: 100%;
+                            width: 100%;
+                            background-color: white;
+                            border-top: 1px solid $bms_slate;
+                            border-right: 1px solid $bms_slate;
+                            box-shadow: none;
+                            border-radius: 0;
+                            color: $bms_dark_grey;
+                        }
+                    }
+                }
+
+                .bottom-row {
+                    border-bottom: 1px solid $bms_slate;
+                }
+            }
+
+            .my-product-image-container {
+                height: 100%;
+
+                .my-product-image {
+                    height: 100%;
+                }
+            }
+
+            .items-list-container {
+                text-align: center;
+                height: 80%;
+
+                .row-1 {
+                    text-align: center;
+                    display: flex;
+                    align-items: center;
+                    font-size: 30px;
+                    font-weight: bold;
+                }
+
+                .row-2 {
+                    height: 200px;
+                }
+
+                .header-row {
+                    font-weight: bold;
+                }
+
+                .test-column {
+                    text-align: center;
+                    font-size: 16px;
+                }
+
+                .items-list-container-table {
+                    font-size: 16px;
+                }
+            }
+
+            .subtotal-container {
+                height: 20%;
+                margin-bottom: 20px;
+
+                .row-sub {
+                    padding: 5px;
+                    height: 50%;
+                    text-align: center;
+                    font-size: 16px;
+                }
+
+                .row-btns {
+                    height: 50%;
+                }
+
+                .bottom-col {
+                    padding: 2px;
+                    text-align: center;
+                }
+
+                .col-clear {
+                    padding: 2px;
+                    text-align: center;
+                }
+
+                .col-checkout {
+                    text-align: center;
+                    background-color: $bms_dark_blue;
+                    color: $bms_white;
+                    @include my-flex-column;
+                }
+            }
         }
-      }
     }
-  }
 
-  .hiddenLogoutAction, .hiddenSyncAction {
-    position: absolute;
-    right: 0;
-    z-index: -1;
-    opacity: 0;
-    background: none;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    top: 25%;
-    transition: all 1s ease-out
-  }
+    .hiddenLogoutAction,
+    .hiddenSyncAction {
+        position: absolute;
+        right: 0;
+        z-index: -1;
+        opacity: 0;
+        background: none;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        top: 25%;
+        transition: all 1s ease-out;
+    }
 
-  .visibleLogoutAction, .visibleSyncAction {
-    position: absolute;
-    z-index: 1;
-    opacity: 1;
-    background: none;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    top: 25%;
-    transition: all 1s ease-out
+    .visibleLogoutAction,
+    .visibleSyncAction {
+        position: absolute;
+        z-index: 1;
+        opacity: 1;
+        background: none;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        top: 25%;
+        transition: all 1s ease-out;
+    }
 
-  }
+    .visibleLogoutAction {
+        right: 7%;
+    }
 
-  .visibleLogoutAction {
-    right: 7%;
-  }
+    .visibleSyncAction {
+        right: 16%;
+    }
 
-  .visibleSyncAction {
-    right: 16%;
-  }
+    .error-message {
+        color: $bms_red;
+        text-align: center;
+        margin-bottom: 0;
+        margin-top: 0;
+    }
 
-  .error-message {
-    color: $bms_red;
-    text-align: center;
-    margin-bottom: 0;
-    margin-top: 0;
-  }
+    .success-message {
+        color: $bms_green;
+        text-align: center;
+        margin-bottom: 1px;
+        margin-top: 1px;
+    }
 
-  .success-message {
-    color: $bms_green;
-    text-align: center;
-    margin-bottom: 1px;
-    margin-top: 1px;
-  }
-
-  .scroll-content {
-    padding-top: 5px;
-  }
+    .scroll-content {
+        padding-top: 5px;
+    }
 }

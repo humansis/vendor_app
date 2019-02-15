@@ -13,12 +13,17 @@ import { ProductsPage } from '../pages/products/products';
 import { ConfirmationModal } from '../pages/confirmation-modal/confirmation-modal';
 import { FormModal } from '../pages/form-modal/form-modal';
 
+// Components
+import { HeaderComponent } from '../components/header/header';
+
 // Plugins
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatButtonModule, MatSelectModule } from '@angular/material';
 import { LoginProvider } from '../providers/login/login';
+
+// Material
+import { MatButtonModule, MatSelectModule } from '@angular/material';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { VoucherProvider } from '../providers/voucher/voucher';
@@ -34,7 +39,10 @@ import { IonicStorageModule } from '@ionic/storage';
     ProductsPage,
     LoginPage,
     ConfirmationModal,
-    FormModal
+    FormModal,
+    
+    // Components
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

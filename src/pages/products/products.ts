@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ScanPage } from '../scan/scan';
 import { VoucherProvider } from '../../providers/voucher/voucher';
-import { LoginPage } from '../login/login'
-import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the ProductsPage page.
@@ -106,15 +104,11 @@ export class ProductsPage {
   public total: number = 0;
   public isClicked = 'white';
   public typing = 'quantity';
-  public showHeaderActions = false;
-  public errorMessage: string = '';
-  public successMessage: string = '';
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public voucherProvider: VoucherProvider,
-    private storage: Storage,
     ) {
   }
 
@@ -191,35 +185,5 @@ export class ProductsPage {
   clearItemList() {
     this.allChosenProducts = [];
     this.total = 0;
-  }
-
-  toggleHeaderActions() {
-    this.showHeaderActions = !this.showHeaderActions
-  }
-
-  logout() {
-    this.storage.get('vouchers').then(vouchers => {
-      if (vouchers !== null && vouchers.length > 0 ) {
-        this.errorMessage = 'You need to sync your data before loging out'
-        setTimeout(() => { this.errorMessage = '' }, 3000);
-      } else {
-        this.storage.set('vendor', null)
-        this.navCtrl.setRoot(LoginPage);
-      }
-    })
-  }
-
-  sync() {
-    this.storage.get('vouchers').then(vouchers => {
-      if (vouchers == null || vouchers.length === 0) {
-        this.successMessage = 'Your are already up to date'
-        setTimeout(() => { this.successMessage = '' }, 30000);
-      } else {
-        // Send the vouchers to the back
-        this.storage.set('vouchers', [])
-        this.successMessage = 'Data has been synced'
-        setTimeout(() => { this.successMessage = '' }, 3000);
-      }
-    })
   }
 }
