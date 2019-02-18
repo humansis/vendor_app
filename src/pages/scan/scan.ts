@@ -143,7 +143,8 @@ export class ScanPage {
           price: this.price$.getValue(),
           currency: scannedCodeInfo[1],
           value: parseInt(scannedCodeInfo[2]),
-          booklet: scannedCodeInfo[3]
+          booklet: scannedCodeInfo[3],
+          used_at: new Date()
         })
         let scannedCodeValue = scannedCodeInfo[2]
         this.vouchersTotalValue += parseInt(scannedCodeValue)

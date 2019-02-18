@@ -8,4 +8,5 @@ export class Voucher {
     currency: string;
     value: number;
     booklet: string;
+    used_at: Date;
 }
