@@ -45,16 +45,14 @@ export class HeaderComponent {
 	sync() {
 		this.storage.get('vouchers').then(vouchers => {
 			this.storage.get('deactivatedBooklets').then(booklets => {
-				if ((vouchers == null || vouchers.length === 0) && (booklets === null || booklets.length === 0) ) {
-					let alert = this.alertCtrl.create({
-						title: 'Sync',
-						subTitle: 'You are already up to date',
-						buttons: ['OK']
-					  });
-					alert.present();
-				} else {
-					this.syncProvider.sync(vouchers, booklets).then(success => {
+					this.syncProvider.sync(vouchers, booklets).then(deactivatedBooklets => {
 						this.storage.set('vouchers', [])
+						let deactivatedBookletIds = []
+						console.log(deactivatedBooklets)
+						deactivatedBooklets.forEach(booklet => {
+							deactivatedBookletIds.push(booklet['id'])
+						})
+						this.storage.set('deactivatedBooklets', deactivatedBookletIds)
 						let alert = this.alertCtrl.create({
 							title: 'Sync',
 							subTitle: 'Data has been successfully sync',
@@ -69,8 +67,6 @@ export class HeaderComponent {
 						  });
 						alert.present();
 					})
-					
-				}
 			})
 		})
 	}

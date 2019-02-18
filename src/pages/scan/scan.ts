@@ -66,7 +66,7 @@ export class ScanPage {
       // all the logic can be moved in here when the scan can be tested
     })
     // meanwhile... (to test, the encoded password is 'secret-password')
-    scannedCode = 'USD140#096-098-097-1-avPBIe1KdSk2wpfN37ewA5TqvxA=' // to delete after
+    scannedCode = 'USD140#096-098-098-1-avPBIe1KdSk2wpfN37ewA5TqvxA=' // to delete after
 
     if (this.ifHasNoPasswordGetInfo(scannedCode)) {
       this.handleScannedCode(scannedCode, this.ifHasNoPasswordGetInfo(scannedCode))
@@ -123,7 +123,7 @@ export class ScanPage {
         this.errorMessage = 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?'
       }
       let previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null
-      previousBooklet = '096-098-097' // to delete after
+      previousBooklet = '096-098-096' // to delete after
       let newBooklet = scannedCodeInfo[3]
 
       this.storage.get("deactivatedBooklets").then(deactivatedBooklets => {
