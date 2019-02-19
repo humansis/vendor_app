@@ -13,11 +13,11 @@ export class SyncProvider {
   URL_BMS_API: string = process.env.URL_BMS_API;
 
   sync(vouchers: Voucher[], booklets: string[]) {
-    return new Promise<object[]>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.sendVouchers(vouchers).subscribe((response) => {
         this.sendBooklets(booklets).subscribe((response) => {
-          this.getDeactivatedBooklets().subscribe(booklets => {
-            resolve(booklets)
+          this.getDeactivatedBooklets().then(success => {
+            resolve(success)
           }), error => {
             reject(error)
           }
@@ -39,6 +39,17 @@ export class SyncProvider {
   }
 
   getDeactivatedBooklets() {
-    return this.http.get<Array<object>>(this.URL_BMS_API + '/deactivated-booklets')
+    return new Promise((resolve, reject) => {
+      this.http.get<Array<object>>(this.URL_BMS_API + '/deactivated-booklets').subscribe(deactivatedBooklets => {
+        let deactivatedBookletIds = []
+        deactivatedBooklets.forEach(booklet => {
+          deactivatedBookletIds.push(booklet['id'])
+        })
+        this.storage.set('deactivatedBooklets', deactivatedBookletIds)
+        resolve(deactivatedBooklets)
+      }, error => {
+        reject(error)
+      })
+    })
   }
 }

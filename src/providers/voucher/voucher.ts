@@ -4,12 +4,13 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Voucher } from '../../model/voucher'
 import { Storage } from '@ionic/storage';
 import { Product } from '../../model/product';
+import { ChosenProduct } from '../../model/chosenProduct';
 
 @Injectable()
 export class VoucherProvider {
 
   private price = new BehaviorSubject<number>(0);
-  private products = new BehaviorSubject<Product[]>([])
+  private chosenProducts = new BehaviorSubject<ChosenProduct[]>([])
 
   constructor(public http: HttpClient, private storage: Storage) {
   }
@@ -22,12 +23,12 @@ export class VoucherProvider {
     return this.price
   }
 
-  setProducts(products: Product[]): void {
-    this.products.next(products)
+  setChosenProducts(chosenProducts: ChosenProduct[]): void {
+    this.chosenProducts.next(chosenProducts)
   }
 
-  getProducts(): BehaviorSubject<Product[]> {
-    return this.products
+  getChosenProducts(): BehaviorSubject<ChosenProduct[]> {
+    return this.chosenProducts
   }
 
   scanVouchers(vouchers: Voucher[]): void {

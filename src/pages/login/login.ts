@@ -5,6 +5,7 @@ import { GlobalText } from '../../texts/global';
 import { ProductsPage } from '../products/products';
 import { LoginProvider } from '../../providers/login/login';
 import { AlertController } from 'ionic-angular';
+import { SyncProvider } from '../../providers/sync/sync';
 
 @Component({
   selector: 'page-login',
@@ -19,7 +20,8 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public loginProvider: LoginProvider,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private syncProvider: SyncProvider) {
   }
 
   ngOnInit() {
@@ -29,7 +31,17 @@ export class LoginPage {
 clickSubmit() {
   this.loader = true;
   this.loginProvider.login(this.vendor).then((vendor) => {
-    this.navCtrl.setRoot(ProductsPage);
+    this.syncProvider.getDeactivatedBooklets().then(success => {
+      this.navCtrl.setRoot(ProductsPage);
+    }), error => {
+      this.loader = false;
+      let alert = this.alertCtrl.create({
+        title: 'Login failed',
+        subTitle: 'There was a connection problem, please verify your connection and try again',
+        buttons: ['OK']
+        });
+      alert.present();
+    }
   }, error => {
     this.loader = false;
     let alert = this.alertCtrl.create({

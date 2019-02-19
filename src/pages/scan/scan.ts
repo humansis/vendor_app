@@ -10,6 +10,7 @@ import { Product } from '../../model/product'
 import { ProductsPage } from '../products/products';
 import { ConfirmationModal } from '../confirmation-modal/confirmation-modal';
 import { FormModal } from '../form-modal/form-modal';
+import { ChosenProduct } from '../../model/chosenProduct';
 
 
 @IonicPage()
@@ -22,11 +23,10 @@ export class ScanPage {
   vouchers: Array<Voucher> = [];
   vouchersTotalValue: number = 0;
   price$: BehaviorSubject<number>;
-  products$: BehaviorSubject<Product[]>;
+  chosenProducts$: BehaviorSubject<ChosenProduct[]>;
   errorMessage: string = '';
   successMessage: string = '';
   vendor: Vendor;
-  productIds: number[] = [];
   scanDisabled: boolean = false;
 
   constructor(
@@ -41,16 +41,13 @@ export class ScanPage {
 
   ngOnInit() {
     this.price$ = this.voucherProvider.getPrice()
-    this.products$ = this.voucherProvider.getProducts()
+    this.chosenProducts$ = this.voucherProvider.getChosenProducts()
     this.price$.subscribe(price => {})
-    this.products$.subscribe(products => { 
+    this.chosenProducts$.subscribe(products => { 
       if (products.length <= 0) {
         this.scanDisabled = true
         this.errorMessage = 'You haven\'t selected any product, please go back to the previous page.'
       }
-      products.forEach(product => {
-        this.productIds.push(product.id)
-      })
     })
     this.storage.get('vendor').then(vendor => {
       this.vendor = vendor
@@ -66,7 +63,7 @@ export class ScanPage {
       // all the logic can be moved in here when the scan can be tested
     })
     // meanwhile... (to test, the encoded password is 'secret-password')
-    scannedCode = 'USD140#096-098-098-1-avPBIe1KdSk2wpfN37ewA5TqvxA=' // to delete after
+    scannedCode = 'USD140#096-098-096-1-avPBIe1KdSk2wpfN37ewA5TqvxA=' // to delete after
 
     if (this.ifHasNoPasswordGetInfo(scannedCode)) {
       this.handleScannedCode(scannedCode, this.ifHasNoPasswordGetInfo(scannedCode))
@@ -139,7 +136,7 @@ export class ScanPage {
           id: scannedCodeInfo[4],
           qrCode: scannedCode,
           vendorId: this.vendor.id,
-          productIds: this.productIds,
+          products: this.chosenProducts$.getValue(),
           price: this.price$.getValue(),
           currency: scannedCodeInfo[1],
           value: parseInt(scannedCodeInfo[2]),
@@ -161,8 +158,8 @@ export class ScanPage {
 
   setMessageSuccess(currency : string) {
     let productsList = ""
-      this.products$.getValue().forEach(product => {
-        productsList += product.quantity + " " + product.name + ", "
+      this.chosenProducts$.getValue().forEach(product => {
+        productsList += product.quantity + " " + product.product.name + ", "
       })
       let vouchersList = ""
       this.vouchers.forEach(voucher => {
@@ -239,7 +236,7 @@ export class ScanPage {
     this.vouchers = []
     this.vouchersTotalValue = 0;
     this.voucherProvider.setPrice(null)
-    this.voucherProvider.setProducts([])
+    this.voucherProvider.setChosenProducts([])
     this.navCtrl.push(ProductsPage);
   }
 }

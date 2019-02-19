@@ -50,13 +50,8 @@ export class HeaderComponent {
 		this.presentLoading()
 		this.storage.get('vouchers').then(vouchers => {
 			this.storage.get('deactivatedBooklets').then(booklets => {
-					this.syncProvider.sync(vouchers, booklets).then(deactivatedBooklets => {
+					this.syncProvider.sync(vouchers, booklets).then(success => {
 						this.storage.set('vouchers', [])
-						let deactivatedBookletIds = []
-						deactivatedBooklets.forEach(booklet => {
-							deactivatedBookletIds.push(booklet['id'])
-						})
-						this.storage.set('deactivatedBooklets', deactivatedBookletIds)
 						this.loading.dismiss();
 						let alert = this.alertCtrl.create({
 							title: 'Sync',
