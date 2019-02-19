@@ -1,0 +1,18 @@
+calculator {
+    .calculator-row {
+        display: flex;
+        margin: 5px;
+        justify-content: space-between;
+        width: 100%;
+        
+        .mat-stroked-button {
+            min-width: unset !important;
+            width: 78px;
+            line-height: 30px;
+            
+            .material-icons {
+                vertical-align: middle;
+            }
+        }
+    }
+}

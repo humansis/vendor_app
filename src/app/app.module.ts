@@ -14,7 +14,7 @@ import { ConfirmationModal } from '../pages/confirmation-modal/confirmation-moda
 import { FormModal } from '../pages/form-modal/form-modal';
 
 // Components
-import { HeaderComponent } from '../components/header/header';
+import { ComponentsModule } from '../components/components.module';
 
 // Plugins
 import { NgxQRCodeModule } from 'ngx-qrcode2';
@@ -23,7 +23,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { LoginProvider } from '../providers/login/login';
 
 // Material
-import { MatButtonModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule, MatSelectModule, MatSidenavModule, MatInputModule, MatListModule } from '@angular/material';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { VoucherProvider } from '../providers/voucher/voucher';
@@ -40,9 +40,6 @@ import { IonicStorageModule } from '@ionic/storage';
     LoginPage,
     ConfirmationModal,
     FormModal,
-    
-    // Components
-    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -51,8 +48,12 @@ import { IonicStorageModule } from '@ionic/storage';
     BrowserAnimationsModule,
     MatButtonModule,
     MatSelectModule,
+    MatSidenavModule,
+    MatInputModule,
+    MatListModule,
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

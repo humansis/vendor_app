@@ -1,5 +1,5 @@
-@import "../../assets/css/variable.scss";
-@import "../../assets/css/classes.scss";
+@import "../../theme/mixins.scss";
+@import "../../theme/variables.scss";
 
 page-login {
   background: url("../../assets/imgs/login_page.jpg");

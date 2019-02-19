@@ -1,169 +1,89 @@
 <ion-header>
     <header [title]="'Select Products'"></header>
 </ion-header>
-<ion-content padding>
-    <p *ngIf="errorMessage !== ''" class="error-message">{{ errorMessage }}</p>
-    <p *ngIf="successMessage !== ''" class="success-message">{{ successMessage }}</p>
-    <div class="page-content">
-        <div class="products-container">
+
+<ion-content>
+    <mat-drawer-container>
+        <mat-drawer-content>
             <div class="product" *ngFor="let product of products" [ngClass]="{
-          selected: selectedProduct === product.id,
-          unselected: selectedProduct !== undefined && selectedProduct !== null && selectedProduct !== product.id,
-          product: selectedProduct === undefined || selectedProduct === null
-        }"
-                (click)="selectProduct(product)">
-                <p class="product-name">{{ product.name }}</p>
-                <img class="product-image" src="{{ product.image }}" />
+              unselected: selectedProduct && selectedProduct !== product}" (click)="selectProduct(product); animateDrawer(drawer)">
+                <ion-chip color="primary">
+                    <ion-label>{{ product.name }}</ion-label>
+                </ion-chip>
+                <img src="{{ product.image }}" />
             </div>
-        </div>
-        <div class="fields-container" *ngIf="!isItemSelected">
-            <div class="items-list-container">
-                <ion-row class="row-1">
-                    <ion-label>Selected Items</ion-label>
-                </ion-row>
-                <div class="items-list-container-table" *ngIf="allChosenProducts.length > 0">
-                    <ion-row class="header-row">
-                        <ion-col>Item</ion-col>
-                        <ion-col>Unit Price</ion-col>
-                        <ion-col>Quantity</ion-col>
-                        <ion-col>Subtotal</ion-col>
-                    </ion-row>
-                    <ion-row *ngFor="let item of allChosenProducts">
-                        <ion-col>{{ item.product.name }}</ion-col>
-                        <ion-col>{{ item.product.price }}</ion-col>
-                        <ion-col>{{ item.quantity }}</ion-col>
-                        <ion-col>{{ item.subTotal }}</ion-col>
-                    </ion-row>
+        </mat-drawer-content>
+
+        <mat-drawer #drawer mode="side" position="end" opened>
+            <div *ngIf="!isItemSelected">
+                <div class="items-list">
+                    <h5>Selected Items</h5>
+                    <div *ngIf="allChosenProducts.length > 0">
+                        <mat-list>
+                            <mat-list-item *ngFor="let item of allChosenProducts">
+                                <img mat-list-icon src="{{item.product.image}}" />
+                                <h6 mat-line>{{item.product.name | titlecase}}</h6>
+                                <p mat-line>{{item.quantity}} {{item.product.unit}}</p>
+                                <span>{{item.subTotal}}</span>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <mat-list-item>
+                                <i mat-list-icon class="material-icons">shopping_cart</i>
+                                <h6 mat-line>Total</h6>
+                                <span>{{total}}</span>
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                    <div *ngIf="allChosenProducts.length == 0" class="no-product-chip">
+                        <ion-chip color="danger">
+                            <i class="material-icons">remove_shopping_cart</i>
+                            <ion-label>No items selected</ion-label>
+                        </ion-chip>
+                    </div>
                 </div>
-                <ion-row *ngIf="allChosenProducts.length == 0" class="row-2">
+                <div class="buttons-container">
+                    <button mat-raised-button class="background-red" (click)="clearItemList()">
+                        <i class="material-icons">clear</i>
+                        Clear
+                    </button>
+                    <button mat-raised-button class="background-green" (click)="goToScanPage()">
+                        <i class="material-icons">check</i>
+                        Checkout
+                    </button>
+                </div>
+            </div>
+
+            <div *ngIf="isItemSelected">
+                <div class="selected-product">
                     <ion-grid>
                         <ion-row>
-                            <ion-col class="test-column">No Item Selected</ion-col>
+                            <ion-col class="product-name">
+                                <h5>{{ selectedProduct.name | titlecase }}</h5>
+                            </ion-col>
+                            <ion-col col-3 class="product-image">
+                                <img src="{{ selectedProduct.image }}" />
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <form>
+                                <mat-form-field class="product-form-item" [ngClass]="{'focused': typing == 'quantity'}">
+                                    <i class="material-icons" matPrefix>shopping_cart</i>
+                                    <input type="number" matInput placeholder="Quantity" readonly [value]="quantity" (click)="typing = 'quantity'">
+                                    <span matSuffix>{{ selectedProduct.unit }}</span>
+                                </mat-form-field>
+                                <mat-form-field class="product-form-item" [ngClass]="{'focused': typing == 'price'}">
+                                    <i class="material-icons" matPrefix>monetization_on</i>
+                                    <input type="number" matInput placeholder="Unit Price" readonly [value]="price" (click)="typing = 'price'">
+                                </mat-form-field>
+                            </form>
                         </ion-row>
                     </ion-grid>
-                </ion-row>
+                </div>
+                <div class="number-input">
+                    <calculator *ngIf="typing == 'quantity'" [(value)]="quantity" (addToBasketEvent)="addToBasket()"></calculator>
+                    <calculator *ngIf="typing == 'price'" [(value)]="price" (addToBasketEvent)="addToBasket()"></calculator>
+                </div>
             </div>
-            <div class="subtotal-container">
-                <ion-row>
-                    <ion-col class="row-sub">
-                        Total : {{ total }}
-                    </ion-col>
-                </ion-row>
-                <ion-row class="row-btns">
-                    <ion-col class="col-clear">
-                        <button ion-button icon-left class="background-red" (click)="clearItemList()">
-                            <i class="material-icons">remove_shopping_cart</i>
-                            Clear
-                        </button>
-                    </ion-col>
-                    <ion-col class="col-clear">
-                        <button ion-button icon-left class="background-green" (click)="goToScanPage()">
-                            <i class="material-icons">add_shopping_cart</i>
-                            Checkout
-                        </button>
-                    </ion-col>
-                </ion-row>
-            </div>
-        </div>
-        <div class="fields-container" *ngIf="isItemSelected">
-            <div class="fields">
-                <ion-grid>
-                    <ion-row class="row-my-product">
-                        <ion-col>
-                            <ion-row class="field-input my-product-name">
-                                <ion-col>{{ myproduct.name | uppercase }}</ion-col>
-                            </ion-row>
-                            <ion-row class="field-input">
-                                <ion-col>Quantity:</ion-col>
-                                <ion-col [ngClass]="{ selected_input: typing === 'quantity'}" (click)="typing = 'quantity'">
-                                    {{ quantity }}
-                                </ion-col>
-                            </ion-row>
-                            <ion-row class="field-input">
-                                <ion-col>Unit&nbsp;price:</ion-col>
-                                <ion-col [ngClass]="{ selected_input: typing === 'price'}" (click)="typing = 'price'">
-                                    {{ myproduct.price }}
-                                </ion-col>
-                            </ion-row>
-                        </ion-col>
-                        <ion-col width-67 class="my-product-image-container">
-                            <img class="my-product-image" src="{{ myproduct.image }}" />
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </div>
-            <div class="inputs">
-                <ion-grid class="calculator">
-                    <ion-row class="input-row">
-                        <ion-col>
-                            <button ion-button (click)="clickOnNumber(1, myproduct.id)">
-                                1
-                            </button>
-                        </ion-col>
-                        <ion-col>
-                            <button ion-button (click)="clickOnNumber(2, myproduct.id)">
-                                2
-                            </button>
-                        </ion-col>
-                        <ion-col>
-                            <button ion-button (click)="clickOnNumber(3, myproduct.id)">
-                                3
-                            </button>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row class="input-row">
-                        <ion-col>
-                            <button ion-button (click)="clickOnNumber(4, myproduct.id)">
-                                4
-                            </button>
-                        </ion-col>
-                        <ion-col>
-                            <button ion-button (click)="clickOnNumber(5, myproduct.id)">
-                                5
-                            </button>
-                        </ion-col>
-                        <ion-col>
-                            <button ion-button (click)="clickOnNumber(6, myproduct.id)">
-                                6
-                            </button>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row class="input-row">
-                        <ion-col>
-                            <button ion-button (click)="clickOnNumber(7, myproduct.id)">
-                                7
-                            </button>
-                        </ion-col>
-                        <ion-col>
-                            <button ion-button (click)="clickOnNumber(8, myproduct.id)">
-                                8
-                            </button>
-                        </ion-col>
-                        <ion-col>
-                            <button ion-button (click)="clickOnNumber(9, myproduct.id)">
-                                9
-                            </button>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row class="input-row bottom-row">
-                        <ion-col>
-                            <button class="delete" ion-button (click)="backspace()">
-                                Cancel
-                            </button>
-                        </ion-col>
-                        <ion-col>
-                            <button ion-button (click)="clickOnNumber(0, myproduct.id)">
-                                0
-                            </button>
-                        </ion-col>
-                        <ion-col>
-                            <button class="add" ion-button (click)="addToBasket(myproduct)">
-                                Add
-                            </button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </div>
-        </div>
-    </div>
+        </mat-drawer>
+    </mat-drawer-container>
 </ion-content>
