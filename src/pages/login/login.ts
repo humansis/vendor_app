@@ -32,7 +32,17 @@ clickSubmit() {
   this.loader = true;
   this.loginProvider.login(this.vendor).then((vendor) => {
     this.syncProvider.getDeactivatedBooklets().then(success => {
-      this.navCtrl.setRoot(ProductsPage);
+      this.syncProvider.getProductsFromApi().then(success => {
+        this.navCtrl.setRoot(ProductsPage);
+      }, error => {
+        this.loader = false;
+        let alert = this.alertCtrl.create({
+          title: 'Login failed',
+          subTitle: 'There was a connection problem, please verify your connection and try again',
+          buttons: ['OK']
+          });
+        alert.present();
+      })
     }), error => {
       this.loader = false;
       let alert = this.alertCtrl.create({
