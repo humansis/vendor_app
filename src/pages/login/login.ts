@@ -35,22 +35,10 @@ clickSubmit() {
       this.syncProvider.getProductsFromApi().then(success => {
         this.navCtrl.setRoot(ProductsPage);
       }, error => {
-        this.loader = false;
-        let alert = this.alertCtrl.create({
-          title: 'Login failed',
-          subTitle: 'There was a connection problem, please verify your connection and try again',
-          buttons: ['OK']
-          });
-        alert.present();
+        this.connectionError()
       })
     }), error => {
-      this.loader = false;
-      let alert = this.alertCtrl.create({
-        title: 'Login failed',
-        subTitle: 'There was a connection problem, please verify your connection and try again',
-        buttons: ['OK']
-        });
-      alert.present();
+      this.connectionError()
     }
   }, error => {
     this.loader = false;
@@ -61,6 +49,16 @@ clickSubmit() {
       });
     alert.present();
   })
+}
+
+connectionError() {
+  this.loader = false;
+  let alert = this.alertCtrl.create({
+    title: 'Login failed',
+    subTitle: 'There was a connection problem, please verify your connection and try again',
+    buttons: ['OK']
+    });
+  alert.present();
 }
 
 blankUser() {
