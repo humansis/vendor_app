@@ -1,16 +1,20 @@
  @import '../../assets/css/variable.scss';
  
  header {
-     height: 50px;
+     height: 40px;
+
+     .toolbar-ios {
+        min-height: auto ;
+     }
      
      ion-navbar {
+         height: 100%;
          background-color: $bms_black;
          color: $bms_white;
          display: flex;
          justify-content: space-between;
          padding: 5px;
          box-shadow: $bms_shadow;
-         height: 100%;
          
          .toolbar-background {
              background: unset;

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Modal } from 'ionic-angular';
-
-// Plugins
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { VoucherProvider } from '../../providers/voucher/voucher';
@@ -12,14 +10,8 @@ import { Product } from '../../model/product'
 import { ProductsPage } from '../products/products';
 import { ConfirmationModal } from '../confirmation-modal/confirmation-modal';
 import { FormModal } from '../form-modal/form-modal';
+import { ChosenProduct } from '../../model/chosenProduct';
 
-
-/**
- * Generated class for the ScanPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -28,16 +20,13 @@ import { FormModal } from '../form-modal/form-modal';
 })
 export class ScanPage {
 
-  // qrData: any = null;
-  // createdCode: any = null;
   vouchers: Array<Voucher> = [];
   vouchersTotalValue: number = 0;
   price$: BehaviorSubject<number>;
-  products$: BehaviorSubject<Product[]>;
+  chosenProducts$: BehaviorSubject<ChosenProduct[]>;
   errorMessage: string = '';
   successMessage: string = '';
   vendor: Vendor;
-  productIds: number[] = [];
   scanDisabled: boolean = false;
 
   constructor(
@@ -52,16 +41,13 @@ export class ScanPage {
 
   ngOnInit() {
     this.price$ = this.voucherProvider.getPrice()
-    this.products$ = this.voucherProvider.getProducts()
+    this.chosenProducts$ = this.voucherProvider.getChosenProducts()
     this.price$.subscribe(price => {})
-    this.products$.subscribe(products => { 
+    this.chosenProducts$.subscribe(products => { 
       if (products.length <= 0) {
         this.scanDisabled = true
         this.errorMessage = 'You haven\'t selected any product, please go back to the previous page.'
       }
-      products.forEach(product => {
-        this.productIds.push(product.id)
-      })
     })
     this.storage.get('vendor').then(vendor => {
       this.vendor = vendor
@@ -77,7 +63,7 @@ export class ScanPage {
       // all the logic can be moved in here when the scan can be tested
     })
     // meanwhile... (to test, the encoded password is 'secret-password')
-    scannedCode = 'USD140#096-098-097-2d8b4-avPBIe1KdSk2wpfN37ewA5TqvxA=' // to delete after
+    scannedCode = 'USD140#096-098-096-1-avPBIe1KdSk2wpfN37ewA5TqvxA=' // to delete after
 
     if (this.ifHasNoPasswordGetInfo(scannedCode)) {
       this.handleScannedCode(scannedCode, this.ifHasNoPasswordGetInfo(scannedCode))
@@ -92,6 +78,10 @@ export class ScanPage {
       scannedCodeInfo = scannedCode.match(/^([A-Z]+)(\d+)#([\d]..-[\d]..-[\d]..)-([\da-z]+)$/i)
       return scannedCodeInfo
     }
+  }
+
+  getBookletIdFromCode(booklet: string) : number {
+    return parseInt(booklet.split('-').pop())
   }
 
   openPasswordModal(scannedCode : string, scannedCodeInfo : string[]) {
@@ -115,7 +105,7 @@ export class ScanPage {
       } else {
         this.storage.get("deactivatedBooklets").then(cacheBooklets => {
           let alreadyStoredBooklets = cacheBooklets || [];
-          alreadyStoredBooklets.push(scannedCodeInfo[3])
+          alreadyStoredBooklets.push(this.getBookletIdFromCode(scannedCodeInfo[3]))
           this.storage.set("deactivatedBooklets", alreadyStoredBooklets)
         });
         this.errorMessage = 'You have exceeded your tries at password, your booklet will be deactivated'
@@ -130,11 +120,11 @@ export class ScanPage {
         this.errorMessage = 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?'
       }
       let previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null
-      previousBooklet = '096-098-097' // to delete after
+      previousBooklet = '096-098-096' // to delete after
       let newBooklet = scannedCodeInfo[3]
 
       this.storage.get("deactivatedBooklets").then(deactivatedBooklets => {
-        if (deactivatedBooklets && deactivatedBooklets.includes(newBooklet)) {
+        if (deactivatedBooklets && deactivatedBooklets.includes(this.getBookletIdFromCode(newBooklet))) {
           this.errorMessage = 'You cannot use this booklet because it has previously been deactivated.'
           return
         }
@@ -142,15 +132,21 @@ export class ScanPage {
           this.openDifferentBookletModal()
           return
         }
+
+        let productIds = [];
+        this.chosenProducts$.getValue().forEach(chosenPoduct => {
+          productIds.push(chosenPoduct.product.id)
+        })
         this.vouchers.push({
           id: scannedCodeInfo[4],
           qrCode: scannedCode,
           vendorId: this.vendor.id,
-          productIds: this.productIds,
+          productIds: productIds,
           price: this.price$.getValue(),
           currency: scannedCodeInfo[1],
           value: parseInt(scannedCodeInfo[2]),
-          booklet: scannedCodeInfo[3]
+          booklet: scannedCodeInfo[3],
+          used_at: new Date()
         })
         let scannedCodeValue = scannedCodeInfo[2]
         this.vouchersTotalValue += parseInt(scannedCodeValue)
@@ -167,8 +163,10 @@ export class ScanPage {
 
   setMessageSuccess(currency : string) {
     let productsList = ""
-      this.products$.getValue().forEach(product => {
-        productsList += product.quantity + " " + product.name + ", "
+      this.chosenProducts$.getValue().forEach(product => {
+        productsList += product.quantity +
+          (product.product.unit !== 'Unit' ? product.product.unit + " of " : " ") +
+          product.product.name + ", "
       })
       let vouchersList = ""
       this.vouchers.forEach(voucher => {
@@ -245,7 +243,7 @@ export class ScanPage {
     this.vouchers = []
     this.vouchersTotalValue = 0;
     this.voucherProvider.setPrice(null)
-    this.voucherProvider.setProducts([])
+    this.voucherProvider.setChosenProducts([])
     this.navCtrl.push(ProductsPage);
   }
 }

@@ -5,47 +5,52 @@ import * as CryptoJS from 'crypto-js';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
+import { SaltInterface } from '../../model/salt';
 
-/*
-  Generated class for the LoginProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
-
-const URL_BMS_API = 'http://0.0.0.0:8087/api/wsse';
 
 @Injectable()
 export class LoginProvider {
 
   private vendor = new Vendor;
+  URL_BMS_API: string = process.env.URL_BMS_API;
 
   constructor(public http: HttpClient, private storage: Storage) {
   }
 
-  requestSalt(username: string) : Observable<string> {
-    return this.http.get<string>(URL_BMS_API + '/salt/' + username);
+  requestSalt(username: string): Observable<SaltInterface> {
+    return this.http.get<SaltInterface>(this.URL_BMS_API + '/salt/' + username);
   }
 
-  login(vendor: Vendor) : void {
-    // this.requestSalt(vendor.username).subscribe(success => {
-    //   let getSalt = success;
-    //   vendor.salted_password = this.saltPassword(getSalt, vendor.password);
-    //   delete vendor.password;
-    //   return this.http.post(URL_BMS_API + '/login_app', vendor).subscribe(success => {
-    //     let data = success;
-    //     if (data) {
-    //       this.vendor = data as Vendor
-    //     } else {
-    //         // Bad credentials
-    //     };
-    //   console.log(this.vendor)
-    //   return 'done';
-    //   })
-    // })
-  this.vendor.id = '1'
-  this.storage.set('vendor', this.vendor)
-}
+  logUser(vendor: Vendor) {
+    return this.http.post(this.URL_BMS_API + '/login_app', vendor)
+  }
+
+  login(vendor: Vendor) {
+    return new Promise<Vendor | string | null>((resolve, reject) => {
+      this.requestSalt(vendor.username).subscribe(success => {
+        let getSalt = success as SaltInterface;
+        vendor.salted_password = this.saltPassword(getSalt.salt, vendor.password);
+        delete vendor.password;
+        return this.logUser(vendor).subscribe(success => {
+          let data = success;
+          if (data) {
+            this.vendor = data as Vendor
+            this.vendor.salted_password = vendor.salted_password
+            this.vendor.loggedIn = true
+            this.storage.set('vendor', this.vendor)
+            resolve(this.vendor);
+          } else {
+            reject('Bad credentials')
+          };
+        
+        }, error => {
+          reject(this.handleError(error) || 'Bad credentials')
+        })
+      }, error => {
+        reject(this.handleError(error) || 'Bad credentials')
+      })
+    })
+  }
 
   saltPassword(salt: string, password: string) : string {
 		let salted = password + '{' + salt + '}';
@@ -58,8 +63,19 @@ export class LoginProvider {
 		let saltedPassword = CryptoJS.enc.Base64.stringify(digest);
 		return saltedPassword;
   }
-  
-  // add password forgotten
-  // add recaptcha ?
 
+  handleError(error) {
+    if (error.error) {
+      if (typeof error.error === "string") {
+        return error.error
+      }
+      else if (error.error[0]) {
+        return error.error[0]
+      } else {
+        return null
+      }
+    } else {
+      return null
+    }
+  }
 }

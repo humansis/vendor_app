@@ -2,6 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { NavController } from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
+import { SyncProvider } from '../../providers/sync/sync';
+import { AlertController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the HeaderComponent component.
@@ -16,19 +19,26 @@ import { LoginPage } from '../../pages/login/login';
 export class HeaderComponent {
 
 	@Input() title: string;
-    public errorMessage: string = '';
-    public successMessage: string = '';
+
+	loading: any;
 
 	constructor(
         public navCtrl: NavController,
-        private storage: Storage) {
+		private storage: Storage,
+		private syncProvider: SyncProvider,
+		private alertCtrl: AlertController,
+		public loadingController: LoadingController) {
 	}
 
 	logout() {
 		this.storage.get('vouchers').then(vouchers => {
 			if (vouchers !== null && vouchers.length > 0) {
-				this.errorMessage = 'You need to sync your data before loging out'
-				setTimeout(() => { this.errorMessage = '' }, 3000);
+				let alert = this.alertCtrl.create({
+					title: 'Logout',
+					subTitle: 'You need to sync your data before loging out',
+					buttons: ['OK']
+				  });
+				alert.present();
 			} else {
 				this.storage.set('vendor', null)
 				this.navCtrl.setRoot(LoginPage);
@@ -37,17 +47,37 @@ export class HeaderComponent {
 	}
 
 	sync() {
+		this.presentLoading()
 		this.storage.get('vouchers').then(vouchers => {
-			if (vouchers == null || vouchers.length === 0) {
-				this.successMessage = 'Your are already up to date'
-				setTimeout(() => { this.successMessage = '' }, 30000);
-			} else {
-				// Send the vouchers to the back
-				this.storage.set('vouchers', [])
-				this.successMessage = 'Data has been synced'
-				setTimeout(() => { this.successMessage = '' }, 3000);
-			}
+			this.storage.get('deactivatedBooklets').then(booklets => {
+					this.syncProvider.sync(vouchers, booklets).then(success => {
+						this.storage.set('vouchers', [])
+						this.loading.dismiss();
+						let alert = this.alertCtrl.create({
+							title: 'Sync',
+							subTitle: 'Data has been successfully sync',
+							buttons: ['OK']
+						  });
+						alert.present();
+					}, error => {
+						this.loading.dismiss();
+						let alert = this.alertCtrl.create({
+							title: 'Sync',
+							subTitle: 'We were not able to sync you data, please verify your internet connection and retry.',
+							buttons: ['OK']
+						  });
+						alert.present();
+					})
+			})
 		})
 	}
 
+	async presentLoading() {
+	
+		this.loading = await this.loadingController.create({
+			spinner: 'crescent',
+			content: '<div>Please wait...</div>'
+		});
+		return await this.loading.present();
+	}
 }

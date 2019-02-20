@@ -28,6 +28,9 @@ import { MatButtonModule, MatSelectModule, MatSidenavModule, MatInputModule, Mat
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { VoucherProvider } from '../providers/voucher/voucher';
 import { IonicStorageModule } from '@ionic/storage';
+import { SyncProvider } from '../providers/sync/sync';
+import { WsseProvider } from '../providers/wsse/wsse';
+import { httpInterceptorProviders} from '../interceptors/index-interceptors';
 
 
 @NgModule({
@@ -70,11 +73,15 @@ import { IonicStorageModule } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    httpInterceptorProviders,
+
 
     // Plugins
     BarcodeScanner,
     LoginProvider,
-    VoucherProvider
+    VoucherProvider,
+    SyncProvider,
+    WsseProvider
   ]
 })
 export class AppModule {}

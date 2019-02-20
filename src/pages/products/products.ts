@@ -105,11 +105,7 @@ export class ProductsPage {
 
 	goToScanPage() {
 		this.voucherProvider.setPrice(this.total);
-		let products = [];
-		this.allChosenProducts.forEach(item => {
-			products.push(item.product);
-		})
-		this.voucherProvider.setProducts(products);
+		this.voucherProvider.setChosenProducts(this.allChosenProducts);
 		this.navCtrl.push(ScanPage);
 	}
 
@@ -132,12 +128,16 @@ export class ProductsPage {
     
 	addToBasket() {
         if (this.quantity && this.price) {
-            this.allChosenProducts.push({ product: this.selectedProduct, quantity: this.quantity, subTotal: this.price * this.quantity });
-            this.allChosenProducts.forEach(element => {
+            this.allChosenProducts.push({
+				product: this.selectedProduct,
+				quantity: this.quantity,
+				price: this.price,
+				subTotal: this.price * this.quantity
+			});
+    		this.allChosenProducts.forEach(element => {
                 this.total += element.subTotal
             });
         }
-        
         this.clearSelection();
 	}
     
