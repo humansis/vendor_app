@@ -60,6 +60,7 @@ export class HeaderComponent {
 						  });
 						alert.present();
 					}, error => {
+						this.loading.dismiss();
 						let alert = this.alertCtrl.create({
 							title: 'Sync',
 							subTitle: 'We were not able to sync you data, please verify your internet connection and retry.',

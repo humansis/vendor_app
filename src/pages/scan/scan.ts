@@ -132,11 +132,16 @@ export class ScanPage {
           this.openDifferentBookletModal()
           return
         }
+
+        let productIds = [];
+        this.chosenProducts$.getValue().forEach(chosenPoduct => {
+          productIds.push(chosenPoduct.product.id)
+        })
         this.vouchers.push({
           id: scannedCodeInfo[4],
           qrCode: scannedCode,
           vendorId: this.vendor.id,
-          products: this.chosenProducts$.getValue(),
+          productIds: productIds,
           price: this.price$.getValue(),
           currency: scannedCodeInfo[1],
           value: parseInt(scannedCodeInfo[2]),
@@ -159,7 +164,9 @@ export class ScanPage {
   setMessageSuccess(currency : string) {
     let productsList = ""
       this.chosenProducts$.getValue().forEach(product => {
-        productsList += product.quantity + " " + product.product.name + ", "
+        productsList += product.quantity +
+          (product.product.unit !== 'Unit' ? product.product.unit + " of " : " ") +
+          product.product.name + ", "
       })
       let vouchersList = ""
       this.vouchers.forEach(voucher => {
