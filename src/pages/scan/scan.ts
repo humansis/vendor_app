@@ -75,8 +75,13 @@ export class ScanPage {
     if (scannedCodeInfo !== null) {
       this.openPasswordModal(scannedCode, scannedCodeInfo)
     } else {
-      scannedCodeInfo = scannedCode.match(/^([A-Z]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)$/i)
-      return scannedCodeInfo
+      scannedCodeInfo = scannedCode.match(/^([A-Za-z\d]+)\*([\d]..-[\d]..-[\d]..)$/i)
+      if (scannedCodeInfo !== null) {
+        this.errorMessage = "You cannot scan a booklet code, you have to scan the vouchers individually."
+      } else {
+        scannedCodeInfo = scannedCode.match(/^([A-Z]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)$/i)
+        return scannedCodeInfo
+      }
     }
   }
 
