@@ -71,7 +71,7 @@ export class ScanPage {
   }
 
   ifHasNoPasswordGetInfo(scannedCode : string) : string[] {
-    let scannedCodeInfo = scannedCode.match(/^([A-Z]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-z=]+)$/i)
+    let scannedCodeInfo = scannedCode.match(/^([A-Z]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-zA-Z=\/]+)$/i)
     if (scannedCodeInfo !== null) {
       this.openPasswordModal(scannedCode, scannedCodeInfo)
     } else {
