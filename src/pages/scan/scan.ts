@@ -63,7 +63,7 @@ export class ScanPage {
       // all the logic can be moved in here when the scan can be tested
     })
     // meanwhile... (to test, the encoded password is 'secret-password')
-    scannedCode = 'USD140#096-098-096-1-avPBIe1KdSk2wpfN37ewA5TqvxA=' // to delete after
+    scannedCode = 'USD140*096-098-096-1-avPBIe1KdSk2wpfN37ewA5TqvxA=' // to delete after
 
     if (this.ifHasNoPasswordGetInfo(scannedCode)) {
       this.handleScannedCode(scannedCode, this.ifHasNoPasswordGetInfo(scannedCode))
@@ -71,11 +71,11 @@ export class ScanPage {
   }
 
   ifHasNoPasswordGetInfo(scannedCode : string) : string[] {
-    let scannedCodeInfo = scannedCode.match(/^([A-Z]+)(\d+)#([\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-z=]+)$/i)
+    let scannedCodeInfo = scannedCode.match(/^([A-Z]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-z=]+)$/i)
     if (scannedCodeInfo !== null) {
       this.openPasswordModal(scannedCode, scannedCodeInfo)
     } else {
-      scannedCodeInfo = scannedCode.match(/^([A-Z]+)(\d+)#([\d]..-[\d]..-[\d]..)-([\da-z]+)$/i)
+      scannedCodeInfo = scannedCode.match(/^([A-Z]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)$/i)
       return scannedCodeInfo
     }
   }
