@@ -6,6 +6,7 @@ import { ProductsPage } from '../products/products';
 import { LoginProvider } from '../../providers/login/login';
 import { AlertController } from 'ionic-angular';
 import { SyncProvider } from '../../providers/sync/sync';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'page-login',
@@ -16,6 +17,7 @@ export class LoginPage {
   public login = GlobalText.TEXTS;
   public vendor: Vendor;
   public loader: boolean = false;
+  public version: string = environment.VERSION;
 
   constructor(
     public navCtrl: NavController,

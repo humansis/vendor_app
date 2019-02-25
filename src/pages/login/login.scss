@@ -21,6 +21,12 @@ page-login {
       flex-direction: row;
       justify-content: center;
 
+      p.version {
+        left: 35px;
+        position: absolute;
+        color: $menu_select_bg;
+      }
+
       .box-login {
         display: flex;
         justify-content: space-around;
