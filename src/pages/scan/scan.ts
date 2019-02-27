@@ -169,7 +169,7 @@ export class ScanPage {
     let productsList = ""
       this.chosenProducts$.getValue().forEach(product => {
         productsList += product.quantity +
-          (product.product.unit !== 'Unit' ? product.product.unit + " of " : " ") +
+          (product.product.unit !== 'Unit' && product.product.unit !== '' ? product.product.unit + " of " : " ") +
           product.product.name + ", "
       })
       let vouchersList = ""
