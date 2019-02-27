@@ -64,7 +64,6 @@ export class ScanPage {
     // meanwhile... (to test, the encoded password is 'secret-password')
     scannedCode = 'USD140*096-098-096-1-avPBIe1KdSk2wpfN37ewA5TqvxA=' // to delete after
 
-
     if (this.ifHasNoPasswordGetInfo(scannedCode)) {
       this.handleScannedCode(scannedCode, this.ifHasNoPasswordGetInfo(scannedCode))
     }
