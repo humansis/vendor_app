@@ -124,7 +124,7 @@ export class ScanPage {
         this.errorMessage = 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?'
       }
       let previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null
-      previousBooklet = '020-022-020' // to delete after
+      previousBooklet = '096-098-096' // to delete after
       let newBooklet = scannedCodeInfo[3]
 
       this.storage.get("deactivatedBooklets").then(deactivatedBooklets => {

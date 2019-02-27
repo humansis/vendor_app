@@ -12,7 +12,7 @@ import { SaltInterface } from '../../model/salt';
 export class LoginProvider {
 
   private vendor = new Vendor;
-  URL_BMS_API: string = process.env.URL_BMS_API;
+  URL_BMS_API: string = process.env["URL_BMS_API"];
 
   constructor(public http: HttpClient, private storage: Storage) {
   }
