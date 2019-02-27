@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Voucher } from '../../model/voucher';
 import { Product } from '../../model/product';
+import { Booklet } from '../../model/booklet';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
@@ -59,7 +60,7 @@ export class SyncProvider {
      */
     getDeactivatedBooklets() {
         return new Promise((resolve, reject) => {
-            this.http.get<Array<object>>(this.URL_BMS_API + '/deactivated-booklets').subscribe(deactivatedBooklets => {
+            this.http.get<Array<Booklet>>(this.URL_BMS_API + '/deactivated-booklets').subscribe(deactivatedBooklets => {
                 const deactivatedBookletIds = [];
                 deactivatedBooklets.forEach(booklet => {
                     deactivatedBookletIds.push(booklet.id);
@@ -88,9 +89,10 @@ export class SyncProvider {
                     });
                 });
                 this.products.next(productList);
+                this.storage.set('products', productList);
                 resolve(products);
             }, error => {
-                reject(error);
+                this.storage.get('products').then(products => resolve(products));
             });
         });
     }

@@ -36,6 +36,7 @@ export class ProductsPage implements OnInit {
      * Method executed on component creation
      */
     ngOnInit() {
+        this.syncProvider.getProductsFromApi();
         this.products$ = this.syncProvider.getProducts();
         this.products$.subscribe(products => {
             // TODO: do something
