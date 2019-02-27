@@ -1,34 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 
 @Component({
-  selector: 'confirmation-modal',
-  templateUrl: 'confirmation-modal.html'
+    selector: 'confirmation-modal',
+    templateUrl: 'confirmation-modal.html'
 })
-export class ConfirmationModal {
+export class ConfirmationModal implements OnInit {
 
-  constructor(public viewCtrl : ViewController, public navParams: NavParams) {}
-  
-  public title: string = '';
-  public message: string = '';
-  public okButton: string = '';
-  public cancelButton: string = '';
+    constructor(public viewCtrl: ViewController, public navParams: NavParams) { }
 
+    public title = '';
+    public message = '';
+    public okButton = '';
+    public cancelButton = '';
 
-  public closeModal(){
-    this.viewCtrl.dismiss(null);
-  }
+    /**
+     * Close modal
+     */
+    public closeModal() {
+        this.viewCtrl.dismiss(null);
+    }
 
-  public accept() {
-    this.viewCtrl.dismiss(this.okButton)
-  }
+    /**
+     * Accept modal and close
+     */
+    public accept() {
+        this.viewCtrl.dismiss(this.okButton);
+    }
 
-  ngOnInit() { 
-      this.title = this.navParams.get('title')
-      this.message = this.navParams.get('message')
-      this.okButton = this.navParams.get('okButton')
-      this.cancelButton = this.navParams.get('cancelButton')
-  }
+    /**
+     * Method executed on component creation
+     */
+    ngOnInit() {
+        this.title = this.navParams.get('title');
+        this.message = this.navParams.get('message');
+        this.okButton = this.navParams.get('okButton');
+        this.cancelButton = this.navParams.get('cancelButton');
+    }
 
 }

@@ -11,71 +11,89 @@ import { SaltInterface } from '../../model/salt';
 @Injectable()
 export class LoginProvider {
 
-  private vendor = new Vendor;
-  URL_BMS_API: string = process.env["URL_BMS_API"];
+    private vendor = new Vendor;
+    URL_BMS_API: string = process.env.URL_BMS_API;
 
-  constructor(public http: HttpClient, private storage: Storage) {
-  }
-
-  requestSalt(username: string): Observable<SaltInterface> {
-    return this.http.get<SaltInterface>(this.URL_BMS_API + '/salt/' + username);
-  }
-
-  logUser(vendor: Vendor) {
-    return this.http.post(this.URL_BMS_API + '/login_app', vendor)
-  }
-
-  login(vendor: Vendor) {
-    return new Promise<Vendor | string | null>((resolve, reject) => {
-      this.requestSalt(vendor.username).subscribe(success => {
-        let getSalt = success as SaltInterface;
-        vendor.salted_password = this.saltPassword(getSalt.salt, vendor.password);
-        delete vendor.password;
-        return this.logUser(vendor).subscribe(success => {
-          let data = success;
-          if (data) {
-            this.vendor = data as Vendor
-            this.vendor.salted_password = vendor.salted_password
-            this.vendor.loggedIn = true
-            this.storage.set('vendor', this.vendor)
-            resolve(this.vendor);
-          } else {
-            reject('Bad credentials')
-          };
-        
-        }, error => {
-          reject(this.handleError(error) || 'Bad credentials')
-        })
-      }, error => {
-        reject(this.handleError(error) || 'Bad credentials')
-      })
-    })
-  }
-
-  saltPassword(salt: string, password: string) : string {
-		let salted = password + '{' + salt + '}';
-		let digest = CryptoJS.SHA512(salted);
-
-		for (let i = 1; i < 5000; i++) {
-			digest = CryptoJS.SHA512(digest.concat(CryptoJS.enc.Utf8.parse(salted)));
-		}
-		
-		let saltedPassword = CryptoJS.enc.Base64.stringify(digest);
-		return saltedPassword;
-  }
-
-  handleError(error) {
-    if (error.error) {
-      if (typeof error.error === "string") {
-        return error.error
-      }
-      else if (error.error[0]) {
-        return error.error[0]
-      } else {
-        return null
-      }
-    } else {
-      return null
+    constructor(public http: HttpClient, private storage: Storage) {
     }
-  }
+
+    /**
+     * Get user salt from backend
+     * @param  username
+     */
+    requestSalt(username: string): Observable<SaltInterface> {
+        return this.http.get<SaltInterface>(this.URL_BMS_API + '/salt/' + username);
+    }
+
+    /**
+     * Log in user in backend
+     * @param  vendor
+     */
+    logUser(vendor: Vendor) {
+        return this.http.post(this.URL_BMS_API + '/login_app', vendor);
+    }
+
+    /**
+     * Login method to log vendor in app
+     * @param  vendor
+     */
+    login(vendor: Vendor) {
+        return new Promise<Vendor | string | null>((resolve, reject) => {
+            this.requestSalt(vendor.username).subscribe(salt => {
+                const getSalt = salt as SaltInterface;
+                vendor.salted_password = this.saltPassword(getSalt.salt, vendor.password);
+                delete vendor.password;
+                return this.logUser(vendor).subscribe(data => {
+                    if (data) {
+                        this.vendor = data as Vendor;
+                        this.vendor.salted_password = vendor.salted_password;
+                        this.vendor.loggedIn = true;
+                        this.storage.set('vendor', this.vendor);
+                        resolve(this.vendor);
+                    } else {
+                        reject('Bad credentials');
+                    }
+                }, error => {
+                    reject(this.handleError(error) || 'Bad credentials');
+                });
+            }, error => {
+                reject(this.handleError(error) || 'Bad credentials');
+            });
+        });
+    }
+
+    /**
+     * Salt user password
+     * @param  salt
+     * @param  password
+     */
+    saltPassword(salt: string, password: string): string {
+        const salted = password + '{' + salt + '}';
+        let digest = CryptoJS.SHA512(salted);
+
+        for (let i = 1; i < 5000; i++) {
+            digest = CryptoJS.SHA512(digest.concat(CryptoJS.enc.Utf8.parse(salted)));
+        }
+
+        const saltedPassword = CryptoJS.enc.Base64.stringify(digest);
+        return saltedPassword;
+    }
+
+    /**
+     * Handle error
+     * @param  error
+     */
+    handleError(error) {
+        if (error.error) {
+            if (typeof error.error === 'string') {
+                return error.error;
+            } else if (error.error[0]) {
+                return error.error[0];
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 }

@@ -3,11 +3,11 @@ import { IonicPageModule } from 'ionic-angular';
 import { ProductsPage } from './products';
 
 @NgModule({
-  declarations: [
-    ProductsPage,
-  ],
-  imports: [
-    IonicPageModule.forChild(ProductsPage),
-  ],
+    declarations: [
+        ProductsPage,
+    ],
+    imports: [
+        IonicPageModule.forChild(ProductsPage),
+    ],
 })
-export class ProductsPageModule {}
+export class ProductsPageModule { }

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Vendor } from '../../model/vendor'
+import { Vendor } from '../../model/vendor';
 import { GlobalText } from '../../texts/global';
 import { ProductsPage } from '../products/products';
 import { LoginProvider } from '../../providers/login/login';
@@ -9,64 +9,76 @@ import { SyncProvider } from '../../providers/sync/sync';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'page-login',
-  templateUrl: './login.html'
+    selector: 'page-login',
+    templateUrl: './login.html'
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
 
-  public login = GlobalText.TEXTS;
-  public vendor: Vendor;
-  public loader: boolean = false;
-  public version: string = environment.VERSION;
+    public login = GlobalText.TEXTS;
+    public vendor: Vendor;
+    public loader = false;
+    public version: string = environment.VERSION;
 
-  constructor(
-    public navCtrl: NavController,
-    public loginProvider: LoginProvider,
-    private alertCtrl: AlertController,
-    private syncProvider: SyncProvider) {
-  }
-
-  ngOnInit() {
-    this.blankUser();
-}
-
-clickSubmit() {
-  this.loader = true;
-  this.loginProvider.login(this.vendor).then((vendor) => {
-    this.syncProvider.getDeactivatedBooklets().then(success => {
-      this.syncProvider.getProductsFromApi().then(success => {
-        this.navCtrl.setRoot(ProductsPage);
-      }, error => {
-        this.connectionError()
-      })
-    }), error => {
-      this.connectionError()
+    constructor(
+        public navCtrl: NavController,
+        public loginProvider: LoginProvider,
+        private alertCtrl: AlertController,
+        private syncProvider: SyncProvider) {
     }
-  }, error => {
-    this.loader = false;
-    let alert = this.alertCtrl.create({
-      title: 'Login failed',
-      subTitle: error,
-      buttons: ['OK']
-      });
-    alert.present();
-  })
-}
 
-connectionError() {
-  this.loader = false;
-  let alert = this.alertCtrl.create({
-    title: 'Login failed',
-    subTitle: 'There was a connection problem, please verify your connection and try again',
-    buttons: ['OK']
-    });
-  alert.present();
-}
+    /**
+     * Method executed on component creation
+     */
+    ngOnInit() {
+        this.blankUser();
+    }
 
-blankUser() {
-  this.vendor = new Vendor();
-  this.vendor.username = '';
-  this.vendor.password = '';
-}
+    /**
+     * Submit login and get necessary data
+     */
+    clickSubmit() {
+        this.loader = true;
+        this.loginProvider.login(this.vendor).then(vendor => {
+            this.syncProvider.getDeactivatedBooklets().then(booklets => {
+                this.syncProvider.getProductsFromApi().then(products => {
+                    this.navCtrl.setRoot(ProductsPage);
+                }, error => {
+                    this.connectionError();
+                });
+            }, error => {
+                this.connectionError();
+            });
+        }, error => {
+            this.loader = false;
+            const alert = this.alertCtrl.create({
+                title: 'Login failed',
+                subTitle: error,
+                buttons: ['OK']
+            });
+            alert.present();
+        });
+    }
+
+    /**
+     * Display connection error alert
+     */
+    connectionError() {
+        this.loader = false;
+        const alert = this.alertCtrl.create({
+            title: 'Login failed',
+            subTitle: 'There was a connection problem, please verify your connection and try again',
+            buttons: ['OK']
+        });
+        alert.present();
+    }
+
+    /**
+     * Initialize blank user
+     */
+    blankUser() {
+        this.vendor = new Vendor();
+        this.vendor.username = '';
+        this.vendor.password = '';
+    }
 
 }

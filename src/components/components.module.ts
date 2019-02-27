@@ -6,17 +6,17 @@ import { MatButtonModule } from '@angular/material';
 
 
 @NgModule({
-	declarations: [
-		HeaderComponent,
-    	CalculatorComponent
-	],
-	imports: [
-		IonicModule,
-		MatButtonModule
-	],
-	exports: [
-		HeaderComponent,
-    	CalculatorComponent
-	]
+    declarations: [
+        HeaderComponent,
+        CalculatorComponent
+    ],
+    imports: [
+        IonicModule,
+        MatButtonModule
+    ],
+    exports: [
+        HeaderComponent,
+        CalculatorComponent
+    ]
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

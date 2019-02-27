@@ -7,23 +7,23 @@ import { ProductsPage } from '../pages/products/products';
 import { Storage } from '@ionic/storage';
 
 @Component({
-  templateUrl: 'app.html'
+    templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any;
+    rootPage: any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private storage: Storage) {
-    platform.ready().then(() => {
-      statusBar.styleDefault();
-      this.storage.get('vendor').then(vendor => {
-        if(vendor) {
-          this.rootPage = ProductsPage;
-        } else {
-          this.rootPage = LoginPage;
-        }
-      })
-      splashScreen.hide();
-    });
-  }
+    constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private storage: Storage) {
+        platform.ready().then(() => {
+            statusBar.styleDefault();
+            this.storage.get('vendor').then(vendor => {
+                if (vendor) {
+                    this.rootPage = ProductsPage;
+                } else {
+                    this.rootPage = LoginPage;
+                }
+            });
+            splashScreen.hide();
+        });
+    }
 }
 
