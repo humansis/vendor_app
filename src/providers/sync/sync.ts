@@ -10,7 +10,7 @@ export class SyncProvider {
   constructor(public http: HttpClient, private storage: Storage) {
   }
 
-  URL_BMS_API: string = process.env.URL_BMS_API;
+  URL_BMS_API: string = process.env["URL_BMS_API"];
 
   sync(vouchers: Voucher[], booklets: string[]) {
     return new Promise((resolve, reject) => {

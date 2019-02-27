@@ -50,6 +50,9 @@ export class HeaderComponent {
 		this.presentLoading()
 		this.storage.get('vouchers').then(vouchers => {
 			this.storage.get('deactivatedBooklets').then(booklets => {
+					if (!vouchers) {
+						vouchers = []
+					}
 					this.syncProvider.sync(vouchers, booklets).then(success => {
 						this.storage.set('vouchers', [])
 						this.loading.dismiss();
