@@ -6,7 +6,6 @@ import { VoucherProvider } from '../../providers/voucher/voucher';
 import { Vendor } from '../../model/vendor'
 import { Storage } from '@ionic/storage';
 import { Voucher } from '../../model/voucher';
-import { Product } from '../../model/product'
 import { ProductsPage } from '../products/products';
 import { ConfirmationModal } from '../confirmation-modal/confirmation-modal';
 import { FormModal } from '../form-modal/form-modal';

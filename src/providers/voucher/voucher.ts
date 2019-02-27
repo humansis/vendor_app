@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Voucher } from '../../model/voucher'
 import { Storage } from '@ionic/storage';
-import { Product } from '../../model/product';
 import { ChosenProduct } from '../../model/chosenProduct';
 
 @Injectable()
