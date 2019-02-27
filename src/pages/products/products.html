@@ -5,7 +5,7 @@
 <ion-content>
     <mat-drawer-container>
         <mat-drawer-content>
-            <div class="product" *ngFor="let product of products" [ngClass]="{
+            <div class="product" *ngFor="let product of products$ | async" [ngClass]="{
               unselected: selectedProduct && selectedProduct !== product}" (click)="selectProduct(product); animateDrawer(drawer)">
                 <ion-chip color="primary">
                     <ion-label>{{ product.name }}</ion-label>
