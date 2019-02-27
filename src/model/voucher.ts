@@ -1,6 +1,6 @@
 export class Voucher {
     static __classname__ = 'Voucher';
-    id: string;
+    id: number;
     qrCode: string = '';
     vendorId: string = '';
     productIds: number[] = [];
