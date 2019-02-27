@@ -6,7 +6,6 @@ import { VoucherProvider } from '../../providers/voucher/voucher';
 import { Vendor } from '../../model/vendor'
 import { Storage } from '@ionic/storage';
 import { Voucher } from '../../model/voucher';
-import { Product } from '../../model/product'
 import { ProductsPage } from '../products/products';
 import { ConfirmationModal } from '../confirmation-modal/confirmation-modal';
 import { FormModal } from '../form-modal/form-modal';
@@ -120,7 +119,7 @@ export class ScanPage {
         this.errorMessage = 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?'
       }
       let previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null
-      previousBooklet = '096-098-096' // to delete after
+      previousBooklet = '020-022-020' // to delete after
       let newBooklet = scannedCodeInfo[3]
 
       this.storage.get("deactivatedBooklets").then(deactivatedBooklets => {
@@ -138,7 +137,7 @@ export class ScanPage {
           productIds.push(chosenPoduct.product.id)
         })
         this.vouchers.push({
-          id: scannedCodeInfo[4],
+          id: parseInt(scannedCodeInfo[4]),
           qrCode: scannedCode,
           vendorId: this.vendor.id,
           productIds: productIds,
