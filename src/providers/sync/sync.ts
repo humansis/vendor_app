@@ -52,7 +52,10 @@ export class SyncProvider {
      * @param  booklets
      */
     sendBooklets(booklets: string[]) {
-        return this.http.post(this.URL_BMS_API + '/deactivate-booklets', booklets);
+        const body = {
+            bookletIds: booklets
+        };
+        return this.http.post(this.URL_BMS_API + '/deactivate-booklets', body);
     }
 
     /**
