@@ -62,8 +62,6 @@ export class ScanPage {
      */
     scanCode() {
         let scannedCode = '';
-        this.successMessage = '';
-        this.errorMessage = '';
         this.barcodeScanner.scan().then(barcodeData => {
             scannedCode = barcodeData.text;
             // all the logic can be moved in here when the scan can be tested
@@ -74,6 +72,7 @@ export class ScanPage {
         this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
             this.handleScannedCode(scannedCode, success);
         }, reject => {
+            this.successMessage = '';
             this.errorMessage = reject;
         });
     }
@@ -169,6 +168,8 @@ export class ScanPage {
      * @param  scannedCodeInfo
      */
     handleScannedCode(scannedCode: string, scannedCodeInfo: string[]) {
+        this.successMessage = '';
+        this.errorMessage = '';
         let previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null;
         previousBooklet = '096-098-096'; // to delete after
         const newBooklet = scannedCodeInfo[3];
