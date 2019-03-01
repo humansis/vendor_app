@@ -16,7 +16,7 @@ export class FormModal implements OnInit {
     public okButton = '';
     public cancelButton = '';
     public typedPassword: string;
-    public expectedSaltedPassword: string;
+    public expectedSaltedPasswords: string[];
     public tries: number;
     public triesMessage: string;
 
@@ -31,7 +31,7 @@ export class FormModal implements OnInit {
      * Accept modal and close
      */
     public accept() {
-        if (this.typedPassword && this.salt(this.typedPassword) === this.expectedSaltedPassword) {
+        if (this.typedPassword && this.expectedSaltedPasswords.includes(this.salt(this.typedPassword))) {
             this.viewCtrl.dismiss(this.okButton);
         } else {
             this.tries -= 1;
@@ -59,7 +59,7 @@ export class FormModal implements OnInit {
         this.message = this.navParams.get('message');
         this.okButton = this.navParams.get('okButton');
         this.cancelButton = this.navParams.get('cancelButton');
-        this.expectedSaltedPassword = this.navParams.get('saltedPassword');
+        this.expectedSaltedPasswords = this.navParams.get('saltedPasswords');
         this.triesMessage = this.navParams.get('triesMessage');
         this.tries = this.navParams.get('tries');
     }
