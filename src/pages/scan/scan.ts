@@ -85,7 +85,7 @@ export class ScanPage {
         return new Promise((resolve, reject) => {
             const passwords = [];
             let bookletId = '';
-            let scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-zA-Z=\/]+)$/i);
+            let scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-zA-Z=+\/]+)$/i);
             if (scannedCodeInfo !== null) {
                 passwords.push(scannedCodeInfo[5]);
                 bookletId = scannedCodeInfo[3];
