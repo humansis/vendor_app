@@ -66,14 +66,24 @@ export class ScanPage {
         this.errorMessage = '';
         this.barcodeScanner.scan().then(barcodeData => {
             scannedCode = barcodeData.text;
+            scannedCode = scannedCode.replace(' ', '+');
+            this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+                this.handleScannedCode(scannedCode, success);
+            }, reject => {
+                this.successMessage = '';
+                this.errorMessage = reject;
+            });
             // all the logic can be moved in here when the scan can be tested
         });
-        // meanwhile... (to test, the encoded password is 'secret-password')
-        scannedCode = 'USD140*096-098-096-1-avPBIe1KdSk2wpfN37ewA5TqvxA='; // to delete after
-
-        if (this.ifHasNoPasswordGetInfo(scannedCode)) {
-            this.handleScannedCode(scannedCode, this.ifHasNoPasswordGetInfo(scannedCode));
-        }
+        // meanwhile... (to test, the encoded password is 'coline')
+        // scannedCode = 'USD10*000-004-002-007-kaFw6V2/c0w43zlRQvhVfxb VjQ='; // to delete after
+        // scannedCode = scannedCode.replace(' ', '+');
+        // this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+        //     this.handleScannedCode(scannedCode, success);
+        // }, reject => {
+        //     this.successMessage = '';
+        //     this.errorMessage = reject;
+        // });
     }
 
     /**
@@ -100,7 +110,7 @@ export class ScanPage {
      * @param  booklet
      */
     getBookletIdFromCode(booklet: string): number {
-        return parseInt(booklet.split('-').pop(), 10);
+        return parseInt(booklet.split('-').pop(), 10) + 1;
     }
 
     /**
@@ -148,8 +158,10 @@ export class ScanPage {
         if (scannedCodeInfo === null) {
             this.errorMessage = 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?';
         }
-        let previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null;
-        previousBooklet = '096-098-096'; // to delete after
+        this.successMessage = '';
+        this.errorMessage = '';
+        const previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null;
+        // previousBooklet = '096-098-096'; // to delete after
         const newBooklet = scannedCodeInfo[3];
 
         this.storage.get('deactivatedBooklets').then(deactivatedBooklets => {

@@ -88,6 +88,7 @@ export class ProductsPage implements OnInit {
                 price: this.price,
                 subTotal: this.price * this.quantity
             });
+            this.total = 0;
             this.allChosenProducts.forEach(element => {
                 this.total += element.subTotal;
             });
