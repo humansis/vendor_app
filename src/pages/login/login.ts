@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
         this.loader = true;
         this.loginProvider.login(this.vendor).then(vendor => {
             this.syncProvider.getDeactivatedBooklets().then(booklets => {
-                this.syncProvider.getProductsFromApi().then(products => {
+                this.syncProvider.getProtectedBooklets().then(booklets => {
                     this.navCtrl.setRoot(ProductsPage);
                 }, error => {
                     this.connectionError();
