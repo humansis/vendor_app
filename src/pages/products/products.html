@@ -53,10 +53,10 @@
                 </div>
             </div>
 
-            <div *ngIf="isItemSelected">
+            <div *ngIf="isItemSelected" class="calculator-view">
                 <div class="selected-product">
                     <ion-grid>
-                        <ion-row>
+                        <ion-row class="product-details">
                             <ion-col class="product-name">
                                 <h5>{{ selectedProduct.name | titlecase }}</h5>
                             </ion-col>
@@ -64,7 +64,7 @@
                                 <img src="{{ selectedProduct.image }}" />
                             </ion-col>
                         </ion-row>
-                        <ion-row>
+                        <ion-row class="product-inputs">
                             <form>
                                 <mat-form-field class="product-form-item" [ngClass]="{'focused': typing == 'quantity'}">
                                     <i class="material-icons" matPrefix>shopping_cart</i>
