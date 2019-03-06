@@ -21,8 +21,8 @@ export class MyApp {
                 } else {
                     this.rootPage = LoginPage;
                 }
+                splashScreen.hide();
             });
-            splashScreen.hide();
         });
     }
 }

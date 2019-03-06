@@ -24,6 +24,7 @@ import { LoginProvider } from '../providers/login/login';
 
 // Material
 import { MatButtonModule, MatSelectModule, MatSidenavModule, MatInputModule, MatListModule } from '@angular/material';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { VoucherProvider } from '../providers/voucher/voucher';
@@ -56,7 +57,8 @@ import { httpInterceptorProviders } from '../interceptors/index-interceptors';
         MatListModule,
         HttpClientModule,
         IonicStorageModule.forRoot(),
-        ComponentsModule
+        ComponentsModule,
+        MatProgressSpinnerModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
