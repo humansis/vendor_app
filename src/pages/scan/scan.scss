@@ -1,8 +1,4 @@
 @import "../../theme/variables.scss";
-.scan-button, .scan-button.activated {
-    background-color: $bms_dark_blue;
-}
-
 .error-message {
     color: $bms_red !important;
 }
@@ -20,4 +16,95 @@
 }
 .button-proceed {
     background-color: $bms_green;
+}
+
+ion-card .products {
+    border-right: solid;
+    img {
+        border-radius: 20px;
+    }
+}
+
+ion-card .vouchers-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    .vouchers-list {
+        margin-left: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+ion-card-content {
+    padding-bottom: 20px;
+}
+
+ion-card .products, ion-card .vouchers {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 18px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    img {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+    }
+    span {
+        margin-right: 5px;
+    }
+
+    .no-vouchers {
+        text-align: center;
+    }
+
+    .details {
+        display: flex;
+        align-items: center;
+    }
+    .subTotal, .total {
+        position: absolute;
+        right: 0;
+    }
+    button {
+        font-size: 90px;
+        border-radius: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+        color: $bms_dark_blue;
+        background-color: $bms_neutral_grey;
+        height: 113px;
+        width: 120px;
+        margin-left: 20px;
+        .button-inner {
+            margin-top: 0px;
+        }
+        ion-icon {
+            padding-right: 0;
+        }
+        .scan {
+            position: absolute;
+            font-size: 10px;
+            color: #02617F;
+            font-weight: bold;
+        }
+    }
+    .total-line {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+}
+
+.product-line, .voucher-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
 }

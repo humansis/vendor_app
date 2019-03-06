@@ -27,6 +27,7 @@ export class ScanPage {
     successMessage = '';
     vendor: Vendor;
     scanDisabled = false;
+    priceTooHigh = true;
 
     constructor(
         public navCtrl: NavController,
@@ -63,25 +64,25 @@ export class ScanPage {
     scanCode() {
         let scannedCode = '';
         this.barcodeScanner.scan().then(barcodeData => {
-            scannedCode = barcodeData.text;
-            scannedCode = scannedCode.replace(' ', '+');
-            this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
-                this.handleScannedCode(scannedCode, success);
-            }, reject => {
-                this.successMessage = '';
-                this.errorMessage = reject;
-            });
+            // scannedCode = barcodeData.text;
+            // scannedCode = scannedCode.replace(' ', '+');
+            // this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+            //     this.handleScannedCode(scannedCode, success);
+            // }, reject => {
+            //     this.successMessage = '';
+            //     this.errorMessage = reject;
+            // });
             // all the logic can be moved in here when the scan can be tested
         });
         // meanwhile... (to test, the encoded password is 'coline')
-        // scannedCode = 'USD10*000-004-002-007-kaFw6V2/c0w43zlRQvhVfxb VjQ='; // to delete after
-        // scannedCode = scannedCode.replace(' ', '+');
-        // this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
-        //     this.handleScannedCode(scannedCode, success);
-        // }, reject => {
-        //     this.successMessage = '';
-        //     this.errorMessage = reject;
-        // });
+        scannedCode = 'USD10*000-004-002-007-kaFw6V2/c0w43zlRQvhVfxb VjQ='; // to delete after
+        scannedCode = scannedCode.replace(' ', '+');
+        this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+            this.handleScannedCode(scannedCode, success);
+        }, reject => {
+            this.successMessage = '';
+            this.errorMessage = reject;
+        });
     }
 
     /**
@@ -214,10 +215,6 @@ export class ScanPage {
 
             if (this.vouchersTotalValue >= this.price$.getValue()) {
                 this.setMessageSuccess(scannedCodeInfo[1]);
-            } else {
-                this.errorMessage = 'Your vouchers (' + this.vouchersTotalValue + scannedCodeInfo[1] +
-                    ') are not high enough to pay ' + this.price$.getValue() + '.' +
-                    `<br> Please scann another one`;
             }
         });
     }
@@ -227,24 +224,11 @@ export class ScanPage {
      * @param  currency
      */
     setMessageSuccess(currency: string) {
-        let productsList = '';
-        this.chosenProducts$.getValue().forEach(product => {
-            productsList += product.quantity +
-                (product.product.unit !== 'Unit' && product.product.unit !== '' ? product.product.unit + ' of ' : ' ') +
-                product.product.name + ', ';
-        });
-        let vouchersList = '';
-        this.vouchers.forEach(voucher => {
-            vouchersList += '-' + voucher.qrCode + ' : ' + voucher.value + ' ' + voucher.currency + `<br>`;
-        });
-        this.successMessage = 'You have scanned sufficient vouchers. You can now complete the transaction of ' +
-            productsList + 'for a total of ' + this.price$.getValue() +
-            ' using ' + this.vouchers.length + ' voucher(s) : ' + `<br>` + vouchersList;
+        this.successMessage = 'You can now proceed to the transaction. ';
         if (this.vouchersTotalValue > this.price$.getValue()) {
-            this.successMessage += `You still have ` + (this.vouchersTotalValue - this.price$.getValue()) + currency +
-            ` available on your vouchers.
-          However, they will be considered fully used and cannot be used again. If you would like to add
-         further items to your basket, you can go back now and add them, but you will need to scan your vouchers again.`;
+            this.priceTooHigh = false;
+            this.successMessage += `Be aware that ` + (this.vouchersTotalValue - this.price$.getValue()) + currency +
+            ` will be lost.`;
         }
     }
 
