@@ -64,6 +64,6 @@
   </ion-card>
   <ion-row class="row-btns">
       <button ion-button class="button-cancel" (click)="openCancelModal()" [disabled]="scanDisabled">Cancel</button>
-      <button [disabled]="successMessage === ''" ion-button class="button-proceed" (click)="openProceedModal()">Proceed</button>
+      <button [disabled]="priceTooHigh === true" ion-button class="button-proceed" (click)="openProceedModal()">Proceed</button>
   </ion-row>
 </ion-content>
