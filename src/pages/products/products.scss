@@ -121,5 +121,13 @@ page-products {
             position: fixed;
             bottom: 0;
         }
+
+        .warning-sync {
+            text-align: center;
+            margin: 5px;
+            i {
+                font-size: 20px;
+            }
+        }
     }
 }
