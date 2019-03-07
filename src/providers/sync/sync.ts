@@ -26,7 +26,11 @@ export class SyncProvider {
             this.sendVouchers(vouchers).subscribe(() => {
                 this.sendBooklets(booklets).subscribe(() => {
                     this.getDeactivatedBooklets().then(success => {
-                        resolve(success);
+                        this.getProtectedBooklets().then(success => {
+                            resolve(success);
+                        }, error => {
+                            reject(error);
+                        });
                     }, error => {
                         reject(error);
                     });
@@ -70,6 +74,20 @@ export class SyncProvider {
                 });
                 this.storage.set('deactivatedBooklets', deactivatedBookletIds);
                 resolve(deactivatedBooklets);
+            }, error => {
+                reject(error);
+            });
+        });
+    }
+
+    /**
+     * Get protected booklets
+     */
+    getProtectedBooklets() {
+        return new Promise((resolve, reject) => {
+            this.http.get<Array<Booklet>>(this.URL_BMS_API + '/protected-booklets').subscribe(protectedBooklets => {
+                this.storage.set('protectedBooklets', protectedBooklets);
+                resolve(protectedBooklets);
             }, error => {
                 reject(error);
             });

@@ -62,8 +62,6 @@ export class ScanPage {
      */
     scanCode() {
         let scannedCode = '';
-        this.successMessage = '';
-        this.errorMessage = '';
         this.barcodeScanner.scan().then(barcodeData => {
             scannedCode = barcodeData.text;
             // all the logic can be moved in here when the scan can be tested
@@ -71,28 +69,53 @@ export class ScanPage {
         // meanwhile... (to test, the encoded password is 'secret-password')
         scannedCode = 'USD140*096-098-096-1-avPBIe1KdSk2wpfN37ewA5TqvxA='; // to delete after
 
-        if (this.ifHasNoPasswordGetInfo(scannedCode)) {
-            this.handleScannedCode(scannedCode, this.ifHasNoPasswordGetInfo(scannedCode));
-        }
+        this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+            this.handleScannedCode(scannedCode, success);
+        }, reject => {
+            this.successMessage = '';
+            this.errorMessage = reject;
+        });
     }
 
     /**
      * Get voucher info if has no password
      * @param  scannedCode
      */
-    ifHasNoPasswordGetInfo(scannedCode: string): string[] {
-        let scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-zA-Z=\/]+)$/i);
-        if (scannedCodeInfo !== null) {
-            this.openPasswordModal(scannedCode, scannedCodeInfo);
-        } else {
-            scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£\d]+)\*([\d]..-[\d]..-[\d]..)$/i);
+    ifHasNoPasswordGetInfo(scannedCode: string): Promise<string[]> {
+        return new Promise((resolve, reject) => {
+            const passwords = [];
+            let bookletId = '';
+            let scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-zA-Z=+\/]+)$/i);
             if (scannedCodeInfo !== null) {
-                this.errorMessage = 'You cannot scan a booklet code, you have to scan the vouchers individually.';
+                passwords.push(scannedCodeInfo[5]);
+                bookletId = scannedCodeInfo[3];
             } else {
-                scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)$/i);
-                return scannedCodeInfo;
+                scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£\d]+)\*([\d]..-[\d]..-[\d]..)$/i);
+                if (scannedCodeInfo !== null) {
+                    reject('You cannot scan a booklet code, you have to scan the vouchers individually.');
+                } else {
+                    scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)$/i);
+                    if (scannedCodeInfo !== null) {
+                        bookletId = scannedCodeInfo[3];
+                    } else {
+                        reject('Your code isn\'t the right format, are you sure it is a BMS Voucher ?');
+                    }
+                }
             }
-        }
+
+            this.storage.get('protectedBooklets').then(booklets => {
+                booklets.forEach(booklet => {
+                    if (booklet.hasOwnProperty(bookletId)) {
+                        passwords.push(booklet[bookletId]);
+                    }
+                });
+                if (passwords.length > 0) {
+                    this.openPasswordModal(scannedCode, passwords, scannedCodeInfo);
+                } else {
+                    resolve(scannedCodeInfo);
+                }
+            });
+        })
     }
 
     /**
@@ -108,7 +131,7 @@ export class ScanPage {
      * @param  scannedCode
      * @param  scannedCodeInfo
      */
-    openPasswordModal(scannedCode: string, scannedCodeInfo: string[]) {
+    openPasswordModal(scannedCode: string, passwords: string[], scannedCodeInfo: string[]) {
         const okMessage = 'Submit';
         const cancelButton = 'Go back to the scan page';
         const modal = this.modalController.create(FormModal, {
@@ -116,7 +139,7 @@ export class ScanPage {
             message: 'Please enter the voucher\'s password',
             okButton: okMessage,
             cancelButton: cancelButton,
-            saltedPassword: scannedCodeInfo[5],
+            saltedPasswords: passwords,
             triesMessage: 'Be aware that you have only three tries before your booklet deactivates.',
             tries: 3
         });
@@ -145,9 +168,8 @@ export class ScanPage {
      * @param  scannedCodeInfo
      */
     handleScannedCode(scannedCode: string, scannedCodeInfo: string[]) {
-        if (scannedCodeInfo === null) {
-            this.errorMessage = 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?';
-        }
+        this.successMessage = '';
+        this.errorMessage = '';
         let previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null;
         previousBooklet = '096-098-096'; // to delete after
         const newBooklet = scannedCodeInfo[3];
