@@ -63,6 +63,14 @@ page-products {
                     margin: 10px !important;
                 }
             }
+
+            .remove-product {
+                background: none;
+                i {
+                    margin-right: -15px;
+                    font-size: 20px;
+                }
+            }
         }
 
         .buttons-container {
@@ -150,6 +158,14 @@ page-products {
         }
     }
 
+    .warning-sync {
+        text-align: center;
+        margin: 5px;
+        i {
+            font-size: 20px;
+        }
+    }
+
     @media only screen 
     and (min-device-width : 768px) 
     and (orientation : landscape) {
@@ -172,6 +188,5 @@ page-products {
             width: 17vw;
             height: 17vw;
         }
-
     }
 }

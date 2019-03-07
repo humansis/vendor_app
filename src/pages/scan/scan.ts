@@ -30,6 +30,7 @@ export class ScanPage {
     scanDisabled = false;
     tries: number;
     triesMessage: string;
+    priceTooHigh = true;
 
     constructor(
         public navCtrl: NavController,
@@ -256,39 +257,11 @@ export class ScanPage {
             this.vouchersTotalValue += parseInt(scannedCodeValue, 10);
 
             if (this.vouchersTotalValue >= this.price$.getValue()) {
-                this.setMessageSuccess(scannedCodeInfo[1]);
-            } else {
-                this.errorMessage = 'Your vouchers (' + this.vouchersTotalValue + scannedCodeInfo[1] +
-                    ') are not high enough to pay ' + this.price$.getValue() + '.' +
-                    `<br> Please scann another one`;
+                if (this.vouchersTotalValue > this.price$.getValue()) {
+                    this.priceTooHigh = false;
+                }
             }
         });
-    }
-
-    /**
-     * Define success message
-     * @param  currency
-     */
-    setMessageSuccess(currency: string) {
-        let productsList = '';
-        this.chosenProducts$.getValue().forEach(product => {
-            productsList += product.quantity +
-                (product.product.unit !== 'Unit' && product.product.unit !== '' ? product.product.unit + ' of ' : ' ') +
-                product.product.name + ', ';
-        });
-        let vouchersList = '';
-        this.vouchers.forEach(voucher => {
-            vouchersList += '-' + voucher.qrCode + ' : ' + voucher.value + ' ' + voucher.currency + `<br>`;
-        });
-        this.successMessage = 'You have scanned sufficient vouchers. You can now complete the transaction of ' +
-            productsList + 'for a value of ' + this.price$.getValue() +
-            ' using ' + this.vouchers.length + ' voucher(s) : ' + `<br>` + vouchersList;
-        if (this.vouchersTotalValue > this.price$.getValue()) {
-            this.successMessage += `You still have ` + (this.vouchersTotalValue - this.price$.getValue()) + currency +
-            ` available on your vouchers.
-          However, they will be considered fully used and cannot be used again. If you would like to add
-         further items to your basket, you can go back now and add them, but you will need to scan your vouchers again.`;
-        }
     }
 
     /**
