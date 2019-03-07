@@ -64,17 +64,24 @@ export class ScanPage {
         let scannedCode = '';
         this.barcodeScanner.scan().then(barcodeData => {
             scannedCode = barcodeData.text;
+            scannedCode = scannedCode.replace(' ', '+');
+            this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+                this.handleScannedCode(scannedCode, success);
+            }, reject => {
+                this.successMessage = '';
+                this.errorMessage = reject;
+            });
             // all the logic can be moved in here when the scan can be tested
         });
-        // meanwhile... (to test, the encoded password is 'secret-password')
-        scannedCode = 'USD140*096-098-096-1-avPBIe1KdSk2wpfN37ewA5TqvxA='; // to delete after
-
-        this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
-            this.handleScannedCode(scannedCode, success);
-        }, reject => {
-            this.successMessage = '';
-            this.errorMessage = reject;
-        });
+        // meanwhile... (to test, the encoded password is 'coline')
+        // scannedCode = 'USD10*000-004-002-007-kaFw6V2/c0w43zlRQvhVfxb VjQ='; // to delete after
+        // scannedCode = scannedCode.replace(' ', '+');
+        // this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+        //     this.handleScannedCode(scannedCode, success);
+        // }, reject => {
+        //     this.successMessage = '';
+        //     this.errorMessage = reject;
+        // });
     }
 
     /**
@@ -85,7 +92,7 @@ export class ScanPage {
         return new Promise((resolve, reject) => {
             const passwords = [];
             let bookletId = '';
-            let scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-zA-Z=+\/]+)$/i);
+            let scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-zA-Z=+-\/]+)$/i);
             if (scannedCodeInfo !== null) {
                 passwords.push(scannedCodeInfo[5]);
                 bookletId = scannedCodeInfo[3];
@@ -123,7 +130,7 @@ export class ScanPage {
      * @param  booklet
      */
     getBookletIdFromCode(booklet: string): number {
-        return parseInt(booklet.split('-').pop(), 10);
+        return parseInt(booklet.split('-').pop(), 10) + 1;
     }
 
     /**
@@ -168,10 +175,13 @@ export class ScanPage {
      * @param  scannedCodeInfo
      */
     handleScannedCode(scannedCode: string, scannedCodeInfo: string[]) {
+        if (scannedCodeInfo === null) {
+            this.errorMessage = 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?';
+        }
         this.successMessage = '';
         this.errorMessage = '';
-        let previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null;
-        previousBooklet = '096-098-096'; // to delete after
+        const previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null;
+        // previousBooklet = '096-098-096'; // to delete after
         const newBooklet = scannedCodeInfo[3];
 
         this.storage.get('deactivatedBooklets').then(deactivatedBooklets => {
