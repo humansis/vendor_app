@@ -18,27 +18,29 @@
     background-color: $bms_green;
 }
 
-ion-card .products {
-    border-right: solid;
-    img {
-        border-radius: 20px;
+ion-card {
+    box-shadow: none !important;
+    .products {
+        border-right: 2px solid grey;
+        img {
+            border-radius: 20px;
+        }
     }
-}
-
-ion-card .vouchers-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    .vouchers-list {
-        margin-left: 30px;
+    .vouchers-content {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        align-items: center;
+        justify-content: space-evenly;
+        .vouchers-list {
+            margin-left: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
     }
 }
 
-ion-card-content {
-    padding-bottom: 20px;
+ion-card-content.card-content-md{
+    padding: 0;
 }
 
 ion-card .products, ion-card .vouchers {
@@ -72,18 +74,18 @@ ion-card .products, ion-card .vouchers {
     }
     .subTotal, .total {
         position: absolute;
-        right: 0;
+        right: 5px;
     }
     button {
         font-size: 90px;
         border-radius: 20px;
-        padding-right: 20px;
-        padding-left: 20px;
         color: $bms_dark_blue;
-        background-color: $bms_neutral_grey;
+        background-color: transparent;
+        border: 2px solid;
         height: 113px;
         width: 120px;
         margin-left: 20px;
+        padding: 0;
         .button-inner {
             margin-top: 0px;
         }
@@ -92,14 +94,24 @@ ion-card .products, ion-card .vouchers {
         }
         .scan {
             position: absolute;
-            font-size: 10px;
+            font-size: 13px;
             color: #02617F;
             font-weight: bold;
+            margin-top: 4px;
+            i {
+                margin-top: 2px;
+                font-size: 30px;
+            }
         }
     }
     .total-line {
+        display: flex;
         margin-top: 10px;
         font-weight: bold;
+        line-height: 1.8;
+        i {
+            margin-right: 5px;
+        }
     }
 }
 

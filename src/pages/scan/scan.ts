@@ -214,22 +214,11 @@ export class ScanPage {
             this.vouchersTotalValue += parseInt(scannedCodeValue, 10);
 
             if (this.vouchersTotalValue >= this.price$.getValue()) {
-                this.setMessageSuccess(scannedCodeInfo[1]);
+                if (this.vouchersTotalValue > this.price$.getValue()) {
+                    this.priceTooHigh = false;
+                }
             }
         });
-    }
-
-    /**
-     * Define success message
-     * @param  currency
-     */
-    setMessageSuccess(currency: string) {
-        this.successMessage = 'You can now proceed to the transaction. ';
-        if (this.vouchersTotalValue > this.price$.getValue()) {
-            this.priceTooHigh = false;
-            this.successMessage += `Be aware that ` + (this.vouchersTotalValue - this.price$.getValue()) + currency +
-            ` will be lost.`;
-        }
     }
 
     /**
