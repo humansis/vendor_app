@@ -25,6 +25,7 @@
                                 <h6 mat-line>{{item.product.name | titlecase}}</h6>
                                 <p mat-line>{{item.quantity}} {{item.product.unit}}</p>
                                 <span>{{item.subTotal}}</span>
+                                <button (click)="removeFromCart(item)" class="remove-product"><i class="material-icons">delete</i></button>
                             </mat-list-item>
                             <mat-divider></mat-divider>
                             <mat-list-item>
