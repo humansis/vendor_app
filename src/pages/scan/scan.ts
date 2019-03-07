@@ -24,8 +24,6 @@ export class ScanPage {
     vouchersTotalValue = 0;
     price$: BehaviorSubject<number>;
     chosenProducts$: BehaviorSubject<ChosenProduct[]>;
-    errorMessage = '';
-    successMessage = '';
     vendor: Vendor;
     scanDisabled = false;
     tries: number;
@@ -50,12 +48,7 @@ export class ScanPage {
         this.price$.subscribe(price => {
             // TODO: do something
         });
-        this.chosenProducts$.subscribe(products => {
-            if (products.length <= 0) {
-                this.scanDisabled = true;
-                this.errorMessage = 'You haven\'t selected any product, please go back to the previous page.';
-            }
-        });
+        this.chosenProducts$.subscribe();
         this.storage.get('vendor').then(vendor => {
             this.vendor = vendor;
         });
@@ -74,8 +67,7 @@ export class ScanPage {
             // this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
             //     this.handleScannedCode(scannedCode, success);
             // }, reject => {
-            //     this.successMessage = '';
-            //     this.errorMessage = reject;
+            //     this.alert(reject);
             // });
             // all the logic can be moved in here when the scan can be tested
         });
@@ -85,8 +77,7 @@ export class ScanPage {
         this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
             this.handleScannedCode(scannedCode, success);
         }, reject => {
-            this.successMessage = '';
-            this.errorMessage = reject;
+            this.alert('Format', reject);
         });
     }
 
@@ -195,7 +186,7 @@ export class ScanPage {
                         alreadyStoredBooklets.push(this.getBookletIdFromCode(scannedCodeInfo[3]));
                         this.storage.set('deactivatedBooklets', alreadyStoredBooklets);
                     });
-                    this.errorMessage = 'You have exceeded your tries at password, your booklet will be deactivated';
+                    this.alert('Booklet deactivated', 'You have exceeded your tries at password, your booklet will be deactivated');
                     return;
             }
             this.triesMessage = 'You didn\'t type the right password. You have only ' +
@@ -220,17 +211,15 @@ export class ScanPage {
      */
     handleScannedCode(scannedCode: string, scannedCodeInfo: string[]) {
         if (scannedCodeInfo === null) {
-            this.errorMessage = 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?';
+            this.alert('Format', 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?');
         }
-        this.successMessage = '';
-        this.errorMessage = '';
         const previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null;
         // previousBooklet = '096-098-096'; // to delete after
         const newBooklet = scannedCodeInfo[3];
 
         this.storage.get('deactivatedBooklets').then(deactivatedBooklets => {
             if (deactivatedBooklets && deactivatedBooklets.includes(this.getBookletIdFromCode(newBooklet))) {
-                this.errorMessage = 'You cannot use this booklet because it has previously been deactivated.';
+                this.alert('Booklet deactivated', 'You cannot use this booklet because it has previously been deactivated.');
                 return;
             }
             if (previousBooklet && previousBooklet !== newBooklet) {
@@ -365,5 +354,24 @@ export class ScanPage {
         this.voucherProvider.setPrice(null);
         this.voucherProvider.setChosenProducts([]);
         this.navCtrl.push(ProductsPage);
+    }
+
+    /**
+     * Opens an alert with only text
+     */
+    alert(title: string, message: string) {
+        const alert = this.alertCtrl.create({
+            title: title,
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: () => {
+                        return;
+                    }
+                }
+            ],
+            message: message
+        });
+        alert.present();
     }
 }
