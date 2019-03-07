@@ -63,6 +63,14 @@ page-products {
                     margin: 10px !important;
                 }
             }
+
+            .remove-product {
+                background: none;
+                i {
+                    margin-right: -15px;
+                    font-size: 20px;
+                }
+            }
         }
 
         .buttons-container {

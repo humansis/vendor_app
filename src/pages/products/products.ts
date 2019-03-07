@@ -5,6 +5,7 @@ import { VoucherProvider } from '../../providers/voucher/voucher';
 import { Product } from '../../model/product';
 import { Observable } from 'rxjs';
 import { SyncProvider } from '../../providers/sync/sync';
+import { ChosenProduct } from '../../model/chosenProduct';
 
 @IonicPage()
 @Component({
@@ -113,5 +114,15 @@ export class ProductsPage implements OnInit {
     clearItemList() {
         this.allChosenProducts = [];
         this.total = 0;
+    }
+
+    /**
+     * Remove a product from the cart
+     */
+    removeFromCart(item: ChosenProduct) {
+        this.allChosenProducts = this.allChosenProducts.filter((product, index, array) => {
+            return product !== item;
+        });
+        this.total = this.total - item.subTotal;
     }
 }

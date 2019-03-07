@@ -63,25 +63,25 @@ export class ScanPage {
     scanCode() {
         let scannedCode = '';
         this.barcodeScanner.scan().then(barcodeData => {
-            scannedCode = barcodeData.text;
-            scannedCode = scannedCode.replace(' ', '+');
-            this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
-                this.handleScannedCode(scannedCode, success);
-            }, reject => {
-                this.successMessage = '';
-                this.errorMessage = reject;
-            });
+            // scannedCode = barcodeData.text;
+            // scannedCode = scannedCode.replace(' ', '+');
+            // this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+            //     this.handleScannedCode(scannedCode, success);
+            // }, reject => {
+            //     this.successMessage = '';
+            //     this.errorMessage = reject;
+            // });
             // all the logic can be moved in here when the scan can be tested
         });
         // meanwhile... (to test, the encoded password is 'coline')
-        // scannedCode = 'USD10*000-004-002-007-kaFw6V2/c0w43zlRQvhVfxb VjQ='; // to delete after
-        // scannedCode = scannedCode.replace(' ', '+');
-        // this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
-        //     this.handleScannedCode(scannedCode, success);
-        // }, reject => {
-        //     this.successMessage = '';
-        //     this.errorMessage = reject;
-        // });
+        scannedCode = 'USD10*000-004-002-007-kaFw6V2/c0w43zlRQvhVfxb VjQ='; // to delete after
+        scannedCode = scannedCode.replace(' ', '+');
+        this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+            this.handleScannedCode(scannedCode, success);
+        }, reject => {
+            this.successMessage = '';
+            this.errorMessage = reject;
+        });
     }
 
     /**
