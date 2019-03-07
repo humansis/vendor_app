@@ -10,8 +10,6 @@ import { MyApp } from './app.component';
 import { ScanPage } from '../pages/scan/scan';
 import { LoginPage } from '../pages/login/login';
 import { ProductsPage } from '../pages/products/products';
-import { ConfirmationModal } from '../pages/confirmation-modal/confirmation-modal';
-import { FormModal } from '../pages/form-modal/form-modal';
 
 // Components
 import { ComponentsModule } from '../components/components.module';
@@ -42,8 +40,6 @@ import { httpInterceptorProviders } from '../interceptors/index-interceptors';
         ScanPage,
         ProductsPage,
         LoginPage,
-        ConfirmationModal,
-        FormModal,
     ],
     imports: [
         BrowserModule,
@@ -68,8 +64,6 @@ import { httpInterceptorProviders } from '../interceptors/index-interceptors';
         ScanPage,
         ProductsPage,
         LoginPage,
-        ConfirmationModal,
-        FormModal
     ],
     providers: [
         StatusBar,
