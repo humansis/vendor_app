@@ -343,6 +343,10 @@ export class ScanPage {
     completeTransaction() {
         this.voucherProvider.scanVouchers(this.vouchers);
         this.navCtrl.push(ProductsPage);
+        this.alert(
+            'Transaction completed',
+            'Your ' + this.vouchersTotalValue + this.vouchers[0].currency + ' transaction has been confirmed'
+        );
     }
 
     /**
@@ -354,6 +358,10 @@ export class ScanPage {
         this.voucherProvider.setPrice(null);
         this.voucherProvider.setChosenProducts([]);
         this.navCtrl.push(ProductsPage);
+        this.alert(
+            'Transaction canceled',
+            'Your transaction has been canceled and your vouchers were not used'
+        );
     }
 
     /**
