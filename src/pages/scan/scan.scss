@@ -1,8 +1,4 @@
 @import "../../theme/variables.scss";
-.scan-button, .scan-button.activated {
-    background-color: $bms_dark_blue;
-}
-
 .error-message {
     color: $bms_red !important;
 }
@@ -20,4 +16,107 @@
 }
 .button-proceed {
     background-color: $bms_green;
+}
+
+ion-card {
+    box-shadow: none !important;
+    .products {
+        border-right: 2px solid grey;
+        img {
+            border-radius: 20px;
+        }
+    }
+    .vouchers-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        .vouchers-list {
+            margin-left: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}
+
+ion-card-content.card-content-md{
+    padding: 0;
+}
+
+ion-card .products, ion-card .vouchers {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 18px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    img {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+    }
+    span {
+        margin-right: 5px;
+    }
+
+    .no-vouchers {
+        text-align: center;
+    }
+
+    .details {
+        display: flex;
+        align-items: center;
+    }
+    .subTotal, .total {
+        position: absolute;
+        right: 5px;
+    }
+    button {
+        font-size: 90px;
+        border-radius: 20px;
+        color: $bms_dark_blue;
+        background-color: transparent;
+        border: 2px solid;
+        height: 113px;
+        width: 120px;
+        margin-left: 20px;
+        padding: 0;
+        .button-inner {
+            margin-top: 0px;
+        }
+        ion-icon {
+            padding-right: 0;
+        }
+        .scan {
+            position: absolute;
+            font-size: 13px;
+            color: #02617F;
+            font-weight: bold;
+            margin-top: 4px;
+            i {
+                margin-top: 2px;
+                font-size: 30px;
+            }
+        }
+    }
+    .total-line {
+        display: flex;
+        margin-top: 10px;
+        font-weight: bold;
+        line-height: 1.8;
+        i {
+            margin-right: 5px;
+        }
+    }
+}
+
+.product-line, .voucher-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
 }

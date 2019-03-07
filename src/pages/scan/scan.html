@@ -3,12 +3,61 @@
 </ion-header>
 
 <ion-content padding>
-  <button ion-button full icon-left (click)="scanCode()" class="scan-button" [disabled]="scanDisabled">
-    <ion-icon name="qr-scanner"></ion-icon>
-    <p>Click here to scan your QR Code</p>
-  </button>
-  <ion-card *ngIf="errorMessage || successMessage">
+  <ion-card>
     <ion-card-content>
+        <ion-grid>
+            <ion-row>
+                <ion-col class="products">
+                  <h2>Products</h2>
+                  <div class="product-line" *ngFor="let product of chosenProducts$ | async">
+                    <div class="details">
+                        <img src="{{ product.product.image }}">
+                        <p>{{ product.product.name  | titlecase }} <br>
+                            {{ product.quantity }} {{ product.product.unit }} </p>
+                    </div>
+                    <div class="subTotal">
+                        <span>{{ product.subTotal }}</span>
+                    </div>
+                  </div>
+                  <div class="total-line">
+                    <i mat-list-icon class="material-icons">shopping_cart</i>
+                    <span>TOTAL</span> 
+                    <span class="total">
+                      {{ this.price$ | async }}
+                    </span>
+                  </div>
+                </ion-col>
+                <ion-col class="vouchers">
+                    <h2>Vouchers</h2>
+                    <div class="vouchers-content">
+                        <button ion-button full icon-left (click)="scanCode()" class="scan-button" [disabled]="scanDisabled">
+                          <p class="scan">Click here <br> to scan <br> <i mat-list-icon class="material-icons">photo_camera</i></p>
+                        </button>
+                        <div class="vouchers-list">
+                            <div class="voucher-line" *ngFor="let voucher of vouchers">
+                              <i mat-list-icon class="material-icons">local_activity</i>
+                              <span>{{ voucher.value }}</span>
+                              <span>{{ voucher.currency }}</span>
+                            </div>
+                            <div class="no-vouchers" *ngIf="vouchers.length === 0">
+                                <p>Please <br>
+                                  Scan a<br>
+                                  Voucher
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total-line" [ngClass]="{'error-message': priceTooHigh === true }" >
+                      <i mat-list-icon class="material-icons">attach_money</i>
+                      <span>TOTAL</span> 
+                      <span class="total">
+                          {{ this.vouchersTotalValue }}
+                      </span>
+                    </div>
+
+                </ion-col>
+            </ion-row>
+        </ion-grid>
       <p *ngIf="errorMessage !== ''" class="error-message" [innerHtml]="errorMessage"></p>
       <p *ngIf="successMessage !== ''" class="success-message" [innerHtml]="successMessage"></p> 
     </ion-card-content>
