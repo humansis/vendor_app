@@ -67,7 +67,7 @@ export class ScanPage {
             // this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
             //     this.handleScannedCode(scannedCode, success);
             // }, reject => {
-            //     this.alert(reject);
+            //     this.alert('Format', reject);
             // });
             // all the logic can be moved in here when the scan can be tested
         });

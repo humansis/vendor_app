@@ -43,11 +43,11 @@
                     </div>
                 </div>
                 <div class="buttons-container">
-                    <button mat-raised-button class="background-red" (click)="clearItemList()" [disabled]="allChosenProducts.length === 0">
+                    <button *ngIf="allChosenProducts.length !== 0" mat-raised-button class="background-red" (click)="clearItemList()">
                         <i class="material-icons">clear</i>
                         Clear
                     </button>
-                    <button mat-raised-button class="background-green" (click)="goToScanPage()" [disabled]="allChosenProducts.length === 0">
+                    <button *ngIf="allChosenProducts.length !== 0" mat-raised-button class="background-green" (click)="goToScanPage()">
                         <i class="material-icons">check</i>
                         Checkout
                     </button>
