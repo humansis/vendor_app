@@ -71,7 +71,29 @@ page-products {
             margin: 20px 0;
         }
 
+        .calculator-view {
+            display: flex;
+            justify-content: space-around;
+            height: 100%;
+
+            ion-grid {
+                height: 100%;
+            }
+        }
+
         .selected-product {
+
+            height: 50%;
+
+            .product-details {
+                height: 30%
+            }
+
+            .product-inputs {
+                height: 70%;
+                padding-top: 10%;
+            }
+
             .product-name {
                 text-align: center;
                 line-height: 50px;
@@ -89,6 +111,8 @@ page-products {
             .product-form-item {
                 width: 90%;
                 margin-left: 5%;
+                height: 50%;
+                color: $bms_slate !important;
 
                 .mat-input-wrapper {
                     margin-top: -1em;
@@ -98,20 +122,56 @@ page-products {
                     }
                 }
 
-                &.focused .mat-form-field-label {
+                .mat-form-field-underline {
+                    border: 1px solid $bms_slate;
+                }
+
+                .mat-form-field-label-wrapper {
+                    bottom: 17px;
+                }
+
+                &.focused .mat-form-field-label, &.focused .mat-input-prefix, &.focused .mat-input-infix,  &.focused .mat-input-suffix {
                     color: $bms_green !important;
                 }
 
                 &.focused .mat-form-field-underline {
-                    background-color: $bms_green !important;
-                    height: 2px;
+                    border: 1px solid $bms_green;
+
                 }
             }
         }
 
         .number-input {
             position: fixed;
-            bottom: 0;
+            bottom: 5px;
+            left: 7px;
+            width: 90%;
+            height: 50%;
         }
+    }
+
+    @media only screen 
+    and (min-device-width : 768px) 
+    and (orientation : landscape) {
+
+   
+        font-size: 20px;
+        mat-drawer .selected-product .product-form-item .mat-form-field-label-wrapper {
+            bottom: 25px;
+        }
+
+        mat-drawer .selected-product .product-name h5 {
+            font-size: 35px;
+        }
+
+        mat-drawer {
+            width: 48vw;
+        }
+
+        mat-drawer-content .product {
+            width: 17vw;
+            height: 17vw;
+        }
+
     }
 }
