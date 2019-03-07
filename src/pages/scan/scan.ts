@@ -7,8 +7,6 @@ import { Vendor } from '../../model/vendor';
 import { Storage } from '@ionic/storage';
 import { Voucher } from '../../model/voucher';
 import { ProductsPage } from '../products/products';
-import { ConfirmationModal } from '../confirmation-modal/confirmation-modal';
-import { FormModal } from '../form-modal/form-modal';
 import { ChosenProduct } from '../../model/chosenProduct';
 import { AlertController } from 'ionic-angular';
 import CryptoJS from 'crypto-js';
