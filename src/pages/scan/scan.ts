@@ -151,13 +151,13 @@ export class ScanPage {
             subTitle: 'Please enter the voucher\'s password',
             buttons: [
                 {
-                    text: 'Cancel',
+                    text: '✕ Cancel',
                     handler: () => {
                         return;
                     }
                 },
                 {
-                    text: 'Submit',
+                    text: '✓ Submit',
                     handler: data => {
                         this.handlePasswordSubmit(data, scannedCode, passwords, scannedCodeInfo)
                     }
@@ -271,13 +271,13 @@ export class ScanPage {
             title: 'Different booklet',
             buttons: [
                 {
-                    text: 'Go back to the scan page',
+                    text: '⤺ Back to the scan page',
                     handler: () => {
                         return;
                     }
                 },
                 {
-                    text: 'Cancel transaction and go back to the product page',
+                    text: '✕ Cancel transaction',
                     handler: data => {
                         this.cancelTransaction();
                     }
@@ -297,16 +297,16 @@ export class ScanPage {
 
         const alert = this.alertCtrl.create({
             cssClass: 'wide-alert',
-            title: 'Proceed transaction',
+            title: 'Proceed with transaction',
             buttons: [
                 {
-                    text: 'Go back to the scan page',
+                    text: '⤺ Back to the scan page',
                     handler: () => {
                         return;
                     }
                 },
                 {
-                    text: 'Proceed and go back to the product page',
+                    text: '✓ Proceed',
                     handler: data => {
                         this.completeTransaction();
                     }
@@ -328,13 +328,13 @@ export class ScanPage {
             title: 'Cancel transaction',
             buttons: [
                 {
-                    text: 'Go back to the scan page',
+                    text: '⤺ Back to the scan page',
                     handler: () => {
                         return;
                     }
                 },
                 {
-                    text: 'Cancel transaction and go back to the product page',
+                    text: '✕ Cancel transaction',
                     handler: data => {
                         this.cancelTransaction();
                     }
