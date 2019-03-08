@@ -6,6 +6,7 @@ import { Product } from '../../model/product';
 import { Observable } from 'rxjs';
 import { SyncProvider } from '../../providers/sync/sync';
 import { ChosenProduct } from '../../model/chosenProduct';
+import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -29,7 +30,8 @@ export class ProductsPage implements OnInit {
         public navCtrl: NavController,
         public navParams: NavParams,
         public voucherProvider: VoucherProvider,
-        private syncProvider: SyncProvider
+        private syncProvider: SyncProvider,
+        private alertCtrl: AlertController
     ) {
     }
 
@@ -112,17 +114,53 @@ export class ProductsPage implements OnInit {
      * Clear selected products (basket)
      */
     clearItemList() {
-        this.allChosenProducts = [];
-        this.total = 0;
+        const alert = this.alertCtrl.create({
+            title: 'Empty cart',
+            buttons: [
+                {
+                    text: 'No',
+                    handler: () => {
+                        return;
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: data => {
+                        this.allChosenProducts = [];
+                        this.total = 0;
+                    }
+                }
+            ],
+            message: 'Are you sure you want to empty your cart ?'
+        });
+        alert.present();
     }
 
     /**
      * Remove a product from the cart
      */
     removeFromCart(item: ChosenProduct) {
-        this.allChosenProducts = this.allChosenProducts.filter((product, index, array) => {
-            return product !== item;
+        const alert = this.alertCtrl.create({
+            title: 'Remove product',
+            buttons: [
+                {
+                    text: 'No',
+                    handler: () => {
+                        return;
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: data => {
+                        this.allChosenProducts = this.allChosenProducts.filter((product, index, array) => {
+                            return product !== item;
+                        });
+                        this.total = this.total - item.subTotal;
+                    }
+                }
+            ],
+            message: 'Are you sure you want to remove this product from your cart ?'
         });
-        this.total = this.total - item.subTotal;
+        alert.present();
     }
 }
