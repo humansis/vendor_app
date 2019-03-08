@@ -123,3 +123,10 @@ ion-card .products, ion-card .vouchers {
     align-items: center;
     margin-bottom: 5px;
 }
+
+.alert-wrapper {
+    overflow: scroll;
+    .alert-message {
+        overflow: unset;
+    }
+}
