@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { ProductsPage } from '../pages/products/products';
 import { Storage } from '@ionic/storage';
+import { AndroidFullScreen } from '@ionic-native/android-full-screen';
 
 @Component({
     templateUrl: 'app.html'
@@ -12,7 +13,13 @@ import { Storage } from '@ionic/storage';
 export class MyApp {
     rootPage: any;
 
-    constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private storage: Storage) {
+    constructor(
+        platform: Platform,
+        statusBar: StatusBar,
+        splashScreen: SplashScreen,
+        private storage: Storage,
+        private androidFullScreen: AndroidFullScreen
+    ) {
         platform.ready().then(() => {
             statusBar.styleDefault();
             this.storage.get('vendor').then(vendor => {
@@ -22,6 +29,9 @@ export class MyApp {
                     this.rootPage = LoginPage;
                 }
                 splashScreen.hide();
+                // this.androidFullScreen.isImmersiveModeSupported()
+                // .then(() => this.androidFullScreen.immersiveMode().then()) // Android 4.4+ only
+                // .catch();
             });
         });
     }
