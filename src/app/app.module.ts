@@ -71,7 +71,6 @@ import { httpInterceptorProviders } from '../interceptors/index-interceptors';
         { provide: ErrorHandler, useClass: IonicErrorHandler },
         httpInterceptorProviders,
 
-
         // Plugins
         BarcodeScanner,
         LoginProvider,
