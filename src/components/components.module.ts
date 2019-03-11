@@ -3,6 +3,7 @@ import { HeaderComponent } from './header/header';
 import { CalculatorComponent } from './calculator/calculator';
 import { IonicModule } from 'ionic-angular';
 import { MatButtonModule } from '@angular/material';
+import { Network } from '@ionic-native/network';
 
 
 @NgModule({
@@ -17,6 +18,9 @@ import { MatButtonModule } from '@angular/material';
     exports: [
         HeaderComponent,
         CalculatorComponent
+    ],
+    providers: [
+        Network
     ]
 })
 export class ComponentsModule { }
