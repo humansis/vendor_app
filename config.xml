@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Populus</name>
-    <description>An app to scann vouchers and sell products.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <name>BMS</name>
+    <description>An app to scan vouchers and sell products.</description>
+    <author email="contact@reliefapplications.org" href="https://reliefapps.org">Relief Applications</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="*" />
