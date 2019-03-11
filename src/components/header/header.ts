@@ -5,6 +5,7 @@ import { LoginPage } from '../../pages/login/login';
 import { SyncProvider } from '../../providers/sync/sync';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import { Network } from '@ionic-native/network';
 
 @Component({
     selector: 'header',
@@ -15,39 +16,53 @@ export class HeaderComponent {
     @Input() title: string;
 
     loading: any;
+    visibleOnline = false;
+    turnButton = false;
+    disabledSync = false;
 
     constructor(
         public navCtrl: NavController,
         private storage: Storage,
         private syncProvider: SyncProvider,
         private alertCtrl: AlertController,
-        public loadingController: LoadingController) {
+        public loadingController: LoadingController,
+        private network: Network) {
     }
 
+    // If we get wifi for the first time of the day we sync
+    connectSubscription = this.network.onConnect().subscribe(() => {
+        this.storage.get('date').then(date => {
+            if (date !== new Date().toDateString()) {
+                this.sync(false);
+            }
+        });
+    });
+
     /**
-     * Logout user
+     * If we use the app for the first time of the day and we have wifi we sync
      */
-    logout() {
-        this.storage.get('vouchers').then(vouchers => {
-            if (vouchers !== null && vouchers.length > 0) {
-                const alert = this.alertCtrl.create({
-                    title: 'Logout',
-                    subTitle: 'You need to sync your data before loging out',
-                    buttons: ['OK']
-                });
-                alert.present();
-            } else {
-                this.storage.set('vendor', null);
-                this.navCtrl.setRoot(LoginPage);
+    ngOnInit() {
+        this.storage.get('date').then(date => {
+            if (date !== new Date().toDateString()) {
+                this.sync(false);
             }
         });
     }
 
     /**
-     * Sync vouchers with backend
+     * Log out
      */
-    sync() {
-        this.presentLoading();
+    logout() {
+        this.storage.set('vendor', null);
+        this.navCtrl.setRoot(LoginPage);
+    }
+
+    /**
+     * Sync vouchers with backend, automatically or manually
+     */
+    sync(manual: boolean) {
+        this.disabledSync = true;
+        this.syncingAnimation();
         this.storage.get('vouchers').then(vouchers => {
             this.storage.get('deactivatedBooklets').then(booklets => {
                 if (!vouchers) {
@@ -55,34 +70,43 @@ export class HeaderComponent {
                 }
                 this.syncProvider.sync(vouchers, booklets).then(success => {
                     this.storage.set('vouchers', []);
-                    this.loading.dismiss();
-                    const alert = this.alertCtrl.create({
-                        title: 'Sync',
-                        subTitle: 'Data has been successfully sync',
-                        buttons: ['OK']
-                    });
-                    alert.present();
+                    const date = new Date().toDateString();
+                    this.storage.set('date', date);
+                    this.disabledSync = false;
+                    if (manual) {
+                        const alert = this.alertCtrl.create({
+                            title: 'Sync',
+                            subTitle: 'Data has been successfully sync',
+                            buttons: ['OK']
+                        });
+                        alert.present();
+                    }
                 }, error => {
-                    this.loading.dismiss();
-                    const alert = this.alertCtrl.create({
-                        title: 'Sync',
-                        subTitle: 'We were not able to sync you data, please verify your internet connection and retry.',
-                        buttons: ['OK']
-                    });
-                    alert.present();
+                    this.disabledSync = false;
+                    if (manual) {
+                        const alert = this.alertCtrl.create({
+                            title: 'Sync',
+                            subTitle: 'We were not able to sync you data, please verify your internet connection and retry.',
+                            buttons: ['OK']
+                        });
+                        alert.present();
+                    }
                 });
             });
         });
     }
 
     /**
-     * Show loading information
+     * Animation while the app is syncing
      */
-    async presentLoading() {
-        this.loading = await this.loadingController.create({
-            spinner: 'crescent',
-            content: '<div>Please wait...</div>'
-        });
-        return await this.loading.present();
+    syncingAnimation() {
+        this.turnButton = true;
+        setTimeout(() => {
+            this.visibleOnline = true;
+        }, 800);
+        setTimeout(() => {
+            this.visibleOnline = false;
+            this.turnButton = false;
+        }, 2300);
     }
 }
