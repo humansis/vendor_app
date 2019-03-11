@@ -1,6 +1,6 @@
 <div class="main-container">
   <div class="data-container">
-    <p class="version">version-{{ version }}</p>
+    <p class="version">v{{ version }}</p>
     <div class="box-login">
       <div class="login-logo">
         <img class="logo-image" src="../../assets/imgs/bms_logo.png" />
@@ -8,19 +8,17 @@
       <div class="input-data">
           <div class="login-title">
               <h1 class="title-text">{{login.login_bms | titlecase}}</h1>
-              <h4 class="subtitle-text">VENDOR APPLICATION</h4>
+              <p class="subtitle-text">VENDOR APPLICATION</p>
           </div>
           <div class="login-user">
-              <input type="text" class="user-input"placeholder="{{login.login_username | titlecase}}" [(ngModel)]="vendor.username">
+              <input type="text" class="user-input" placeholder="{{login.login_username | titlecase}}" [(ngModel)]="vendor.username">
               <input type="password" class="user-input" placeholder="{{login.login_password | titlecase}}" [(ngModel)]="vendor.password">
           </div>
-          <div>
-              <button mat-raised-button *ngIf="!loader" class="button-background-primary" (click)="clickSubmit()" [disabled]="!vendor.username || !vendor.password">
-                Login
+          <div class="login-button">
+              <button mat-raised-button *ngIf="!loader" class="background-green" (click)="clickSubmit()" [disabled]="!vendor.username || !vendor.password">
+                  Login
               </button>
-          </div>
-          <div class="login-spinner">
-            <ion-spinner color="dark" *ngIf="loader"></ion-spinner>
+              <ion-spinner color="dark" *ngIf="loader"></ion-spinner>
           </div>
       </div>
     </div>
