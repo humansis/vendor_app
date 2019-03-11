@@ -12,7 +12,12 @@ import { Storage } from '@ionic/storage';
 export class MyApp {
     rootPage: any;
 
-    constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private storage: Storage) {
+    constructor(
+        platform: Platform,
+        statusBar: StatusBar,
+        splashScreen: SplashScreen,
+        private storage: Storage
+    ) {
         platform.ready().then(() => {
             statusBar.styleDefault();
             this.storage.get('vendor').then(vendor => {

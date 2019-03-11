@@ -4,7 +4,10 @@
         <span>{{ title }}</span>
     </ion-title>
     <ion-buttons end>
-        <button ion-button (click)="sync()">
+        <span [ngClass]="{'visibleOnline': visibleOnline === true, 'hiddenOnline': visibleOnline === false }" class="hiddenOnline">
+            Syncing...
+        </span>
+        <button ion-button (click)="sync(true)" [ngClass]="{'turnButton': turnButton === true}" [disabled]="disabledSync">
             <i class="material-icons">sync</i>
         </button>
         <button ion-button (click)="logout()">

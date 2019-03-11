@@ -2,6 +2,9 @@
 @import "../../theme/variables.scss";
 
 page-products {
+    .scroll-content {
+        overflow: hidden;
+    }
     mat-drawer-container {
         width: 100%;
         height: calc(100vh - 50px);

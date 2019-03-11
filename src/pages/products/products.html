@@ -45,7 +45,7 @@
                 <div class="buttons-container">
                     <button *ngIf="allChosenProducts.length !== 0" mat-raised-button class="background-red" (click)="clearItemList()">
                         <i class="material-icons">clear</i>
-                        Clear
+                        Clear All
                     </button>
                     <button *ngIf="allChosenProducts.length !== 0" mat-raised-button class="background-green" (click)="goToScanPage()">
                         <i class="material-icons">check</i>
@@ -53,9 +53,9 @@
                     </button>
                 </div>
                 <div class="warning-sync">
-                    <span>Please don't forget to click on </span> 
+                    <span>Please click on </span> 
                     <i class="material-icons">sync</i>
-                    <span>regularly to sync your local information with Populus</span>
+                    <span>if you want to sync with the Hawala Desk</span>
                 </div>
             </div>
 
