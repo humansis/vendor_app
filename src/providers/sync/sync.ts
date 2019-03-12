@@ -113,7 +113,10 @@ export class SyncProvider {
                 this.storage.set('products', productList);
                 resolve(products);
             }, error => {
-                this.storage.get('products').then(products => resolve(products));
+                this.storage.get('products').then(products => {
+                    this.products.next(products);
+                    resolve(products);
+                });
             });
         });
     }
