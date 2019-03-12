@@ -54,7 +54,9 @@ import { httpInterceptorProviders } from '../interceptors/index-interceptors';
         MatInputModule,
         MatListModule,
         HttpClientModule,
-        IonicStorageModule.forRoot(),
+        IonicStorageModule.forRoot({
+            driverOrder: ['indexeddb', 'sqlite', 'websql']
+        }),
         ComponentsModule,
         MatProgressSpinnerModule
     ],

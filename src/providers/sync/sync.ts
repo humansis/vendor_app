@@ -57,7 +57,7 @@ export class SyncProvider {
      */
     sendBooklets(booklets: string[]) {
         const body = {
-            bookletIds: booklets
+            bookletCodes: booklets
         };
         return this.http.post(this.URL_BMS_API + '/deactivate-booklets', body);
     }
@@ -68,11 +68,11 @@ export class SyncProvider {
     getDeactivatedBooklets() {
         return new Promise((resolve, reject) => {
             this.http.get<Array<Booklet>>(this.URL_BMS_API + '/deactivated-booklets').subscribe(deactivatedBooklets => {
-                const deactivatedBookletIds = [];
+                const deactivatedBookletCodes = [];
                 deactivatedBooklets.forEach(booklet => {
-                    deactivatedBookletIds.push(booklet.id);
+                    deactivatedBookletCodes.push(booklet.code);
                 });
-                this.storage.set('deactivatedBooklets', deactivatedBookletIds);
+                this.storage.set('deactivatedBooklets', deactivatedBookletCodes);
                 resolve(deactivatedBooklets);
             }, error => {
                 reject(error);

@@ -70,7 +70,7 @@ export class ScanPage {
             // all the logic can be moved in here when the scan can be tested
         });
         // meanwhile... (to test, the encoded password is 'coline')
-        scannedCode = 'USD10*000-004-002-007-kaFw6V2/c0w43zlRQvhVfxb VjQ='; // to delete after
+        scannedCode = 'USD10*weIyj*022-022-022-039'; // to delete after
         scannedCode = scannedCode.replace(' ', '+');
         this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
             this.handleScannedCode(scannedCode, success);
@@ -86,19 +86,19 @@ export class ScanPage {
     ifHasNoPasswordGetInfo(scannedCode: string): Promise<string[]> {
         return new Promise((resolve, reject) => {
             const passwords = [];
-            let bookletId = '';
-            let scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-zA-Z=+-\/]+)$/i);
+            let bookletCode = '';
+            let scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([A-Z\d]+\*[\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-zA-Z=+-\/]+)$/i);
             if (scannedCodeInfo !== null) {
                 passwords.push(scannedCodeInfo[5]);
-                bookletId = scannedCodeInfo[3];
+                bookletCode = scannedCodeInfo[3];
             } else {
                 scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£\d]+)\*([\d]..-[\d]..-[\d]..)$/i);
                 if (scannedCodeInfo !== null) {
                     reject('You cannot scan a booklet code, you have to scan the vouchers individually.');
                 } else {
-                    scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([\d]..-[\d]..-[\d]..)-([\da-z]+)$/i);
+                    scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([A-Z\d]+\*[\d]..-[\d]..-[\d]..)-([\da-z]+)$/i);
                     if (scannedCodeInfo !== null) {
-                        bookletId = scannedCodeInfo[3];
+                        bookletCode = scannedCodeInfo[3];
                     } else {
                         reject('Your code isn\'t the right format, are you sure it is a BMS Voucher ?');
                     }
@@ -107,8 +107,8 @@ export class ScanPage {
 
             this.storage.get('protectedBooklets').then(booklets => {
                 booklets.forEach(booklet => {
-                    if (booklet.hasOwnProperty(bookletId)) {
-                        passwords.push(booklet[bookletId]);
+                    if (booklet.hasOwnProperty(bookletCode)) {
+                        passwords.push(booklet[bookletCode]);
                     }
                 });
                 if (passwords.length > 0) {
@@ -122,13 +122,6 @@ export class ScanPage {
         });
     }
 
-    /**
-     * Get booklet id from it code
-     * @param  booklet
-     */
-    getBookletIdFromCode(booklet: string): number {
-        return parseInt(booklet.split('-').pop(), 10) + 1;
-    }
 
     /**
      * Open password modal
@@ -181,7 +174,7 @@ export class ScanPage {
             if (this.tries === 0) {
                 this.storage.get('deactivatedBooklets').then(cacheBooklets => {
                         const alreadyStoredBooklets = cacheBooklets || [];
-                        alreadyStoredBooklets.push(this.getBookletIdFromCode(scannedCodeInfo[3]));
+                        alreadyStoredBooklets.push(scannedCodeInfo[3]);
                         this.storage.set('deactivatedBooklets', alreadyStoredBooklets);
                     });
                     this.alert('Booklet deactivated', 'You have exceeded your tries at password, your booklet will be deactivated');
@@ -212,11 +205,11 @@ export class ScanPage {
             this.alert('Format', 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?');
         }
         const previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null;
-        // previousBooklet = '096-098-096'; // to delete after
+        // previousBooklet = 'iK01m*000-004-001'; // to delete after
         const newBooklet = scannedCodeInfo[3];
 
         this.storage.get('deactivatedBooklets').then(deactivatedBooklets => {
-            if (deactivatedBooklets && deactivatedBooklets.includes(this.getBookletIdFromCode(newBooklet))) {
+            if (deactivatedBooklets && deactivatedBooklets.includes(newBooklet)) {
                 this.alert('Booklet deactivated', 'You cannot use this booklet because it has previously been deactivated.');
                 return;
             }
