@@ -72,14 +72,14 @@
                         </ion-row>
                         <ion-row class="product-inputs">
                             <form>
-                                <mat-form-field class="product-form-item" [ngClass]="{'focused': typing == 'quantity'}">
+                                <mat-form-field class="product-form-item" [ngClass]="{'focused': typing == 'quantity'}" (click)="typing = 'quantity'">
                                     <i class="material-icons" matPrefix>shopping_cart</i>
-                                    <input type="number" matInput placeholder="Quantity" readonly [value]="quantity" (click)="typing = 'quantity'">
+                                    <input type="number" matInput placeholder="Quantity" readonly [value]="quantity">
                                     <span matSuffix>{{ selectedProduct.unit }}</span>
                                 </mat-form-field>
-                                <mat-form-field class="product-form-item" [ngClass]="{'focused': typing == 'price'}">
+                                <mat-form-field class="product-form-item" [ngClass]="{'focused': typing == 'price'}" (click)="typing = 'price'">
                                     <i class="material-icons" matPrefix>monetization_on</i>
-                                    <input type="number" matInput placeholder="Unit Price" readonly [value]="price" (click)="typing = 'price'">
+                                    <input type="number" matInput placeholder="Unit Price" readonly [value]="price">
                                 </mat-form-field>
                             </form>
                         </ion-row>
