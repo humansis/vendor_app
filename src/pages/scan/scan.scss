@@ -89,6 +89,9 @@ ion-card .products, ion-card .vouchers {
         width: 120px;
         margin-left: 20px;
         padding: 0;
+        &.activated {
+            background-color: transparent;
+        }
         .button-inner {
             margin-top: 0px;
         }
