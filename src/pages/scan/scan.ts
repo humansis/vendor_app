@@ -205,7 +205,7 @@ export class ScanPage {
             this.alert('Format', 'Your code isn\'t the right format, are you sure it is a BMS Voucher ?');
         }
         const previousBooklet = this.vouchers.length ? this.vouchers[0].booklet : null;
-        // previousBooklet = 'iK01m*000-004-001'; // to delete after
+        // previousBooklet = 'iK01m*0-4-1'; // to delete after
         const newBooklet = scannedCodeInfo[3];
 
         this.storage.get('deactivatedBooklets').then(deactivatedBooklets => {
