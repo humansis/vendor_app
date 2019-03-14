@@ -70,7 +70,7 @@ export class ScanPage {
             // all the logic can be moved in here when the scan can be tested
         });
         // meanwhile... (to test, the encoded password is 'coline')
-        scannedCode = 'USD10*weIyj*022-022-022-039'; // to delete after
+        scannedCode = 'USD10*a76Gg*0-4-0-1'; // to delete after
         scannedCode = scannedCode.replace(' ', '+');
         this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
             this.handleScannedCode(scannedCode, success);
@@ -87,16 +87,16 @@ export class ScanPage {
         return new Promise((resolve, reject) => {
             const passwords = [];
             let bookletCode = '';
-            let scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([A-Z\d]+\*[\d]..-[\d]..-[\d]..)-([\da-z]+)-([\da-zA-Z=+-\/]+)$/i);
+            let scannedCodeInfo = scannedCode.match(/^([A-Z$€£]+)(\d+)\*([A-Z\d]+\*[\d]+-[\d]+-[\d]+)-([\d]+)-([\dA-Z=+-\/]+)$/i);
             if (scannedCodeInfo !== null) {
                 passwords.push(scannedCodeInfo[5]);
                 bookletCode = scannedCodeInfo[3];
             } else {
-                scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£\d]+)\*([\d]..-[\d]..-[\d]..)$/i);
+                scannedCodeInfo = scannedCode.match(/^([A-Z\d]+)\*([\d]+-[\d]+-[\d]+)$/i);
                 if (scannedCodeInfo !== null) {
                     reject('You cannot scan a booklet code, you have to scan the vouchers individually.');
                 } else {
-                    scannedCodeInfo = scannedCode.match(/^([A-Za-z$€£]+)(\d+)\*([A-Z\d]+\*[\d]..-[\d]..-[\d]..)-([\da-z]+)$/i);
+                    scannedCodeInfo = scannedCode.match(/^([A-Z$€£]+)(\d+)\*([A-Z\d]+\*[\d]+-[\d]+-[\d]+)-([\d]+)$/i);
                     if (scannedCodeInfo !== null) {
                         bookletCode = scannedCodeInfo[3];
                     } else {
