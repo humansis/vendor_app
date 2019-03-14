@@ -142,13 +142,13 @@ export class ScanPage {
             subTitle: 'Please enter the voucher\'s password',
             buttons: [
                 {
-                    text: '✕ Cancel',
+                    text: 'Cancel',
                     handler: () => {
                         return;
                     }
                 },
                 {
-                    text: '✓ Submit',
+                    text: 'Submit',
                     handler: data => {
                         this.handlePasswordSubmit(data, scannedCode, passwords, scannedCodeInfo)
                     }
@@ -260,13 +260,13 @@ export class ScanPage {
             title: 'Different booklet',
             buttons: [
                 {
-                    text: '⤺ Back to the scan page',
+                    text: 'Back to the scan page',
                     handler: () => {
                         return;
                     }
                 },
                 {
-                    text: '✕ Cancel transaction',
+                    text: 'Cancel transaction',
                     handler: data => {
                         this.cancelTransaction();
                     }
@@ -289,13 +289,13 @@ export class ScanPage {
             title: 'Proceed with transaction',
             buttons: [
                 {
-                    text: '⤺ Back to the scan page',
+                    text: 'Back to the scan page',
                     handler: () => {
                         return;
                     }
                 },
                 {
-                    text: '✓ Proceed',
+                    text: 'Proceed',
                     handler: data => {
                         this.completeTransaction();
                     }
@@ -317,13 +317,13 @@ export class ScanPage {
             title: 'Cancel transaction',
             buttons: [
                 {
-                    text: '⤺ Back to the scan page',
+                    text: 'Back to the scan page',
                     handler: () => {
                         return;
                     }
                 },
                 {
-                    text: '✕ Cancel transaction',
+                    text: 'Cancel transaction',
                     handler: data => {
                         this.cancelTransaction();
                     }
@@ -368,14 +368,7 @@ export class ScanPage {
     alert(title: string, message: string) {
         const alert = this.alertCtrl.create({
             title: title,
-            buttons: [
-                {
-                    text: 'OK',
-                    handler: () => {
-                        return;
-                    }
-                }
-            ],
+            buttons: ['OK'],
             message: message
         });
         alert.present();
