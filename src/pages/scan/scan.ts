@@ -60,22 +60,13 @@ export class ScanPage {
     scanCode() {
         let scannedCode = '';
         this.barcodeScanner.scan().then(barcodeData => {
-            // scannedCode = barcodeData.text;
-            // scannedCode = scannedCode.replace(' ', '+');
-            // this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
-            //     this.handleScannedCode(scannedCode, success);
-            // }, reject => {
-            //     this.alert('Format', reject);
-            // });
-            // all the logic can be moved in here when the scan can be tested
-        });
-        // meanwhile... (to test, the encoded password is 'coline')
-        scannedCode = 'usd2*21-22-21-23'; // to delete after
-        scannedCode = scannedCode.replace(' ', '+');
-        this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
-            this.handleScannedCode(scannedCode, success);
-        }, reject => {
-            this.alert('Format', reject);
+            scannedCode = barcodeData.text;
+            scannedCode = scannedCode.replace(' ', '+');
+            this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+                this.handleScannedCode(scannedCode, success);
+            }, reject => {
+                this.alert('Format', reject);
+            });
         });
     }
 
