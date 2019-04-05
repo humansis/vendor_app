@@ -134,7 +134,7 @@ export class ScanPage {
                 {
                     text: 'Submit',
                     handler: data => {
-                        this.handlePasswordSubmit(data, scannedCode, passwords, scannedCodeInfo)
+                        this.handlePasswordSubmit(data, scannedCode, passwords, scannedCodeInfo);
                     }
                 }
             ],

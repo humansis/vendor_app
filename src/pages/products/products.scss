@@ -98,7 +98,30 @@ page-products {
             height: 50%;
 
             .product-details {
-                height: 30%
+                height: 20%;
+                display: flex;
+                justify-content: space-between;
+
+                div {
+                    height: 100%;
+                    display: flex;
+                    margin-right: 15px;
+                    margin-left: 15px;
+
+                    h5 {
+                        margin-top: 5px;
+                    }
+                    img {
+                        height: 100%;
+                        margin-right: 10px;
+                    }
+                    i {
+                        margin-top: 5px;
+                        color: $bms_green;
+                        font-size: 4vw;
+                    }
+                }
+
             }
 
             .product-inputs {
