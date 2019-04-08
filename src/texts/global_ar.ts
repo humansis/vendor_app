@@ -5,9 +5,7 @@ export const TEXT = {
     email: 'البريد الالكتروني',
     project: 'المشروع',
     rights: 'الحقوق',
-    
     // SPECIFIC VARIABLES
-
     // Login
     login_bms: 'نظام إدارة المستفيدين',
     login_forgot_password: 'هل نسيت كلمة المرور',

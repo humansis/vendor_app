@@ -25,9 +25,9 @@ export class SyncProvider {
         return new Promise((resolve, reject) => {
             this.sendVouchers(vouchers).subscribe(() => {
                 this.sendBooklets(booklets).subscribe(() => {
-                    this.getDeactivatedBooklets().then(success => {
-                        this.getProtectedBooklets().then(success => {
-                            resolve(success);
+                    this.getDeactivatedBooklets().then(successDeactivated => {
+                        this.getProtectedBooklets().then(successProtected => {
+                            resolve(successProtected);
                         }, error => {
                             reject(error);
                         });

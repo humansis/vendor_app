@@ -1,6 +1,6 @@
-import { TEXT as TEXT_FR } from "./global_fr";
-import { TEXT as TEXT_EN } from "./global_en";
-import { TEXT as TEXT_AR } from "./global_ar";
+import { TEXT as TEXT_FR } from './global_fr';
+import { TEXT as TEXT_EN } from './global_en';
+import { TEXT as TEXT_AR } from './global_ar';
 
 export class GlobalText {
     static language = 'en';
@@ -14,7 +14,11 @@ export class GlobalText {
     static maxWidthSecondRow = 800;
     static maxWidth = 750;
 
-    public static changeLanguage(language : string = this.language) {
+    /**
+     * Change language
+     * @param  language
+     */
+    public static changeLanguage(language: string = this.language) {
         GlobalText.language = language;
 
         switch (language) {
@@ -27,31 +31,38 @@ export class GlobalText {
             case 'ar':
                 GlobalText.TEXTS = TEXT_AR;
                 break;
-            default: GlobalText.TEXTS = TEXT_EN; 
+            default: GlobalText.TEXTS = TEXT_EN;
                 break;
         }
         this.language = language;
         this.adaptMargin();
     }
 
+    /**
+     * Adapt margins
+     * @return [description]
+     */
     private static adaptMargin() {
-        const element = document.getElementsByTagName("mat-sidenav-content") as HTMLCollectionOf<HTMLElement>;
+        const element = document.getElementsByTagName('mat-sidenav-content') as HTMLCollectionOf<HTMLElement>;
 
-        if(window.innerHeight > this.maxHeight || window.innerWidth > this.maxWidth) {
-            if(this.language === 'ar') {
+        if (window.innerHeight > this.maxHeight || window.innerWidth > this.maxWidth) {
+            if (this.language === 'ar') {
                 document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
-                element[0].style.margin = "0px 64px 0px 0px";
+                element[0].style.margin = '0px 64px 0px 0px';
             } else {
                 document.getElementsByTagName('html')[0].setAttribute('dir', '');
-                element[0].style.margin = "0px 0px 0px 64px";
+                element[0].style.margin = '0px 0px 0px 64px';
             }
         } else {
             this.resetMenuMargin();
         }
     }
 
+    /**
+     * Reset menu margin
+     */
     public static resetMenuMargin() {
-        const element = document.getElementsByTagName("mat-sidenav-content") as HTMLCollectionOf<HTMLElement>;
-        element[0].style.margin = "0px 0px 0px 0px";
+        const element = document.getElementsByTagName('mat-sidenav-content') as HTMLCollectionOf<HTMLElement>;
+        element[0].style.margin = '0px 0px 0px 0px';
     }
 }

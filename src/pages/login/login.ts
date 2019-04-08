@@ -39,8 +39,8 @@ export class LoginPage implements OnInit {
     clickSubmit() {
         this.loader = true;
         this.loginProvider.login(this.vendor).then(vendor => {
-            this.syncProvider.getDeactivatedBooklets().then(booklets => {
-                this.syncProvider.getProtectedBooklets().then(booklets => {
+            this.syncProvider.getDeactivatedBooklets().then(deactivatedBooklets => {
+                this.syncProvider.getProtectedBooklets().then(protectedBooklets => {
                     this.navCtrl.setRoot(ProductsPage);
                 }, error => {
                     this.connectionError();
