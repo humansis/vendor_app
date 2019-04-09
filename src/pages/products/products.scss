@@ -10,6 +10,10 @@ page-products {
         height: calc(100vh - 50px);
     }
 
+    .mat-drawer {
+        overflow-y: unset;
+    }
+
     mat-drawer-content {
         width: 60vw;
         display: flex !important;
@@ -114,6 +118,7 @@ page-products {
                     img {
                         height: 100%;
                         margin-right: 10px;
+                        border-radius: 4px;
                     }
                     i {
                         margin-top: 5px;
@@ -127,6 +132,10 @@ page-products {
             .product-inputs {
                 height: 70%;
                 padding-top: 10%;
+
+                .mat-input-placeholder-wrapper {
+                    font-size: 14px;
+                }
             }
 
             .product-name {
@@ -178,7 +187,7 @@ page-products {
 
         .number-input {
             position: fixed;
-            bottom: 5px;
+            bottom: 10px;
             left: 7px;
             width: 90%;
             height: 50%;
