@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Voucher } from '../../model/voucher';
 import { Product } from '../../model/product';
 import { Booklet } from '../../model/booklet';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Header } from 'ionic-angular';
 
 @Injectable()
 export class SyncProvider {
@@ -25,9 +26,9 @@ export class SyncProvider {
         return new Promise((resolve, reject) => {
             this.sendVouchers(vouchers).subscribe(() => {
                 this.sendBooklets(booklets).subscribe(() => {
-                    this.getDeactivatedBooklets().then(successDeactivated => {
-                        this.getProtectedBooklets().then(successProtected => {
-                            resolve(successProtected);
+                    this.getDeactivatedBooklets().then(res => {
+                        this.getProtectedBooklets().then(success => {
+                            resolve(success);
                         }, error => {
                             reject(error);
                         });
@@ -98,24 +99,27 @@ export class SyncProvider {
      * Get products from backend
      */
     getProductsFromApi() {
-        return new Promise((resolve, reject) => {
-            this.http.get<Array<Product>>(this.URL_BMS_API + '/products').subscribe(products => {
-                const productList = [];
-                products.forEach(product => {
-                    productList.push({
-                        id: product.id,
-                        name: product.name,
-                        unit: product.unit,
-                        image: product.image
+        this.storage.get('country').then(country => {
+            return new Promise((resolve, reject) => {
+                const headers = new HttpHeaders().append('country', country);
+                this.http.get<Array<Product>>(this.URL_BMS_API + '/products', {headers: headers}).subscribe(products => {
+                    const productList = [];
+                    products.forEach(product => {
+                        productList.push({
+                            id: product.id,
+                            name: product.name,
+                            unit: product.unit,
+                            image: product.image
+                        });
                     });
-                });
-                this.products.next(productList);
-                this.storage.set('products', productList);
-                resolve(products);
-            }, error => {
-                this.storage.get('products').then(products => {
-                    this.products.next(products);
+                    this.products.next(productList);
+                    this.storage.set('products', productList);
                     resolve(products);
+                }, error => {
+                    this.storage.get('products').then(products => {
+                        this.products.next(products);
+                        resolve(products);
+                    });
                 });
             });
         });
