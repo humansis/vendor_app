@@ -26,7 +26,7 @@ import { LoginProvider } from '../providers/login/login';
 import { MatButtonModule, MatSelectModule, MatSidenavModule, MatInputModule, MatListModule } from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { VoucherProvider } from '../providers/voucher/voucher';
 import { IonicStorageModule } from '@ionic/storage';
 import { SyncProvider } from '../providers/sync/sync';

@@ -5,7 +5,6 @@ import { Voucher } from '../../model/voucher';
 import { Product } from '../../model/product';
 import { Booklet } from '../../model/booklet';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Header } from 'ionic-angular';
 
 @Injectable()
 export class SyncProvider {

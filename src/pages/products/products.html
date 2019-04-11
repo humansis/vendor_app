@@ -58,12 +58,13 @@
                 <div class="selected-product">
                     <ion-grid>
                         <ion-row class="product-details">
-                            <ion-col class="product-name">
-                                <h5>{{ selectedProduct.name | titlecase }}</h5>
-                            </ion-col>
-                            <ion-col col-3 class="product-image">
+                            <div>
                                 <img src="{{ selectedProduct.image }}" />
-                            </ion-col>
+                                <h5>{{ selectedProduct.name | titlecase }}</h5>
+                            </div>
+                            <div>
+                                <i class="material-icons" matPrefix (click)="addToBasket()">add_shopping_cart</i>
+                            </div>
                         </ion-row>
                         <ion-row class="product-inputs">
                             <form>
@@ -81,8 +82,8 @@
                     </ion-grid>
                 </div>
                 <div class="number-input">
-                    <calculator *ngIf="typing == 'quantity'" [(value)]="quantity" (addToBasketEvent)="addToBasket()"></calculator>
-                    <calculator *ngIf="typing == 'price'" [(value)]="price" (addToBasketEvent)="addToBasket()"></calculator>
+                    <calculator *ngIf="typing == 'quantity'" [(value)]="quantity"></calculator>
+                    <calculator *ngIf="typing == 'price'" [(value)]="price"></calculator>
                 </div>
             </div>
         </mat-drawer>

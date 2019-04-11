@@ -6,9 +6,7 @@ export const TEXT = {
     project: 'Project',
     rights: 'Rights',
 
-
     // SPECIFIC VARIABLES
-
     // Login
     login_bms: 'Beneficiary management system',
     login_forgot_password: 'Forgot password?',
@@ -17,9 +15,8 @@ export const TEXT = {
     login_username: 'username',
 
     // Model
-   
+
     model_countryIso3: 'Country',
     model_user: 'User',
     model_user_password: 'Password',
-
 };
