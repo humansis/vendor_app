@@ -1,4 +1,171 @@
 @import "../../theme/variables.scss";
+
+ion-card {
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+
+
+    ion-card-content.card-content-md {
+        padding: 0;
+    }
+
+    .grid {
+        padding: 0;
+    }
+
+    .products {
+        border-right: 2px solid grey;
+    }
+
+    .products,
+    .vouchers {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+        padding-top: 0;
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .product-line,
+        .voucher-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        // Products
+        .details {
+            display: flex;
+            align-items: center;
+
+            img {
+                width: 30px;
+                height: 30px;
+                margin-right: 10px;
+                border-radius: 20px;
+            }
+
+            .product-info {
+                display: flex;
+                flex-direction: column;
+
+                span {
+                    font-size: small;
+                }
+            }
+
+        }
+
+        // Vouchers
+        .vouchers-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .vouchers-list {
+                margin-left: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .voucher-line {
+                    flex-grow: 1;
+                }
+
+                .no-vouchers {
+                    flex-grow: 1;
+                    text-align: center;
+                }
+            }
+
+        }
+
+        .scan-button {
+            font-size: 90px;
+            border-radius: 20px;
+            color: $bms_dark_blue;
+            background-color: transparent;
+            border: 2px solid;
+            height: 80px;
+            width: 100px;
+            margin-left: 20px;
+            padding: 0;
+
+            &.activated {
+                background-color: transparent;
+            }
+
+            .button-inner {
+                margin-top: 0px;
+            }
+
+            ion-icon {
+                padding-right: 0;
+            }
+
+            .scan {
+                height: inherit;
+                width: inherit;
+                font-size: 13px;
+                color: #02617F;
+                font-weight: bold;
+                padding: 2px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                p {
+                    font-size: small;
+                    text-align: center;
+                    width: inherit;
+                    white-space: normal;
+                    color: inherit;
+                    font-weight: inherit;
+                }
+
+                i {
+                    margin-top: 2px;
+                    font-size: 25px;
+                }
+            }
+        }
+
+        // Total
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-weight: bold;
+            line-height: 1.8;
+            
+            span {
+                display: flex;
+
+                i {
+                    margin-right: 5px;
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+}
+
+.alert-wrapper {
+    overflow: scroll;
+
+    .alert-message {
+        overflow: unset;
+    }
+}
+
 .error-message {
     color: $bms_red !important;
 }
@@ -14,123 +181,11 @@
 .button-cancel {
     background-color: $bms_red;
 }
+
 .button-proceed {
     background-color: $bms_green;
 }
 
 .wide-alert .alert-wrapper {
     max-width: 500px;
-}
-ion-card {
-    box-shadow: none !important;
-    .products {
-        border-right: 2px solid grey;
-        img {
-            border-radius: 20px;
-        }
-    }
-    .vouchers-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        .vouchers-list {
-            margin-left: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-    }
-}
-
-ion-card-content.card-content-md{
-    padding: 0;
-}
-
-ion-card .products, ion-card .vouchers {
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    h2 {
-        text-align: center;
-        margin-bottom: 18px;
-        font-size: 18px;
-        font-weight: bold;
-    }
-    img {
-        width: 30px;
-        height: 30px;
-        margin-right: 5px;
-    }
-    span {
-        margin-right: 5px;
-    }
-
-    .no-vouchers {
-        text-align: center;
-    }
-
-    .details {
-        display: flex;
-        align-items: center;
-    }
-    .subTotal, .total {
-        position: absolute;
-        right: 5px;
-    }
-    button {
-        font-size: 90px;
-        border-radius: 20px;
-        color: $bms_dark_blue;
-        background-color: transparent;
-        border: 2px solid;
-        height: 113px;
-        width: 120px;
-        margin-left: 20px;
-        padding: 0;
-        &.activated {
-            background-color: transparent;
-        }
-        .button-inner {
-            margin-top: 0px;
-        }
-        ion-icon {
-            padding-right: 0;
-        }
-        .scan {
-            position: absolute;
-            font-size: 13px;
-            color: #02617F;
-            font-weight: bold;
-            margin-top: 4px;
-            i {
-                margin-top: 2px;
-                font-size: 30px;
-            }
-        }
-    }
-    .total-line {
-        display: flex;
-        margin-top: 10px;
-        font-weight: bold;
-        line-height: 1.8;
-        i {
-            margin-right: 5px;
-            margin-top: 6px;
-        }
-    }
-}
-
-.product-line, .voucher-line {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.alert-wrapper {
-    overflow: scroll;
-    .alert-message {
-        overflow: unset;
-    }
 }
