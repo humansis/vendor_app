@@ -78,7 +78,7 @@ export class ProductsPage implements OnInit {
                     disabled: true
                 });
             } else {
-                formControls['currency'] = new FormControl('USD');
+                formControls['currency'] = new FormControl('SYP');
             }
             this.form = new FormGroup(formControls);
         }
