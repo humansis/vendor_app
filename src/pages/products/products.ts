@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { SyncProvider } from '../../providers/sync/sync';
 import { ChosenProduct } from '../../model/chosenProduct';
 import { AlertController } from 'ionic-angular';
+import { CURRENCIES } from '../../model/currencies';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -25,6 +27,9 @@ export class ProductsPage implements OnInit {
     public quantity: number;
     public price: number;
     public total = 0;
+
+    public currencies = CURRENCIES;
+    public form: FormGroup;
 
     constructor(
         public navCtrl: NavController,
@@ -66,6 +71,16 @@ export class ProductsPage implements OnInit {
             this.clearSelection();
             this.isItemSelected = true;
             this.selectedProduct = product;
+            const formControls = {};
+            if (this.allChosenProducts[0] && this.allChosenProducts[0].currency) {
+                formControls['currency'] = new FormControl({
+                    value: this.allChosenProducts[0].currency,
+                    disabled: true
+                });
+            } else {
+                formControls['currency'] = new FormControl('USD');
+            }
+            this.form = new FormGroup(formControls);
         }
     }
 
@@ -89,7 +104,8 @@ export class ProductsPage implements OnInit {
                 product: this.selectedProduct,
                 quantity: this.quantity,
                 price: this.price,
-                subTotal: Math.trunc(this.price * this.quantity * 100) / 100  // To have 2 decimals for the cents
+                subTotal: Math.trunc(this.price * this.quantity * 100) / 100,  // To have 2 decimals for the cents
+                currency: this.form.controls.currency.value
             });
             this.total = 0;
             this.allChosenProducts.forEach(element => {

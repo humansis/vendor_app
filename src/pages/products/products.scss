@@ -218,4 +218,11 @@ page-products {
             height: 17vw;
         }
     }
+
+    ion-select {
+        max-width: 100%;
+        button.item-cover {
+            left: auto;
+        }
+    }
 }

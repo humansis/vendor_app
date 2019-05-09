@@ -68,6 +68,13 @@ export class ScanPage {
                 this.alert('Format', reject);
             });
         });
+
+            // scannedCode = 'AFN3*0-5-4-15';
+            // this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+            //     this.handleScannedCode(scannedCode, success);
+            // }, reject => {
+            //     this.alert('Format', reject);
+            // });
     }
 
     /**
@@ -210,6 +217,12 @@ export class ScanPage {
             }
 
             const productIds = [];
+
+            if (scannedCodeInfo[1] !== this.chosenProducts$.getValue()[0].currency) {
+                this.alert('Currency Mismatch', 'This voucher is not in the right currency.');
+                return;
+            }
+
             this.chosenProducts$.getValue().forEach(chosenPoduct => {
                 productIds.push(chosenPoduct.product.id);
             });

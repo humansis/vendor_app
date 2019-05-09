@@ -16,14 +16,14 @@
                             {{ product.quantity }} {{ product.product.unit }} </p>
                     </div>
                     <div class="subTotal">
-                        <span>{{ product.subTotal }}</span>
+                        <span>{{ product.subTotal }} {{ product.currency }}</span>
                     </div>
                   </div>
                   <div class="total-line">
                     <i mat-list-icon class="material-icons">shopping_cart</i>
                     <span>TOTAL</span> 
                     <span class="total">
-                      {{ this.price$ | async }}
+                      {{ price$ | async }} {{ chosenProducts$.getValue()[0].currency }}
                     </span>
                   </div>
                 </ion-col>
@@ -51,7 +51,7 @@
                       <i mat-list-icon class="material-icons">attach_money</i>
                       <span>TOTAL</span> 
                       <span class="total">
-                          {{ this.vouchersTotalValue }}
+                          {{ this.vouchersTotalValue }} {{ chosenProducts$.getValue()[0].currency }}
                       </span>
                     </div>
 
