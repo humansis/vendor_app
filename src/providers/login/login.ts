@@ -13,7 +13,9 @@ export class LoginProvider {
     private vendor = new Vendor;
     URL_BMS_API: string = process.env.URL_BMS_API;
 
-    constructor(public http: HttpClient, private storage: Storage) {
+    constructor(
+        public http: HttpClient,
+        private storage: Storage) {
     }
 
     /**
@@ -42,13 +44,14 @@ export class LoginProvider {
                 const getSalt = salt as SaltInterface;
                 vendor.salted_password = this.saltPassword(getSalt.salt, vendor.password);
                 delete vendor.password;
-                return this.logUser(vendor).subscribe(data => {
+                return this.logUser(vendor).subscribe((data: any) => {
                     if (data) {
                         this.vendor = data as Vendor;
                         this.vendor.salted_password = vendor.salted_password;
                         this.vendor.loggedIn = true;
+                        this.vendor.country = data.user.countries[0].iso3;
                         this.storage.set('vendor', this.vendor);
-                        this.storage.set('country', 'SYR');
+                        this.storage.set('country', this.vendor.country);
                         resolve(this.vendor);
                     } else {
                         reject('Bad credentials');

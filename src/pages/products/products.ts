@@ -9,6 +9,7 @@ import { ChosenProduct } from '../../model/chosenProduct';
 import { AlertController } from 'ionic-angular';
 import { CURRENCIES } from '../../model/currencies';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -36,7 +37,8 @@ export class ProductsPage implements OnInit {
         public navParams: NavParams,
         public voucherProvider: VoucherProvider,
         private syncProvider: SyncProvider,
-        private alertCtrl: AlertController
+        private alertCtrl: AlertController,
+        private storage: Storage,
     ) {
     }
 
@@ -77,10 +79,19 @@ export class ProductsPage implements OnInit {
                     value: this.allChosenProducts[0].currency,
                     disabled: true
                 });
+                this.form = new FormGroup(formControls);
             } else {
-                formControls['currency'] = new FormControl('SYP');
+                let currency: string;
+                this.storage.get('country').then(country => {
+                    if (country === 'KHM') {
+                        currency = 'KHR';
+                    } else if (country === 'SYR') {
+                        currency = 'SYP';
+                    }
+                    formControls['currency'] = new FormControl(currency);
+                    this.form = new FormGroup(formControls);
+                });
             }
-            this.form = new FormGroup(formControls);
         }
     }
 

@@ -67,7 +67,7 @@
                             </div>
                         </ion-row>
                         <ion-row class="product-inputs">
-                            <form [formGroup]="form">
+                            <form [formGroup]="form" *ngIf="form">
                                 <mat-form-field class="product-form-item" [ngClass]="{'focused': typing == 'quantity'}" (click)="typing = 'quantity'">
                                     <i class="material-icons" matPrefix>shopping_cart</i>
                                     <input type="number" matInput placeholder="Quantity" readonly [value]="quantity">
