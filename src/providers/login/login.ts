@@ -49,7 +49,7 @@ export class LoginProvider {
                         this.vendor = data as Vendor;
                         this.vendor.salted_password = vendor.salted_password;
                         this.vendor.loggedIn = true;
-                        this.vendor.country = data.user.countries[0].iso3;
+                        this.vendor.country = this.getCountryFromLocation(data.location);
                         this.storage.set('vendor', this.vendor);
                         this.storage.set('country', this.vendor.country);
                         resolve(this.vendor);
@@ -98,5 +98,24 @@ export class LoginProvider {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Get the vendor's country from their location
+     * @param  error
+     */
+    getCountryFromLocation(location) {
+        let adm1;
+        if (location.adm1) {
+            adm1 = location.adm1;
+        } else if (location.adm2) {
+            adm1 = location.adm2.adm1;
+        } else if (location.adm3) {
+            adm1 = location.adm3.adm2.adm1;
+        } else  if (location.adm4) {
+            adm1 = location.adm4.adm3.adm2.adm1;
+        }
+
+        return adm1.country_i_s_o3;
     }
 }
