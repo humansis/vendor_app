@@ -59,7 +59,14 @@
                     <ion-grid>
                         <ion-row class="product-details">
                             <ion-col class="product-name">
-                                <h5>{{ selectedProduct.name | titlecase }}</h5>
+                                <h5 *ngIf="selectedProduct.name.length <= 10; else isTooLong">
+                                    {{selectedProduct.name}}
+                                </h5>
+                                <ng-template #isTooLong>
+                                    <h5>
+                                        {{selectedProduct.name.substring(0,9)}} ...
+                                    </h5>
+                                </ng-template>
                             </ion-col>
                             <ion-col col-3 class="product-image">
                                 <img src="{{ selectedProduct.image }}" />
