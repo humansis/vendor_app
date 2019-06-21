@@ -5,8 +5,7 @@ export const TEXT = {
     email: 'Email',
     project: 'Projet',
     rights: 'Rôles',
-    
-   
+
     // SPECIFIC VARIABLES
 
     // Login
@@ -20,5 +19,4 @@ export const TEXT = {
     model_countryIso3: 'Pays',
     model_user: 'Utilisateur',
     model_user_password: 'Mot de passe',
-    
 };

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Vendor } from '../../model/vendor';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as CryptoJS from 'crypto-js';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -49,6 +48,7 @@ export class LoginProvider {
                         this.vendor.salted_password = vendor.salted_password;
                         this.vendor.loggedIn = true;
                         this.storage.set('vendor', this.vendor);
+                        this.storage.set('country', 'SYR');
                         resolve(this.vendor);
                     } else {
                         reject('Bad credentials');

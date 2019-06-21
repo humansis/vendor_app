@@ -61,7 +61,7 @@ export class ScanPage {
         let scannedCode = '';
         this.barcodeScanner.scan().then(barcodeData => {
             scannedCode = barcodeData.text;
-            scannedCode = scannedCode.replace(' ', '+');
+            scannedCode = scannedCode.replace(/ /g, '+');
             this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
                 this.handleScannedCode(scannedCode, success);
             }, reject => {
@@ -134,7 +134,7 @@ export class ScanPage {
                 {
                     text: 'Submit',
                     handler: data => {
-                        this.handlePasswordSubmit(data, scannedCode, passwords, scannedCodeInfo)
+                        this.handlePasswordSubmit(data, scannedCode, passwords, scannedCodeInfo);
                     }
                 }
             ],

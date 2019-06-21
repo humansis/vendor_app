@@ -1,42 +1,49 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
     selector: 'calculator',
     templateUrl: 'calculator.html'
 })
-export class CalculatorComponent {
+export class CalculatorComponent implements OnInit {
 
     @Input() value: number;
     @Output() valueChange = new EventEmitter<number>();
 
-    @Output() addToBasketEvent = new EventEmitter<null>();
+    public valueString;
+
+    /**
+     * Get the value in string format
+     */
+    ngOnInit() {
+        this.valueString = this.value ? this.value.toString() : '';
+    }
 
     /**
      * Click on calculator number
      * @param  number
      */
-    clickOnNumber(number) {
-        if (this.value && this.value !== 0) {
-            this.value = this.value * 10 + number;
+    clickOnNumber(number: string) {
+
+        if (this.valueString && this.valueString !== '0') {
+            this.valueString += number;
         } else {
-            this.value = number;
+            this.valueString = number;
         }
-        this.valueChange.emit(this.value);
+        this.valueChange.emit(parseFloat(this.valueString));
     }
 
     /**
      * Delete last number clicked
      */
     backspace() {
-        this.value = Math.trunc(this.value / 10);
-        this.valueChange.emit(this.value);
+        this.valueString = this.valueString.substring(0, this.valueString.length - 1);
+        this.valueChange.emit(parseFloat(this.valueString));
     }
 
     /**
-     * Add product to basket
-     * @param  product
+     * Disabled the comma if there is already one
      */
-    addToBasket(product) {
-        this.addToBasketEvent.emit();
+    disableDecimal() {
+        return this.valueString && this.valueString.indexOf('.') > -1;
     }
 }

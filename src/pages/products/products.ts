@@ -89,7 +89,7 @@ export class ProductsPage implements OnInit {
                 product: this.selectedProduct,
                 quantity: this.quantity,
                 price: this.price,
-                subTotal: this.price * this.quantity
+                subTotal: Math.trunc(this.price * this.quantity * 100) / 100  // To have 2 decimals for the cents
             });
             this.total = 0;
             this.allChosenProducts.forEach(element => {

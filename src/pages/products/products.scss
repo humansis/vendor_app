@@ -10,6 +10,10 @@ page-products {
         height: calc(100vh - 50px);
     }
 
+    .mat-drawer {
+        overflow-y: unset;
+    }
+
     mat-drawer-content {
         width: 60vw;
         display: flex !important;
@@ -98,12 +102,40 @@ page-products {
             height: 50%;
 
             .product-details {
-                height: 30%
+                height: 20%;
+                display: flex;
+                justify-content: space-between;
+
+                div {
+                    height: 100%;
+                    display: flex;
+                    margin-right: 15px;
+                    margin-left: 15px;
+
+                    h5 {
+                        margin-top: 5px;
+                    }
+                    img {
+                        height: 100%;
+                        margin-right: 10px;
+                        border-radius: 4px;
+                    }
+                    i {
+                        margin-top: 5px;
+                        color: $bms_green;
+                        font-size: 4vw;
+                    }
+                }
+
             }
 
             .product-inputs {
                 height: 70%;
                 padding-top: 10%;
+
+                .mat-input-placeholder-wrapper {
+                    font-size: 14px;
+                }
             }
 
             .product-name {
@@ -155,7 +187,7 @@ page-products {
 
         .number-input {
             position: fixed;
-            bottom: 5px;
+            bottom: 10px;
             left: 7px;
             width: 90%;
             height: 50%;
