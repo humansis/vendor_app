@@ -11,7 +11,7 @@ page-products {
     }
 
     .mat-drawer {
-        overflow-y: unset;
+        overflow-y: scroll;
     }
 
     mat-drawer-content {
