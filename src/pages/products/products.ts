@@ -193,3 +193,4 @@ export class ProductsPage implements OnInit {
         alert.present();
     }
 }
+
