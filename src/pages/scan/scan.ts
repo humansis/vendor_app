@@ -27,6 +27,7 @@ export class ScanPage {
     tries: number;
     triesMessage: string;
     priceTooHigh = true;
+    scannedVouchers = [];
 
     constructor(
         public navCtrl: NavController,
@@ -62,19 +63,29 @@ export class ScanPage {
         this.barcodeScanner.scan().then(barcodeData => {
             scannedCode = barcodeData.text;
             scannedCode = scannedCode.replace(/ /g, '+');
-            this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
-                this.handleScannedCode(scannedCode, success);
-            }, reject => {
-                this.alert('Format', reject);
-            });
+            if (this.scannedVouchers.includes(scannedCode)) {
+                this.alert('Voucher Already Used', 'You already used this voucher');
+            } else {
+                this.scannedVouchers.push(scannedCode);
+                this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+                    this.handleScannedCode(scannedCode, success);
+                }, reject => {
+                    this.alert('Format', reject);
+                });
+            }
         });
 
             // scannedCode = 'AFN3*0-5-4-15';
-            // this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
-            //     this.handleScannedCode(scannedCode, success);
-            // }, reject => {
-            //     this.alert('Format', reject);
-            // });
+            // if (this.scannedVouchers.includes(scannedCode)) {
+            //     this.alert('Voucher Already Used', 'You already used this voucher');
+            // } else {
+            //     this.scannedVouchers.push(scannedCode)
+            //     this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+            //         this.handleScannedCode(scannedCode, success);
+            //     }, reject => {
+            //         this.alert('Format', reject);
+            //     });
+            // }
     }
 
     /**
