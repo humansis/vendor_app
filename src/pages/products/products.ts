@@ -25,8 +25,8 @@ export class ProductsPage implements OnInit {
     public allChosenProducts: Array<any> = [];
 
     public typing = 'quantity';
-    public quantity: number;
-    public price: number;
+    public quantity: string;
+    public price: string;
     public total = 0;
 
     public currencies = CURRENCIES;
@@ -111,16 +111,18 @@ export class ProductsPage implements OnInit {
      */
     addToBasket() {
         if (this.quantity && this.price) {
+            const quantity = parseFloat(this.quantity);
+            const price = parseFloat(this.price);
             this.allChosenProducts.push({
                 product: this.selectedProduct,
-                quantity: this.quantity,
-                price: this.price,
-                subTotal: Math.trunc(this.price * this.quantity * 100) / 100,  // To have 2 decimals for the cents
+                quantity: quantity,
+                price: price,
+                subTotal: Math.trunc(price * quantity * 100) / 100,  // To have 2 decimals for the cents
                 currency: this.form.controls.currency.value
             });
             this.total = 0;
             this.allChosenProducts.forEach(element => {
-                this.total += element.subTotal;
+                this.total +=  Math.trunc((this.total + element.subTotal) * 100 ) / 100;
             });
         }
         this.clearSelection();
@@ -182,7 +184,7 @@ export class ProductsPage implements OnInit {
                         this.allChosenProducts = this.allChosenProducts.filter((product, index, array) => {
                             return product !== item;
                         });
-                        this.total = this.total - item.subTotal;
+                        this.total = Math.trunc((this.total - item.subTotal) * 100 ) / 100;
                     }
                 }
             ],
