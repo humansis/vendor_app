@@ -75,17 +75,17 @@ export class ScanPage {
             }
         });
 
-            // scannedCode = 'AFN3*0-5-4-15';
-            // if (this.scannedVouchers.includes(scannedCode)) {
-            //     this.alert('Voucher Already Used', 'You already used this voucher');
-            // } else {
-            //     this.scannedVouchers.push(scannedCode)
-            //     this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
-            //         this.handleScannedCode(scannedCode, success);
-            //     }, reject => {
-            //         this.alert('Format', reject);
-            //     });
-            // }
+        // scannedCode = 'AFN3*0-5-4-15';
+        // if (this.scannedVouchers.includes(scannedCode)) {
+        //     this.alert('Voucher Already Used', 'You already used this voucher');
+        // } else {
+        //     this.scannedVouchers.push(scannedCode)
+        //     this.ifHasNoPasswordGetInfo(scannedCode).then(success => {
+        //         this.handleScannedCode(scannedCode, success);
+        //     }, reject => {
+        //         this.alert('Format', reject);
+        //     });
+        // }
     }
 
     /**
