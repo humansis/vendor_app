@@ -120,12 +120,13 @@ export class ProductsPage implements OnInit {
                 product: this.selectedProduct,
                 quantity: quantity,
                 price: price,
-                subTotal: Math.trunc(price * quantity * 100) / 100,  // To have 2 decimals for the cents
+                subTotal: Math.round(price * quantity * 100) / 100,  // To have 2 decimals for the cents
                 currency: this.form.controls.currency.value
             });
             this.total = 0;
             this.allChosenProducts.forEach(element => {
-                this.total +=  Math.trunc((this.total + element.subTotal) * 100 ) / 100;
+                this.total += element.subTotal;
+                this.total = Math.round(this.total * 100 ) / 100;
             });
         }
         this.clearSelection();
@@ -187,7 +188,7 @@ export class ProductsPage implements OnInit {
                         this.allChosenProducts = this.allChosenProducts.filter((product, index, array) => {
                             return product !== item;
                         });
-                        this.total = Math.trunc((this.total - item.subTotal) * 100 ) / 100;
+                        this.total = Math.round((this.total - item.subTotal) * 100 ) / 100;
                     }
                 }
             ],
