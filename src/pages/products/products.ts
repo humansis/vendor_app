@@ -73,13 +73,9 @@ export class ProductsPage implements OnInit {
             this.clearSelection();
             this.isItemSelected = true;
             this.selectedProduct = product;
-            const formControls = {};
             if (this.allChosenProducts[0] && this.allChosenProducts[0].currency) {
-                formControls['currency'] = new FormControl({
-                    value: this.allChosenProducts[0].currency,
-                    disabled: true
-                });
-                this.form = new FormGroup(formControls);
+                this.form.controls.currency.setValue(this.allChosenProducts[0].currency);
+                this.form.controls.currency.disable();
             } else {
                 let currency: string;
                 this.storage.get('country').then(country => {
@@ -88,8 +84,15 @@ export class ProductsPage implements OnInit {
                     } else if (country === 'SYR') {
                         currency = 'SYP';
                     }
-                    formControls['currency'] = new FormControl(currency);
-                    this.form = new FormGroup(formControls);
+                    if (this.form) {
+                        this.form.controls.currency.setValue(currency);
+                        this.form.controls.currency.enable();
+                    } else {
+                        const formControls = {
+                            currency: new FormControl(currency)
+                        };
+                        this.form = new FormGroup(formControls);
+                    }
                 });
             }
         }
